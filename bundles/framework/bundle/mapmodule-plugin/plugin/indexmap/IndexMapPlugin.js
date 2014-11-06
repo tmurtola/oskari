@@ -148,24 +148,30 @@ Oskari.clazz.define('Oskari.mapframework.bundle.mapmodule.plugin.IndexMapPlugin'
                 position = me.conf.location.position || position;
             }
 
-
             // add container to map
             if (!me.conf.containerId) {
                 me.getMapModule().setMapControlPlugin(me.element, containerClasses, position);
             }
             // initialize control, pass container
-            me._indexMap = new OpenLayers.Control.OverviewMap(controlOptions);
-            // Set indexmap stable in container
-            me._indexMap.isSuitableOverview = function() {
-               return true;
-            };
+            me._indexMap = me._createIndexMapImpl(controlOptions);
 
             // in case we are already in edit mode when plugin is drawn
             this.isInLayerToolsEditMode = me.getMapModule().isInLayerToolsEditMode();
 
+        },
+
+        _createIndexMapImpl: function (controlOptions) {
+            var me = this;
+            // initialize control, pass container
+            var indexMap = new OpenLayers.Control.OverviewMap(controlOptions);
+            // Set indexmap stable in container
+            indexMap.isSuitableOverview = function() {
+               return true;
+            };
             // Extends overviewmap to send AfterMapMove event
             OpenLayers.Util.extend(me._indexMap, {
                 updateMapToRect: function() {
+                    // Note! this is refering to the indexMap implementation and not IndexMapPlugin, which is accessed throught the me variable
                     var lonLatBounds = this.getMapBoundsFromRectBounds(this.rectPxBounds);
                     if (this.ovmap.getProjection() != this.map.getProjection()) {
                         lonLatBounds = lonLatBounds.transform(
@@ -176,6 +182,7 @@ Oskari.clazz.define('Oskari.mapframework.bundle.mapmodule.plugin.IndexMapPlugin'
                     me.getMapModule().notifyMoveEnd(me.getClazz());
                 }
             });
+            return indexMap;
         },
         /**
          * @method register

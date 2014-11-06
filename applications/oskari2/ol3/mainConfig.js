@@ -44,7 +44,7 @@ require.config({
       "guidedtour": "src/framework/guidedtour/module",
       "mapstats": "src/framework/mapstats/module",
       "mapwfs2": "src/framework/mapwfs2/module",
-      "mapwmts": "src/framework/mapwmts/module",
+      "mapwmts": "src/mapping/mapmodule/ol3/mapwmts/module",
       "mapmyplaces": "src/framework/mapmyplaces/module",
       "mapanalysis": "src/framework/mapanalysis/module",
       "statsgrid": "src/statistics/statsgrid/module",

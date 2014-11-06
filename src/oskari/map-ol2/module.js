@@ -2,9 +2,11 @@ define([
 	"oskari",
 	"jquery",
 	"libraries/proj4js-1.0.1/proj4js-compressed",
-	"libraries/OpenLayers/OpenLayers.2_13_1-full-map",
-	"css!resources/openlayers/theme/default/style.css"
+	"css!resources/openlayers/theme/default/style.css",
+	"libraries/OpenLayers/OpenLayers.2_13_1-full-map"
 ], function(Oskari, jQuery) {
+	Oskari.bundleCls('openlayers-default-theme');
+
 	return Oskari.bundleCls("ol2").category({
 		'__name': 'lib-ol2',
 		getName: function() {
@@ -16,7 +18,10 @@ define([
 		update: function(manager, bundle, bi, info) {
 
 		},
-		start: function() {},
+		start: function() {
+			var path = "/Oskari/resources/openlayers";
+			OpenLayers.ImgPath = path + '/img/';
+		},
 		stop: function() {
 			// delete OpenLayers...just joking
 		}

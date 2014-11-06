@@ -12,7 +12,8 @@ module.exports = function(grunt) {
         grunt.log.writeln('bundle2module overwrites existing files without notification or confirmations.');
         grunt.log.writeln('Converting ' + origin + " to module.js ");
 
-        var fs = require("fs"),
+        var fs = require('fs'),
+            wrench = require('wrench'),
             path = require("path");
 
         if (origin.lastIndexOf('/') !== (origin.length - 1)) {
@@ -32,7 +33,27 @@ module.exports = function(grunt) {
             target = origin.replace('/packages/', '/src/').replace('bundle.js', 'module.js').replace('/bundle/', '/');
         }
 
-        function modifyPath4require(src) {
+        // Read target folder content to later on replace existing files with the ones they are replacing automatically
+        var targetFolderPath = target.replace("module.js", "");
+        var targetFiles = [];
+
+        if (fs.existsSync(targetFolderPath)) {
+            targetFiles = wrench.readdirSyncRecursive(targetFolderPath); // get the oskari2 specific files
+        }
+
+        function filterJSfiles(file) {
+            return file.indexOf('.js') > -1;
+        }
+
+        // remove folders by only including js files and modify path so that RequireJS can handle it
+        targetFiles = targetFiles
+            .filter(filterJSfiles)
+            .map(function (file) {
+                return file.replace(/\\/g, "/");
+            });
+
+        function modifyPath4require(src, files) {
+
             var bundleBasePath = basePath;
             if(src.indexOf('/') === 0) {
                 src = '.' + src;
@@ -43,6 +64,20 @@ module.exports = function(grunt) {
 
             // modify path so that RequireJS can find it
             relativePath = relativePath.replace(/\\/g, '/'); // change \ to / to have all paths in the same format
+
+            if (files) {
+                // only js files are matched with oskari2 files
+                var bundle = bundleBasePath.substr(bundleBasePath.lastIndexOf('/')+1);
+                var targetFile = relativePath.substr(relativePath.indexOf(bundle)+bundle.length+1);
+                var match = files.filter(function (file) {
+                    return file === targetFile;
+                });
+
+                // replace oskari1 dependency with oskari2 implementation
+                if (match.length === 1) {
+                    relativePath = './' + targetFile;
+                }
+            }
 
             if (relativePath.indexOf('.') !== 0) {
                 relativePath = './' + relativePath;
@@ -93,7 +128,7 @@ module.exports = function(grunt) {
                             src = scripts[i].src;
                             console.log('scripts', type, src);
 
-                            var relativePath = modifyPath4require(src);
+                            var relativePath = modifyPath4require(src, targetFiles);
                             if (type == "text/javascript") {
                                 moduleDependencies.push(relativePath);
                             } else if (type == "text/css") {
@@ -138,7 +173,9 @@ module.exports = function(grunt) {
         var originPath = "../" + origin; // relative to this file, not grunt as when reading files
         var loaded = require(originPath);
 
-        var result = template.replace('{DEPENDENCIES}', JSON.stringify(moduleDependencies)).replace('{BUNDLE_ID}', bundleId).replace('{SIGNATURE}', categorySignature)
+
+
+        var result = template.replace('{DEPENDENCIES}', JSON.stringify(moduleDependencies).replace('["', '[\n    "').replace('"]', '"\n]').replace(/,"/g,',\n    "')).replace('{BUNDLE_ID}', bundleId).replace('{SIGNATURE}', categorySignature)
         console.log('Template:\n', result);
         grunt.file.write(target, result);
 

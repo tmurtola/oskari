@@ -1,4 +1,7 @@
-define(["jquery"], function (jQuery) {
+define([
+    "oskari",
+    "jquery"
+], function (Oskari, jQuery) {
     /**
      * @class Oskari.userinterface.component.Popup
      * Provides a popup window to replace alert

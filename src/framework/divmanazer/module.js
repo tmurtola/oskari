@@ -1,13 +1,8 @@
-// This file needs to be manually updated based upon
-// Oskari/packages/framework/bundle/divmanazer/bundle.js
-// Last updated on 3.10.2014
-
 define([
     "oskari",
-    "src/framework/divmanazer/extension/EnhancedExtension",
     "jquery",
-    "src/framework/oskariui/module",
     "./instance",
+    "bundles/framework/bundle/divmanazer/component/Component",
     "bundles/framework/bundle/divmanazer/request/AddExtensionRequest",
     "bundles/framework/bundle/divmanazer/request/AddExtensionRequestHandler",
     "bundles/framework/bundle/divmanazer/request/RemoveExtensionRequest",
@@ -17,7 +12,6 @@ define([
     "bundles/framework/bundle/divmanazer/request/ModalDialogRequest",
     "bundles/framework/bundle/divmanazer/request/ModalDialogRequestHandler",
     "bundles/framework/bundle/divmanazer/event/ExtensionUpdatedEvent",
-    "bundles/framework/bundle/divmanazer/component/Component",
     "bundles/framework/bundle/divmanazer/component/Accordion",
     "bundles/framework/bundle/divmanazer/component/AccordionPanel",
     "bundles/framework/bundle/divmanazer/component/TabContainer",
@@ -27,7 +21,7 @@ define([
     "bundles/framework/bundle/divmanazer/component/Alert",
     "./component/Popup",
     "bundles/framework/bundle/divmanazer/component/Overlay",
-    "bundles/framework/bundle/divmanazer/component/Button",
+    "./component/Button",
     "bundles/framework/bundle/divmanazer/component/FilterDialog",
     "bundles/framework/bundle/divmanazer/component/Form",
     "bundles/framework/bundle/divmanazer/component/SearchForm",
@@ -68,9 +62,6 @@ define([
     "bundles/framework/bundle/divmanazer/extension/DefaultExtension",
     "bundles/framework/bundle/divmanazer/extension/DefaultView",
     "bundles/framework/bundle/divmanazer/extension/DefaultLayout",
-    "src/framework/divmanazer/extension/EnhancedTile",
-    "src/framework/divmanazer/extension/EnhancedFlyout",
-    "src/framework/divmanazer/extension/EnhancedView",
     "css!resources/framework/bundle/divmanazer/css/divman.css",
     "css!resources/framework/bundle/divmanazer/css/accordion.css",
     "css!resources/framework/bundle/divmanazer/css/tab.css",
@@ -85,35 +76,130 @@ define([
     "css!resources/framework/bundle/divmanazer/css/overlay.css",
     "css!resources/framework/bundle/divmanazer/css/visualizationform.css",
     "css!resources/framework/bundle/divmanazer/css/popover.css",
-    "libraries/jquery/plugins/jquery-placeholder/jquery.placeholder", // this might not work at all
-    "bundles/framework/bundle/mapmodule-plugin/locale/en",
-    "bundles/framework/bundle/mapmodule-plugin/locale/fi",
-    "bundles/framework/bundle/mapmodule-plugin/locale/sv"
-], function (Oskari, Extension, jQuery) {
+    "libraries/jquery/plugins/jquery-placeholder/jquery.placeholder",
+    "bundles/framework/bundle/divmanazer/locale/af",
+    "bundles/framework/bundle/divmanazer/locale/ak",
+    "bundles/framework/bundle/divmanazer/locale/am",
+    "bundles/framework/bundle/divmanazer/locale/ar",
+    "bundles/framework/bundle/divmanazer/locale/az",
+    "bundles/framework/bundle/divmanazer/locale/be",
+    "bundles/framework/bundle/divmanazer/locale/bg",
+    "bundles/framework/bundle/divmanazer/locale/bm",
+    "bundles/framework/bundle/divmanazer/locale/bn",
+    "bundles/framework/bundle/divmanazer/locale/bo",
+    "bundles/framework/bundle/divmanazer/locale/br",
+    "bundles/framework/bundle/divmanazer/locale/bs",
+    "bundles/framework/bundle/divmanazer/locale/ca",
+    "bundles/framework/bundle/divmanazer/locale/cs",
+    "bundles/framework/bundle/divmanazer/locale/cy",
+    "bundles/framework/bundle/divmanazer/locale/da",
+    "bundles/framework/bundle/divmanazer/locale/de",
+    "bundles/framework/bundle/divmanazer/locale/dz",
+    "bundles/framework/bundle/divmanazer/locale/ee",
+    "bundles/framework/bundle/divmanazer/locale/el",
+    "bundles/framework/bundle/divmanazer/locale/en",
+    "bundles/framework/bundle/divmanazer/locale/eo",
+    "bundles/framework/bundle/divmanazer/locale/es",
+    "bundles/framework/bundle/divmanazer/locale/et",
+    "bundles/framework/bundle/divmanazer/locale/eu",
+    "bundles/framework/bundle/divmanazer/locale/fa",
+    "bundles/framework/bundle/divmanazer/locale/ff",
+    "bundles/framework/bundle/divmanazer/locale/fi",
+    "bundles/framework/bundle/divmanazer/locale/fo",
+    "bundles/framework/bundle/divmanazer/locale/fr",
+    "bundles/framework/bundle/divmanazer/locale/fy",
+    "bundles/framework/bundle/divmanazer/locale/ga",
+    "bundles/framework/bundle/divmanazer/locale/gd",
+    "bundles/framework/bundle/divmanazer/locale/gl",
+    "bundles/framework/bundle/divmanazer/locale/gu",
+    "bundles/framework/bundle/divmanazer/locale/ha",
+    "bundles/framework/bundle/divmanazer/locale/he",
+    "bundles/framework/bundle/divmanazer/locale/hi",
+    "bundles/framework/bundle/divmanazer/locale/hr",
+    "bundles/framework/bundle/divmanazer/locale/hu",
+    "bundles/framework/bundle/divmanazer/locale/hy",
+    "bundles/framework/bundle/divmanazer/locale/ia",
+    "bundles/framework/bundle/divmanazer/locale/id",
+    "bundles/framework/bundle/divmanazer/locale/ig",
+    "bundles/framework/bundle/divmanazer/locale/is",
+    "bundles/framework/bundle/divmanazer/locale/it",
+    "bundles/framework/bundle/divmanazer/locale/ja",
+    "bundles/framework/bundle/divmanazer/locale/ka",
+    "bundles/framework/bundle/divmanazer/locale/ki",
+    "bundles/framework/bundle/divmanazer/locale/kk",
+    "bundles/framework/bundle/divmanazer/locale/kl",
+    "bundles/framework/bundle/divmanazer/locale/km",
+    "bundles/framework/bundle/divmanazer/locale/kn",
+    "bundles/framework/bundle/divmanazer/locale/ko",
+    "bundles/framework/bundle/divmanazer/locale/ks",
+    "bundles/framework/bundle/divmanazer/locale/kw",
+    "bundles/framework/bundle/divmanazer/locale/ky",
+    "bundles/framework/bundle/divmanazer/locale/lb",
+    "bundles/framework/bundle/divmanazer/locale/lg",
+    "bundles/framework/bundle/divmanazer/locale/ln",
+    "bundles/framework/bundle/divmanazer/locale/lo",
+    "bundles/framework/bundle/divmanazer/locale/lt",
+    "bundles/framework/bundle/divmanazer/locale/lu",
+    "bundles/framework/bundle/divmanazer/locale/lv",
+    "bundles/framework/bundle/divmanazer/locale/mg",
+    "bundles/framework/bundle/divmanazer/locale/mk",
+    "bundles/framework/bundle/divmanazer/locale/ml",
+    "bundles/framework/bundle/divmanazer/locale/mn",
+    "bundles/framework/bundle/divmanazer/locale/mr",
+    "bundles/framework/bundle/divmanazer/locale/ms",
+    "bundles/framework/bundle/divmanazer/locale/mt",
+    "bundles/framework/bundle/divmanazer/locale/my",
+    "bundles/framework/bundle/divmanazer/locale/nb",
+    "bundles/framework/bundle/divmanazer/locale/nd",
+    "bundles/framework/bundle/divmanazer/locale/ne",
+    "bundles/framework/bundle/divmanazer/locale/nl",
+    "bundles/framework/bundle/divmanazer/locale/nn",
+    "bundles/framework/bundle/divmanazer/locale/om",
+    "bundles/framework/bundle/divmanazer/locale/or",
+    "bundles/framework/bundle/divmanazer/locale/os",
+    "bundles/framework/bundle/divmanazer/locale/pa",
+    "bundles/framework/bundle/divmanazer/locale/pl",
+    "bundles/framework/bundle/divmanazer/locale/ps",
+    "bundles/framework/bundle/divmanazer/locale/pt",
+    "bundles/framework/bundle/divmanazer/locale/qu",
+    "bundles/framework/bundle/divmanazer/locale/rm",
+    "bundles/framework/bundle/divmanazer/locale/rn",
+    "bundles/framework/bundle/divmanazer/locale/ro",
+    "bundles/framework/bundle/divmanazer/locale/ru",
+    "bundles/framework/bundle/divmanazer/locale/rw",
+    "bundles/framework/bundle/divmanazer/locale/se",
+    "bundles/framework/bundle/divmanazer/locale/sg",
+    "bundles/framework/bundle/divmanazer/locale/si",
+    "bundles/framework/bundle/divmanazer/locale/sk",
+    "bundles/framework/bundle/divmanazer/locale/sl",
+    "bundles/framework/bundle/divmanazer/locale/sn",
+    "bundles/framework/bundle/divmanazer/locale/so",
+    "bundles/framework/bundle/divmanazer/locale/sq",
+    "bundles/framework/bundle/divmanazer/locale/sr",
+    "bundles/framework/bundle/divmanazer/locale/sv",
+    "bundles/framework/bundle/divmanazer/locale/sw",
+    "bundles/framework/bundle/divmanazer/locale/ta",
+    "bundles/framework/bundle/divmanazer/locale/te",
+    "bundles/framework/bundle/divmanazer/locale/th",
+    "bundles/framework/bundle/divmanazer/locale/ti",
+    "bundles/framework/bundle/divmanazer/locale/tn",
+    "bundles/framework/bundle/divmanazer/locale/to",
+    "bundles/framework/bundle/divmanazer/locale/tr",
+    "bundles/framework/bundle/divmanazer/locale/ts",
+    "bundles/framework/bundle/divmanazer/locale/ug",
+    "bundles/framework/bundle/divmanazer/locale/uk",
+    "bundles/framework/bundle/divmanazer/locale/ur",
+    "bundles/framework/bundle/divmanazer/locale/uz",
+    "bundles/framework/bundle/divmanazer/locale/vi",
+    "bundles/framework/bundle/divmanazer/locale/yi",
+    "bundles/framework/bundle/divmanazer/locale/yo",
+    "bundles/framework/bundle/divmanazer/locale/zh",
+    "bundles/framework/bundle/divmanazer/locale/zu"
+], function(Oskari,jQuery) {
+    return Oskari.bundleCls("divmanazer").category({create: function () {
 
-    // Create divmanazer module namespace
-    Oskari.ui = {};
+        return Oskari.clazz.create("Oskari.userinterface.bundle.ui.UserInterfaceBundleInstance");
+    },update: function (manager, bundle, bi, info) {
 
-    /* DIVManazer shortcuts */
-    this._baseClassFor = {
-        'extension': "Oskari.userinterface.extension.EnhancedExtension",
-        'tile': "Oskari.userinterface.extension.EnhancedTile",
-        'flyout': "Oskari.userinterface.extension.EnhancedFlyout",
-        'view': "Oskari.userinterface.extension.EnhancedView"
-    };
-
-    /* Simplified Tile, Flyout, Extension and Bundle API for Oskari 2.0 */
-    Oskari.ui.Tile = Oskari.cls('Oskari.Tile').extend(this._baseClassFor.tile);
-    Oskari.ui.Flyout = Oskari.cls('Oskari.Flyout').extend(this._baseClassFor.flyout);
-    Oskari.ui.Extension = Extension;
-    Oskari.ui.View = Oskari.cls('Oskari.View').extend(this._baseClassFor.view);
-
-    return Oskari.bundleCls("divmanazer").category({
-        create: function () {
-            return Oskari.clazz.create("Oskari.userinterface.bundle.ui.UserInterfaceBundleInstance");
-        },
-        update: function (manager, bundle, bi, info) {
-
-        }
-    });
+    }})
 });

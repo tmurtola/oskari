@@ -55,6 +55,7 @@ define([
                     instance = null,
                     instancename = moduleItem.bundleinstancename;
 
+                console.log('requiring', moduleName);
                 require([moduleName], function(module) {
 
                     instance = module.start(instancename);

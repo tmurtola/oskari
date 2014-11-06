@@ -24,8 +24,6 @@ define([
 	"bundles/framework/bundle/mapmodule-plugin/event/MapLayerVisibilityChangedEvent",
 	"./plugin/wmslayer/WmsLayerPlugin",
 	"mapwmts",
-	"./plugin/wmtslayer/WmtsLayerPlugin",
-	"./plugin/wmtslayer/WmtsLayerModelBuilder",
 //	"mapwfs2",
 //	"./plugin/wfslayer/WfsLayerPlugin",
 //	"mapstats",

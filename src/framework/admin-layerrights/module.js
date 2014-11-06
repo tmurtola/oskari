@@ -1,4 +1,16 @@
-define(["oskari","jquery","bundles/framework/bundle/admin-layerrights/instance","bundles/framework/bundle/admin-layerrights/Flyout","bundles/framework/bundle/admin-layerrights/Tile","css!resources/framework/bundle/admin-layerrights/css/style.css","libraries/chosen/chosen.jquery","css!libraries/chosen/chosen.css","bundles/framework/bundle/admin-layerrights/locale/fi","bundles/framework/bundle/admin-layerrights/locale/sv","bundles/framework/bundle/admin-layerrights/locale/en"], function(Oskari,jQuery) {
+define([
+    "oskari",
+    "jquery",
+    "bundles/framework/bundle/admin-layerrights/instance",
+    "bundles/framework/bundle/admin-layerrights/Flyout",
+    "bundles/framework/bundle/admin-layerrights/Tile",
+    "css!resources/framework/bundle/admin-layerrights/css/style.css",
+    "libraries/chosen/chosen.jquery",
+    "css!libraries/chosen/chosen.css",
+    "bundles/framework/bundle/admin-layerrights/locale/fi",
+    "bundles/framework/bundle/admin-layerrights/locale/sv",
+    "bundles/framework/bundle/admin-layerrights/locale/en"
+], function(Oskari,jQuery) {
     return Oskari.bundleCls("admin-layerrights").category({create: function () {
         var me = this;
         
