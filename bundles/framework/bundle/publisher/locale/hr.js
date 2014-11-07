@@ -144,7 +144,8 @@ Oskari.registerLocalization({
                 "custom": "Prilagođena veličina",
                 "width": "širina",
                 "height": "visina",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Spremi",

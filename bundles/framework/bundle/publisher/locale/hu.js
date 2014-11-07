@@ -146,7 +146,8 @@ Oskari.registerLocalization(
                 "custom": "Megadott méret",
                 "width": "szélesség",
                 "height": "magasság",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Mentés",

@@ -146,7 +146,8 @@ Oskari.registerLocalization(
                 "custom": "Dimensiune personalizată",
                 "width": "lăţime",
                 "height": "înălţime",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Salvare",

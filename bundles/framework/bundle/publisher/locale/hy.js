@@ -146,7 +146,8 @@ Oskari.registerLocalization(
                 "custom": "Փոխել չափը",
                 "width": "Լայնություն",
                 "height": "Բարձրություն",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Պահպանել",

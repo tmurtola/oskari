@@ -144,7 +144,8 @@ Oskari.registerLocalization({
                 "custom": "Προσαρμοσμένο μέγεθος",
                 "width": "Πλάτος",
                 "height": "Ύψος",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Αποθήκευση",

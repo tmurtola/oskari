@@ -147,7 +147,8 @@ Oskari.registerLocalization(
                 "custom": "Määritä oma koko",
                 "width": "leveys",
                 "height": "korkeus",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "Responsiivinen asettelu"
             },
             "buttons": {
                 "save": "Tallenna",

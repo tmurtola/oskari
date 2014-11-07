@@ -145,7 +145,8 @@ Oskari.registerLocalization(
                 "custom": "Velikost po meri",
                 "width": "širina",
                 "height": "višina",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Shrani",

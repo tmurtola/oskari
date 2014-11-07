@@ -86,7 +86,8 @@ Oskari.registerLocalization({
                 "custom": "Vlastní velikost",
                 "width": "šířka",
                 "height": "výška",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Uložit",

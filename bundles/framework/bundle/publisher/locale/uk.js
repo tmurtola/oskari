@@ -145,7 +145,8 @@ Oskari.registerLocalization(
                 "custom": "Особливий",
                 "width": "ширина",
                 "height": "висота",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Зберегти",

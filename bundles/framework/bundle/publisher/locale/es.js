@@ -146,7 +146,8 @@ Oskari.registerLocalization(
                 "custom": "Tamaño personalizado",
                 "width": "ancho",
                 "height": "alto",
-                "separator": "x"
+                "separator": "x",
+                "responsive": "NOT TRANSLATED"
             },
             "buttons": {
                 "save": "Guardar",

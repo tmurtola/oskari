@@ -562,6 +562,9 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
                 heightInput = Oskari.clazz.create(
                     'Oskari.userinterface.component.NumberInput'
                 ),
+                responsiveInput = Oskari.clazz.create(
+                    'Oskari.userinterface.component.CheckboxInput'
+                );
                 contentPanel = panel.getContainer(),
                 customOption = me.sizeOptions.filter(function (option) {
                     return option.id === 'custom';
@@ -621,6 +624,11 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             });
             heightInput.insertTo(customSizes);
             contentPanel.append(customSizes);
+
+            responsiveInput.setTitle(me.loc.sizes.responsive);
+            responsiveInput.setName('responsive');
+            responsiveInput.insertTo(contentPanel);
+            me.responsive = responsiveInput;
 
             radioButtonGroup.setValue(selectedOption.id);
 
@@ -1213,6 +1221,10 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
                 });
             }
 
+            // responsive doesn't actually do anything in the preview so we
+            // just fetch it from the element here...
+            selections.responsive = me.responsive.isChecked();
+
             // if maplayer plugin is enabled
             var layerValues = me.maplayerPanel.getValues();
             if (layerValues.layerSelection) {
@@ -1299,6 +1311,11 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             if (selections.size) {
                 totalWidth = selections.size.width + 'px';
                 totalHeight = selections.size.height + 'px';
+            }
+
+            if (true) {
+                console.log(selections);
+                return
             }
 
             // make the ajax call
