@@ -627,6 +627,12 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
 
             responsiveInput.setTitle(me.loc.sizes.responsive);
             responsiveInput.setName('responsive');
+
+            // Set initial state based on config
+            if (me.data && me.data.responsive) {
+                responsiveInput.setChecked(true);
+            }
+
             responsiveInput.insertTo(contentPanel);
             me.responsive = responsiveInput;
 
@@ -1311,11 +1317,6 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             if (selections.size) {
                 totalWidth = selections.size.width + 'px';
                 totalHeight = selections.size.height + 'px';
-            }
-
-            if (true) {
-                console.log(selections);
-                return
             }
 
             // make the ajax call
