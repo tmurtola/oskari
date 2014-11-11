@@ -629,7 +629,7 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             responsiveInput.setName('responsive');
 
             // Set initial state based on config
-            if (me.data && me.data.responsive) {
+            if (me.data && me.data.state.mapfull.config.responsive) {
                 responsiveInput.setChecked(true);
             }
 
