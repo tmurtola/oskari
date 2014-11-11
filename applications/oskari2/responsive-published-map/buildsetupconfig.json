@@ -1,0 +1,26 @@
+{
+  "//": "Note! baseUrl is relative to the tools directory where the grunt buildApp task is run",
+  "baseUrl" : "../",
+  "paths" : {
+    "css-builder": "libraries/requirejs/lib/css-builder"
+  },
+  "optimize" : "uglify2",
+  "optimizeAllPluginResources" : true,
+  "findNestedDependencies" : false,
+  "wrapShim": true,
+  "skipDirOptimize": true,
+  "skipDataMain": true,
+  "keepBuildDir": true,
+  "inlineText": true,
+  "name" : "applications/oskari2/responsive-published-map/main-dev",
+  "mainConfigFile" : "../applications/oskari2/responsive-published-map/main-dev.js",
+  "deps" : [
+    "openlayers-default-theme",
+    "mapfull",
+    "toolbar",
+    "infobox",
+    "publishedstatehandler",
+    "coordinatedisplay"
+  ],
+  "out" : "This value is overwritten when running 'grunt buildApp:../applications/oskari2/responsive-published-map/', but for completeness here is a working example for manual builds that creates the following file when this comment is removed. '../applications/oskari2/responsive-published-map/main.js'"
+}

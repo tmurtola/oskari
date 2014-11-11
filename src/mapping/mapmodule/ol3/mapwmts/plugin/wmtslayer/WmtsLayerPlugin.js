@@ -1,6 +1,7 @@
 define([
+    "src/oskari/map-ol3/module",
     "bundles/framework/bundle/mapwmts/plugin/wmtslayer/WmtsLayerPlugin"
-], function(WmtsLayerPlugin) {
+], function(ol3, WmtsLayerPlugin) {
     // load helper and enhancer
 
     Oskari.cls('Oskari.mapframework.wmts.mapmodule.plugin.WmtsLayerPlugin').category({

@@ -4,7 +4,7 @@ require.config({
     "oskari": "src/oskari/oskari",
     "oskari-with-app": "src/oskari/oskari-with-app",
     "oskari-with-loader": "src/oskari/oskari-with-loader",
-    "jquery": "http://code.jquery.com/jquery-1.9.1",
+    "jquery": "libraries/jquery/jquery-1.10.2",
     "jquery-ui": "libraries/jquery/jquery-ui-1.9.2.custom",
     "dragevent": "libraries/jquery/jquery.event.drag-2.0.min",
     "jquery-migrate": "libraries/jquery/jquery-migrate-1.2.1-modified",
@@ -95,6 +95,10 @@ require(["jquery", "oskari-with-app", "domReady"],
  * ... now we have jQuery and Oskari
  */
 function(jQuery, Oskari) {
+  if(!ajaxUrl) {
+    jQuery('#mapdiv').append('Unable to start');
+    return;
+  }
 
   function getURLParameter(name) {
       var re = name + '=' + '([^&]*)(&|$)';
@@ -124,6 +128,17 @@ function(jQuery, Oskari) {
 
   var config = "json!applications/oskari2/responsive-published-map/appsetupconfig.json";
   if (window.ajaxUrl) {
+      if (window.ajaxUrl.indexOf('http') == 0) {        
+          var hostIdx = window.ajaxUrl.indexOf('://') + 3;
+          var pathIdx = window.ajaxUrl.indexOf('/', hostIdx);
+          window.ajaxUrl = window.ajaxUrl.substring(pathIdx);
+      }
+
+      // populate url with possible control parameters
+      if(ssl) {
+          window.ajaxUrl += "ssl=" + ssl + "&";
+      }
+
       // populate url with possible control parameters
       var getAppSetupParams = "";
       if(typeof window.controlParams == 'object') {
@@ -132,7 +147,7 @@ function(jQuery, Oskari) {
           }
       }
 
-      //config = "json!" + window.ajaxUrl + "action_route=GetAppSetup" + getAppSetupParams;
+      config = "json!" + window.ajaxUrl + "action_route=GetAppSetup" + getAppSetupParams;
   }
 
   /* loading configuration */
