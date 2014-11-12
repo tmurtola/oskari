@@ -28,6 +28,7 @@ define([
             return this._map.getView().getZoom();
         },
         _getMapLayersByName: function(layerName) {
+            console.log('Not implemented in OL3 yet!');
             // FIXME: Cannot detect Marker layer, which is called Overlays in OL3
             return [];
         },
@@ -53,6 +54,20 @@ define([
 
             var maxExtent = me._maxExtent;
             var extent = me._extent;
+
+            if (_.isEmpty(maxExtent)) {
+                // use defaults
+                maxExtent = {
+                    "bottom": 6291456,
+                    "left": -548576,
+                    "right": 1548576,
+                    "top": 8388608,
+                    "//": "from http://docs.jhs-suositukset.fi/jhs-suositukset/JHS180_liite1/JHS180_liite1.html"
+                };
+            }
+            if (_.isEmpty(extent)) {
+                extent = [maxExtent.left, maxExtent.bottom, maxExtent.right, maxExtent.top];
+            }
 
             var projection = ol.proj.get(me._projectionCode);
             projection.setExtent(extent);
@@ -454,10 +469,6 @@ define([
         _getMapScale: function() {
             return OpenLayers.Util.getScaleFromResolution(this._map.getView().getResolution(), 'm');
 
-        },
-
-        updateSize: function() {
-            this._map.updateSize();
         },
 
         _addMapControlImpl: function(ctl) {

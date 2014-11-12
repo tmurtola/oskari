@@ -33,6 +33,7 @@ define([
 	"bundles/framework/bundle/mapmodule-plugin/request/MapLayerUpdateRequestHandler",
 	"bundles/framework/bundle/mapmodule-plugin/event/MapClickedEvent",
 	"bundles/framework/bundle/mapmodule-plugin/event/EscPressedEvent",
+	"bundles/framework/bundle/mapmodule-plugin/event/MapSizeChangedEvent",
 	"bundles/framework/bundle/mapmodule-plugin/plugin/zoombar/Portti2Zoombar",
 	"css!resources/framework/bundle/mapmodule-plugin/plugin/portti2zoombar/css/porttizoombar.css",
 	"../../plugin/panbuttons/PanButtons",

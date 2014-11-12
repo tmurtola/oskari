@@ -135,7 +135,7 @@ function(jQuery, Oskari) {
       }
 
       // populate url with possible control parameters
-      if(ssl) {
+      if(window.ssl) {
           window.ajaxUrl += "ssl=" + ssl + "&";
       }
 
