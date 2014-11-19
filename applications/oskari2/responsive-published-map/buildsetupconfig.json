@@ -2,6 +2,7 @@
   "//": "Note! baseUrl is relative to the tools directory where the grunt buildApp task is run",
   "baseUrl" : "../",
   "paths" : {
+    "index": "empty:",
     "css-builder": "libraries/requirejs/lib/css-builder"
   },
   "optimize" : "uglify2",
