@@ -1262,7 +1262,7 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             // responsive doesn't actually do anything in the preview so we
             // just fetch it from the element here...
             selections.responsive = me.responsive.isChecked();
-            selections.map_engine = selections.responsive ? 'OL3' : 'OL2';
+            selections.map_engine = selections.responsive ? 'ol3' : 'ol2';
 
             // if maplayer plugin is enabled
             var layerValues = me.maplayerPanel.getValues();
