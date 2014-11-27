@@ -408,7 +408,11 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
                 content,
                 me.loc.error.title,
                 me.loc.error.nohelp
+<<<<<<< HEAD
             );*/
+=======
+            );
+>>>>>>> 5818b65f1cd67fe55eba846764d4160335180b8d
         },
 
         /**
@@ -1342,6 +1346,7 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             // responsive doesn't actually do anything in the preview so we
             // just fetch it from the element here...
             selections.responsive = me.responsive.isChecked();
+            selections.map_engine = selections.responsive ? 'ol3' : 'ol2';
 
             // if maplayer plugin is enabled
             var layerValues = me.maplayerPanel.getValues();
