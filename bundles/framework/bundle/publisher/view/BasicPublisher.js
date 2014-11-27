@@ -198,11 +198,14 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
 
         me.maplayerPanel = null;
         me.mainPanel = null;
-        me.logoPlugin = Oskari.clazz.create('Oskari.mapframework.bundle.mapmodule.plugin.LogoPlugin', {
-            location: {
-                classes: me.logoPluginClasses.classes
+        me.logoPlugin = Oskari.clazz.create(
+            'Oskari.mapframework.bundle.mapmodule.plugin.LogoPlugin',
+            {
+                location: {
+                    classes: me.logoPluginClasses.classes
+                }
             }
-        });
+        );
         me.latestGFI = null;
         me.urlBase = instance.conf.urlPrefix + '/web/';
     }, {
@@ -220,10 +223,16 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
 
             container.append(content);
             var contentDiv = content.find('div.content'),
-                accordion = Oskari.clazz.create('Oskari.userinterface.component.Accordion');
+                accordion = Oskari.clazz.create(
+                    'Oskari.userinterface.component.Accordion'
+                );
             me.accordion = accordion;
 
-            var form = Oskari.clazz.create('Oskari.mapframework.bundle.publisher.view.PublisherLocationForm', me.loc, me);
+            var form = Oskari.clazz.create(
+                'Oskari.mapframework.bundle.publisher.view.PublisherLocationForm',
+                me.loc,
+                me
+            );
             me.locationForm = form;
             if (me.data) {
                 content.find('div.header h3').append(me.loc.titleEdit);
@@ -248,7 +257,9 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
                 showStats = false,
                 i,
                 layer,
-                mapModule = sandbox.findRegisteredModuleInstance('MainMapModule');
+                mapModule = sandbox.findRegisteredModuleInstance(
+                    'MainMapModule'
+                );
 
             me.mapModule = mapModule;
 
@@ -286,11 +297,17 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
                 me.layerSelectionClasses.classes = me.data.hasLayerSelectionPlugin.location.classes;
             }
 
-            me.maplayerPanel = Oskari.clazz.create('Oskari.mapframework.bundle.publisher.view.PublisherLayerForm', me.loc, me.instance, {
-                location: {
-                    classes: me.layerSelectionClasses.classes
-                }
-            }, me);
+            me.maplayerPanel = Oskari.clazz.create(
+                'Oskari.mapframework.bundle.publisher.view.PublisherLayerForm',
+                me.loc,
+                me.instance,
+                {
+                    location: {
+                        classes: me.layerSelectionClasses.classes
+                    }   
+                },
+                me
+            );
             me.maplayerPanel.init();
 
             // Add the layout panel to the accordion.
@@ -310,22 +327,37 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
 
             // buttons
             // close
-            container.find('div.header div.icon-close').bind('click', function () {
-                me.instance.setPublishMode(false);
-            });
+            container.find('div.header div.icon-close').bind(
+                'click',
+                function () {
+                    me.instance.setPublishMode(false);
+                }
+            );
             contentDiv.append(me._getButtons());
 
             var inputs = me.mainPanel.find('input[type=text]');
             inputs.focus(function () {
-                me.instance.sandbox.postRequestByName('DisableMapKeyboardMovementRequest');
+                me.instance.sandbox.postRequestByName(
+                    'DisableMapKeyboardMovementRequest'
+                );
             });
             inputs.blur(function () {
-                me.instance.sandbox.postRequestByName('EnableMapKeyboardMovementRequest');
+                me.instance.sandbox.postRequestByName(
+                    'EnableMapKeyboardMovementRequest'
+                );
             });
 
             // bind help tags
-            var helper = Oskari.clazz.create('Oskari.userinterface.component.UIHelper', me.instance.sandbox);
-            helper.processHelpLinks(me.loc.help, content, me.loc.error.title, me.loc.error.nohelp);
+            var helper = Oskari.clazz.create(
+                'Oskari.userinterface.component.UIHelper',
+                me.instance.sandbox
+            );
+            helper.processHelpLinks(
+                me.loc.help,
+                content,
+                me.loc.error.title,
+                me.loc.error.nohelp
+            );
         },
 
         /**
@@ -1230,6 +1262,7 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             // responsive doesn't actually do anything in the preview so we
             // just fetch it from the element here...
             selections.responsive = me.responsive.isChecked();
+            selections.map_engine = selections.responsive ? 'OL3' : 'OL2';
 
             // if maplayer plugin is enabled
             var layerValues = me.maplayerPanel.getValues();
