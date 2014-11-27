@@ -381,6 +381,11 @@ define([
             return this._map.getView().getZoom();
         },
 
+        getNumZoomLevels: function() {
+            // TODO: read this value from somewhere
+            return 12;
+        },
+
         /**
          * @method _updateDomain
          * @private

@@ -4,6 +4,7 @@ define([
     "src/oskari/base/module",
 	"../../AbstractMapModule",
 	"../../plugin/AbstractMapModulePlugin",
+	"../../plugin/BasicMapModulePlugin",
 	"sources/framework/domain/AbstractLayer",
 	"../../AbstractMapLayerPlugin",
 	"./plugin/layers/LayersPlugin",

@@ -53,7 +53,7 @@ div.mapplugins {
                 }
 
                 &.logoplugin {
-                    margin-top: $pluginMargin;
+                    margin-top: $pluginMargin * 2;
                 }
 
                 &.scalebar {
@@ -106,7 +106,6 @@ div.mapplugins {
         }
 
         &.right {
-            min-width: 100px;
 
             .mapplugin {
                 
@@ -118,10 +117,10 @@ div.mapplugins {
                     text-align: right;
                 }
     
-                &.layerselection, &.search {
+                &.layerselection, &.search, &.tools {
                     display: block;
                     float: right;
-                    margin: 0 $pluginMargin / 2;
+                    margin: 0 0 0 $pluginMargin;
                 }
                 
             }
@@ -129,7 +128,6 @@ div.mapplugins {
         }
 
         &.left {
-            min-width: 100px;
 
             .mapplugin {
                 
@@ -141,10 +139,10 @@ div.mapplugins {
                     text-align: left;
                 }
     
-                &.layerselection, &.search {
+                &.layerselection, &.search, &.tools {
                     display: block;
                     float: left;
-                    margin: 0 $pluginMargin / 2;
+                    margin: 0 $pluginMargin 0 0;
                 }
                 
             }
@@ -188,18 +186,11 @@ div.mapplugins {
             .mapplugin {
             
                 &.indexmap {
-                    margin-left: 20px;
-                    margin-right: $pluginMargin * -1;
+                    margin-left: $pluginMargin * 2;
                 }
                 
                 &.logoplugin {
                     clear: both;
-                    margin-right: $pluginMargin * -1;
-                }
-                
-                &.indexmap, &.logoplugin, &.scalebar {
-                    float: right;
-                    display: inline-block;
                 }
                 
             }
@@ -212,17 +203,10 @@ div.mapplugins {
             
                 &.indexmap {
                     margin-right: $pluginMargin * 2;
-                    margin-left: $pluginMargin * -1;
                 }
                 
                 &.logoplugin {
                     clear: both;
-                    margin-left: $pluginMargin * -1;
-                }
-                
-                &.indexmap, &.logoplugin, &.scalebar {
-                    float: left;
-                    display: inline-block;
                 }
                 
             }
@@ -267,10 +251,6 @@ div.mapplugins {
                 vertical-align: middle;
             }
 
-        }
-
-        .mapplugin.indexmap .indexmapToggle {
-            float: right;
         }
 
     }

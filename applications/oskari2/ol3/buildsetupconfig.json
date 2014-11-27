@@ -1,0 +1,45 @@
+{
+  "//": "Note! baseUrl is relative to the tools directory where the grunt buildApp task is run",
+  "baseUrl" : "../",
+  "paths" : {
+    "requireLib": "libraries/requirejs/require-2.1.15",
+    "css-builder": "libraries/requirejs/lib/css-builder"
+  },
+  "optimize" : "uglify2",
+  "optimizeAllPluginResources" : true,
+  "findNestedDependencies" : false,
+  "wrapShim": true,
+  "skipDirOptimize": true,
+  "skipDataMain": true,
+  "keepBuildDir": true,
+  "inlineText": true,
+  "name" : "applications/oskari2/ol3/index",
+  "mainConfigFile" : "../applications/oskari2/ol3/index.js",
+  "include" : [
+    "requireLib"
+  ],
+  "deps" : [
+    "openlayers-default-theme",
+    "mapfull",
+    "divmanazer",
+    "toolbar",
+    "statehandler",
+    "infobox",
+    "search",
+    "layerselector2",
+    "layerselection2",
+    "maplegend",
+    "promote",
+    "coordinatedisplay",
+    "statsgrid",
+    "metadataflyout",
+    "routesearch",
+    "userguide",
+    "guidedtour",
+    "backendstatus",
+    "printout",
+    "featuredata2",
+    "metadatacatalogue"
+  ],
+  "out" : "This value is overwritten when running 'grunt buildApp:../applications/oskari2/ol3/', but for completeness here is a working example for manual builds that creates the following file when this comment is removed. '../applications/oskari2/ol3/main.js'"
+}

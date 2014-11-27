@@ -60,6 +60,36 @@
         getLang: function () {
             return this.lang;
         },
+        getDecimalSeparator: function () {
+            var me = this,
+                lang = me.getLang(),
+                locales = me.getSupportedLocales().filter(
+                    function (locale){
+                        return locale.indexOf(lang) === 0;
+                    }
+                ),
+                separators = locales.map(function (locale) {
+                        return me.getDecimalSeparators()[locale];
+                    }
+                );
+            if (separators.length > 1) {
+                if (console && console.warn) {
+                    console.warn(
+                        'Found more than one separator for ' + this.getLang()
+                    );
+                }
+            }
+            if (separators.length && separators[0]) {
+                return separators[0];
+            }
+            return ','; // Most common separator
+        },
+        getDecimalSeparators: function () {
+            return this.decimalSeparators;
+        },
+        setDecimalSeparators: function (decimalSeparators) {
+            this.decimalSeparators = decimalSeparators;
+        },        
         getLocalization: function (key) {
             return this.localizations[this.lang][key];
         },
@@ -1439,6 +1469,27 @@
         setLang : function(lang) {
             return blocale.setLang(lang);
         },
+        /**
+         * @public @method getDecimalSeparator
+         *
+         *
+         * @return {string} Decimal separator
+         */
+        getDecimalSeparator: function () {
+            return blocale.getDecimalSeparator();
+        },
+        getDecimalSeparators: function () {
+            return blocale.getDecimalSeparators();
+        },
+        /**
+         * @public @method setDecimalSeparators
+         *
+         * @param {Object} decimalSeparators Decimal separators
+         *
+         */
+        setDecimalSeparators: function (decimalSeparators) {
+            return blocale.setDecimalSeparators(decimalSeparators);
+        },        
         /**
          * @static
          * @method Oskari.setSupportedLocales

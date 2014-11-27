@@ -59,12 +59,12 @@ define([
 
             sandbox.printDebug("[WmtsLayerPlugin] created WMTS layer " + wmtsLayer);
 
-            this.mapModule.addLayer(wmtsLayer, layer, layerIdPrefix + layer.getId());
+            this.getMapModule().addLayer(wmtsLayer, layer, layerIdPrefix + layer.getId());
 
             if (keepLayerOnTop) {
-                this.mapModule.setLayerIndex(wmtsLayer, this.mapModule.getLayers().length);
+                this.getMapModule().setLayerIndex(wmtsLayer, this.getMapModule().getLayers().length);
             } else {
-                this.mapModule.setLayerIndex(wmtsLayer, 0);
+                this.getMapModule().setLayerIndex(wmtsLayer, 0);
             }
         },
         /**
@@ -85,22 +85,22 @@ define([
                     for (var i = 0; i < layer.getSubLayers().length; i++) {
                         var subtmp = layer.getSubLayers()[i];
                         var name = 'basemap_' + subtmp.getId();
-                        var remLayer = this.mapModule.getLayersByName(name);
+                        var remLayer = this.getMapModule().getLayersByName(name);
                         if (remLayer && remLayer[0] && remLayer[0].destroy) {
                             /*remLayer[0].destroy();*/
-                            this.mapModule.removeLayer(remLayer[0], layer, name);
+                            this.getMapModule().removeLayer(remLayer[0], layer, name);
                         }
                     }
                 } else {
                     var name = 'layer_' + layer.getId();
-                    var remLayer = this.mapModule.getLayersByName(name)[0];
-                    this.mapModule.removeLayer(remLayer, layer, name);
+                    var remLayer = this.getMapModule().getLayersByName(name)[0];
+                    this.getMapModule().removeLayer(remLayer, layer, name);
                 }
             } else {
                 var name = 'layer_' + layer.getId();
-                var remLayer = this.mapModule.getLayersByName(name);
+                var remLayer = this.getMapModule().getLayersByName(name);
                 /* This should free all memory */
-                this.mapModule.removeLayer(remLayer[0], layer, name);
+                this.getMapModule().removeLayer(remLayer[0], layer, name);
             }
         },
 
@@ -117,19 +117,19 @@ define([
             if (layer.isBaseLayer() || layer.isGroupLayer()) {
                 if (layer.getSubLayers().length > 0) {
                     for (var bl = 0; bl < layer.getSubLayers().length; bl++) {
-                        var mapLayer = this.mapModule.getLayersByName('basemap_' + layer
+                        var mapLayer = this.getMapModule().getLayersByName('basemap_' + layer
                             .getSubLayers()[bl].getId());
                         mapLayer[0].setOpacity(layer.getOpacity() / 100);
                     }
                 } else {
-                    var mapLayer = this.mapModule.getLayersByName('layer_' + layer.getId());
+                    var mapLayer = this.getMapModule().getLayersByName('layer_' + layer.getId());
                     if (mapLayer[0] != null) {
                         mapLayer[0].setOpacity(layer.getOpacity() / 100);
                     }
                 }
             } else {
                 this._sandbox.printDebug("Setting Layer Opacity for " + layer.getId() + " to " + layer.getOpacity());
-                var mapLayer = this.mapModule.getLayersByName('layer_' + layer.getId());
+                var mapLayer = this.getMapModule().getLayersByName('layer_' + layer.getId());
                 if (mapLayer[0] != null) {
                     mapLayer[0].setOpacity(layer.getOpacity() / 100);
                 }
@@ -146,7 +146,7 @@ define([
 
             // Change selected layer style to defined style
             if (!layer.isBaseLayer()) {
-                var styledLayer = this.mapModule.getLayersByName('layer_' + layer.getId());
+                var styledLayer = this.getMapModule().getLayersByName('layer_' + layer.getId());
                 /*if (styledLayer != null) {
              styledLayer[0].mergeNewParams({
              styles : layer.getCurrentStyle().getName()

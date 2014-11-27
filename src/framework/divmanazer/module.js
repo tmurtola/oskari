@@ -51,6 +51,7 @@ define([
     "bundles/framework/bundle/divmanazer/component/buttons/CloseButton",
     "bundles/framework/bundle/divmanazer/component/buttons/DeleteButton",
     "bundles/framework/bundle/divmanazer/component/buttons/EditButton",
+    "bundles/framework/bundle/divmanazer/component/buttons/ExitButton",
     "bundles/framework/bundle/divmanazer/component/buttons/OkButton",
     "bundles/framework/bundle/divmanazer/component/buttons/SaveButton",
     "bundles/framework/bundle/divmanazer/component/buttons/SearchButton",

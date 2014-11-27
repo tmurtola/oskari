@@ -4,6 +4,7 @@ define([
     "bundles/framework/bundle/layerselection2/instance",
     "./Flyout",
     "bundles/framework/bundle/layerselection2/Tile",
+    "bundles/framework/bundle/featuredata2/AggregateAnalyseFilter",
     "css!resources/framework/bundle/layerselection2/css/style.css",
     "bundles/framework/bundle/layerselection2/locale/bg",
     "bundles/framework/bundle/layerselection2/locale/cs",

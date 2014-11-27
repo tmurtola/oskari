@@ -5,6 +5,7 @@ define([
     "src/mapping/mapmodule/plugin/BasicMapModulePlugin",
     "bundles/framework/bundle/featuredata2/instance",
     "bundles/framework/bundle/featuredata2/PopupHandler",
+    "bundles/framework/bundle/featuredata2/AggregateAnalyseFilter",
     "./plugin/MapSelectionPlugin",
     "bundles/framework/bundle/featuredata2/event/FinishedDrawingEvent",
     "bundles/framework/bundle/featuredata2/event/WFSSetFilter",

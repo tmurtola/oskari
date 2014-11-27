@@ -12,7 +12,6 @@ define([
     "bundles/framework/bundle/personaldata/request/AddTabRequest",
     "bundles/framework/bundle/personaldata/request/AddTabRequestHandler",
     "css!resources/framework/bundle/personaldata/css/personaldata.css",
-    "bundles/framework/bundle/myplaces2/MyPlacesTab",
     "bundles/framework/bundle/personaldata/locale/hy",
     "bundles/framework/bundle/personaldata/locale/bg",
     "bundles/framework/bundle/personaldata/locale/cs",

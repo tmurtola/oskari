@@ -4,27 +4,6 @@ define(["bundles/framework/bundle/mapmodule-plugin/plugin/layers/LayersPlugin"],
     Oskari.cls('Oskari.mapframework.bundle.mapmodule.plugin.LayersPlugin').category({
 
     /**
-     * @method startPlugin
-     *
-     * Interface method for the plugin protocol. Registers requesthandlers and
-     * eventlisteners.
-     *
-     * @param {Oskari.mapframework.sandbox.Sandbox} sandbox
-     * 			reference to application sandbox
-     */
-    startPlugin : function(sandbox) {
-        this._sandbox = sandbox;
-        
-        sandbox.register(this);
-        for(p in this.eventHandlers) {
-            sandbox.registerForEventByName(this, p);
-        }
-        sandbox.addRequestHandler('MapModulePlugin.MapLayerVisibilityRequest', this.requestHandlers.layerVisibilityHandler);
-        sandbox.addRequestHandler('MapModulePlugin.MapMoveByLayerContentRequest', this.requestHandlers.layerContentHandler);
-
-    },
-
-    /**
      * @method _parseGeometryForLayer
      * @private
      * 
@@ -160,7 +139,7 @@ define(["bundles/framework/bundle/mapmodule-plugin/plugin/layers/LayersPlugin"],
         // NOTE: DO NOT CHANGE visibility in internal layer object (it will
         // change in UI also)
         // this is for optimization purposes
-        var mapModule = this.mapModule;
+        var mapModule = this.getMapModule();
         if(scaleOk && geometryMatch && layer.isVisible()) {
             // show non-baselayer if in scale, in geometry and layer visible
             var mapLayers = mapModule.getLayersByName('layer_' + layer.getId());
