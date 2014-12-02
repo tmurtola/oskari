@@ -1,8 +1,7 @@
 define([
     "oskari",
     "jquery",
-    "bundles/framework/bundle/guidedtour/instance",
-    "libraries/jquery/plugins/jquery.cookie",
+    "./instance",
     "css!resources/framework/bundle/guidedtour/css/style.css",
     "bundles/framework/bundle/guidedtour/locale/bg",
     "bundles/framework/bundle/guidedtour/locale/cs",

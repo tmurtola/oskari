@@ -9,7 +9,7 @@ define([
 ], function(Oskari, jQuery, Cesium, olcomp, Proj4js) {
 	window.Proj4js = Proj4js;
 	return Oskari.bundleCls("cesium").category({
-		'__name': 'lib-cesium',
+		'__name': 'map-cesium',
 		getName: function() {
 			return this.__name;
 		},

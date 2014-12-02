@@ -91,6 +91,9 @@ module.exports = function(grunt) {
                 relativePath = relativePath.replace(/[\.\/]*src/, 'src');
             }
 
+            // some libs are specially specified in require and in order to avoid mixups that confuses require we rename them
+            relativePath = relativePath.replace(/libraries\/jquery\/plugins\/jquery.cookie/, 'jquery-cookie');
+
             // dots mess around with RequireJS file extension detection.
             // In order to make it work, exclude .js from filenames without dots such as jquery.base64.min.js
             relativePath = relativePath.replace('.js', '');

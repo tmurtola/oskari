@@ -7,7 +7,7 @@ define([
 	"css!libraries/leaflet/leaflet.css"
 ], function(Oskari) {
 	return Oskari.bundleCls("leaflet").category({
-		'__name': 'lib-leaflet',
+		'__name': 'map-leaflet',
 		getName: function() {
 			return this.__name;
 		},

@@ -15,6 +15,10 @@
   "inlineText": true,
   "name" : "applications/oskari2/ol3/index",
   "mainConfigFile" : "../applications/oskari2/ol3/index.js",
+  "has" : {
+    "//": "has is used as an abstraction to hide the implementation specific details. Currently all values are static globals.",
+    "map-ol3": true
+  },
   "include" : [
     "requireLib"
   ],
@@ -41,5 +45,5 @@
     "featuredata2",
     "metadatacatalogue"
   ],
-  "out" : "This value is overwritten when running 'grunt buildApp:../applications/oskari2/ol3/', but for completeness here is a working example for manual builds that creates the following file when this comment is removed. '../applications/oskari2/ol3/main.js'"
+  "out" : "This value is overwritten when running 'grunt buildApp:../applications/oskari2/ol3/', but for completeness here is a working example for manual builds that creates the following file when this comment is removed. '../dist/oskari2/ol3/oskari.min.js'"
 }

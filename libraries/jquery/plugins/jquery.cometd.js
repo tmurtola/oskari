@@ -125,7 +125,7 @@
         // The default cometd instance
         $.cometd = new $.Cometd();
 
-        return $.cometd;
+        return $;
     }
 
     if (typeof define === 'function' && define.amd)

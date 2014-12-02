@@ -19,7 +19,7 @@
                     "bundlePath": "../../../packages/framework/bundle/"
                 },
                 "mapmodule-plugin": {
-                    "bundlePath": "../../../packages/ol2/bundle/"
+                    "bundlePath": "../../../packages/framework/bundle/"
                 },
                 "event-base": {
                     "bundlePath": "../../../packages/framework/bundle/"
@@ -333,9 +333,9 @@
                 }, {
                     "id": "Oskari.mapframework.mapmodule.ControlsPlugin"
                 }, {
-                    "id": "Oskari.ol2.mapmodule.plugin.PanButtons"
+                    "id": "Oskari.mapframework.bundle.mapmodule.plugin.PanButtons"
                 }, {
-                    "id": "Oskari.ol2.mapmodule.WmsLayerPlugin"
+                    "id": "Oskari.mapframework.wmts.mapmodule.plugin.WmtsLayerPlugin"
                 }, {
                     "id": "Oskari.mapframework.wmts.mapmodule.plugin.WmtsLayerPlugin"
                 }],

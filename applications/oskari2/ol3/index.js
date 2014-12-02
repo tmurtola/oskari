@@ -1,3 +1,7 @@
+// GLOBAL
+// TODO: move to jsp and add value from db
+MAPLIB = "ol3";
+
 require.config({
   baseUrl: "/Oskari/", // the base is set to requirejs lib to help requiring 3rd party libs
   paths: { // some path shortcuts to ease declarations
@@ -6,6 +10,7 @@ require.config({
     "oskari-with-loader": "src/oskari/oskari-with-loader",
     "jquery": "libraries/jquery/jquery-1.10.2",
     "jquery-ui": "libraries/jquery/jquery-ui-1.9.2.custom",
+    "jquery-cookie": "libraries/jquery/plugins/jquery.cookie",
     "dragevent": "libraries/jquery/jquery.event.drag-2.0.min",
     "jquery-migrate": "libraries/jquery/jquery-migrate-1.2.1-modified",
     "css": "libraries/requirejs/lib/css",
@@ -14,7 +19,8 @@ require.config({
     "text": "libraries/requirejs/lib/text",
     "i18n": "libraries/requirejs/lib/i18n",
     "normalize": "libraries/requirejs/lib/normalize",
-    "lodash": "libraries/lodash/2.3.0/lodash"
+    "lodash": "libraries/lodash/2.3.0/lodash",
+    "has": "libraries/has/has-with-oskari-tests"
   },
   map: {
     // '*' means all modules will get 'jquery-private'
@@ -72,6 +78,10 @@ require.config({
   },
   shim: {
     "jquery-ui": {
+      exports: "$",
+      deps: ['jquery']
+    },
+    "jquery-cookie": {
       exports: "$",
       deps: ['jquery']
     },

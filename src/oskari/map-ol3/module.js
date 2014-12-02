@@ -155,7 +155,7 @@ define([
     };
 
     return Oskari.bundleCls("ol3").category({
-        '__name': 'lib-ol3',
+        '__name': 'map-ol3',
         getName: function() {
             return this.__name;
         },

@@ -6,7 +6,8 @@ define([
 	"src/framework/mapfull/module",
 	"mapwmts",
 	"mapwfs2",
-	"mapstats"
+	"mapstats",
+	"maparcgis"
 ], function(Oskari, jQuery, oskariui, mapmodule, mapfull) {
 	Oskari.bundleCls('oskariui');
 

@@ -1,11 +1,18 @@
+// GLOBAL
+// TODO: move to jsp and add value from db
+MAPLIB = "ol2";
+
 require.config({
   baseUrl: "/Oskari/", // the base is set to requirejs lib to help requiring 3rd party libs
   paths: { // some path shortcuts to ease declarations
     "oskari": "src/oskari/oskari",
     "oskari-with-app": "src/oskari/oskari-with-app",
     "oskari-with-loader": "src/oskari/oskari-with-loader",
-    "jquery": "http://code.jquery.com/jquery-1.9.1",
+    "jquery": "libraries/jquery/jquery-1.10.2",
     "jquery-ui": "libraries/jquery/jquery-ui-1.9.2.custom",
+    "jquery-cookie": "libraries/jquery/plugins/jquery.cookie",
+    "org/cometd": "libraries/cometd/cometd",
+    "jquery-cometd": "libraries/jquery/plugins/jquery.cometd",
     "dragevent": "libraries/jquery/jquery.event.drag-2.0.min",
     "jquery-migrate": "libraries/jquery/jquery-migrate-1.2.1-modified",
     "css": "libraries/requirejs/lib/css",
@@ -14,7 +21,8 @@ require.config({
     "text": "libraries/requirejs/lib/text",
     "i18n": "libraries/requirejs/lib/i18n",
     "normalize": "libraries/requirejs/lib/normalize",
-    "lodash": "libraries/lodash/2.3.0/lodash"
+    "lodash": "libraries/lodash/2.3.0/lodash",
+    "has": "libraries/has/has-with-oskari-tests"
   },
   map: {
     // '*' means all modules will get 'jquery-private'
@@ -23,8 +31,16 @@ require.config({
       "oskari": "oskari-with-app",
       "jquery": "jquery-migrate",
       // TODO: rename openlayers-default-theme to map or something
+      // these are map engine specific and are static due to the build tool
       "openlayers-default-theme": "src/oskari/map-ol2/module",
+      "mapanalysis": "src/framework/mapanalysis/module",
       "mapfull": "src/mapping/mapmodule/ol2/mapfull/module",
+      "mapmyplaces": "src/framework/mapmyplaces/module",
+      "mapstats": "src/framework/mapstats/module",
+      "mapwfs2": "src/framework/mapwfs2/module",
+      "mapwmts": "src/framework/mapwmts/module",
+      "maparcgis": "src/arcgis/maparcgis/module",
+      // the rest should not depend on map engine
       "divmanazer": "src/framework/divmanazer/module",
       "toolbar": "src/framework/toolbar/module",
       "statehandler": "src/framework/statehandler/module",
@@ -41,12 +57,10 @@ require.config({
       "postprocessor": "src/framework/postprocessor/module",
       "publisher": "src/framework/publisher/module",
       "guidedtour": "src/framework/guidedtour/module",
-      "mapstats": "src/framework/mapstats/module",
-      "mapwfs2": "src/framework/mapwfs2/module",
-      "mapwmts": "src/framework/mapwmts/module",
-      "mapmyplaces": "src/framework/mapmyplaces/module",
-      "mapanalysis": "src/framework/mapanalysis/module",
       "statsgrid": "src/statistics/statsgrid/module",
+      "publishedgrid": "src/statistics/publishedgrid/module",
+      "publishedmyplaces2": "src/framework/publishedmyplaces2/module",
+      "publishedstatehandler": "src/framework/publishedstatehandler/module",
       "metadataflyout": "src/catalogue/metadataflyout/module",
       "metadatacatalogue": "src/catalogue/metadatacatalogue/module",
       "printout": "src/framework/printout/module",
@@ -54,7 +68,8 @@ require.config({
       "analyse": "src/analysis/analyse/module",
       "myplaces2": "src/framework/myplaces2/module",
       "promote": "src/framework/promote/module",
-      "oskariui": "src/framework/oskariui/module"
+      "oskariui": "src/framework/oskariui/module",
+      "rpc": "src/framework/rpc/module"
     },
 
     // 'jquery-private' wants the real jQuery module
@@ -68,6 +83,14 @@ require.config({
     "jquery-ui": {
       exports: "$",
       deps: ['jquery']
+    },
+    "jquery-cookie": {
+      exports: "$",
+      deps: ['jquery']
+    },
+    "jquery-cometd": {
+      exports: "$",
+      deps: ['org/cometd', 'jquery']
     },
     "dragevent": {
       exports: "$",

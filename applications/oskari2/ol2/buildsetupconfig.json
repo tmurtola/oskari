@@ -1,17 +1,27 @@
 {
+  "//": "Note! baseUrl is relative to the tools directory where the grunt buildApp task is run",
   "baseUrl" : "../",
   "paths" : {
-    "jquery" : "empty:",
+    "requireLib": "libraries/requirejs/require-2.1.15",
     "css-builder": "libraries/requirejs/lib/css-builder"
   },
   "optimize" : "uglify2",
   "optimizeAllPluginResources" : true,
-  "findNestedDependencies" : true,
+  "findNestedDependencies" : false,
   "wrapShim": true,
   "skipDirOptimize": true,
+  "skipDataMain": true,
   "keepBuildDir": true,
-  "name" : "applications/oskari2/ol2/main-dev",
-  "mainConfigFile" : "../applications/oskari2/ol2/main-dev.js",
+  "inlineText": true,
+  "name" : "applications/oskari2/ol2/index",
+  "mainConfigFile" : "../applications/oskari2/ol2/index.js",
+  "has" : {
+    "//": "has is used as an abstraction to hide the implementation specific details. Currently all values are static globals.",
+    "map-ol2": true
+  },
+  "include" : [
+    "requireLib"
+  ],
   "deps" : [
     "openlayers-default-theme",
     "mapfull",
@@ -35,5 +45,5 @@
     "featuredata2",
     "metadatacatalogue"
   ],
-  "out" : "This value is overwritten when running 'grunt buildsetup:../applications/oskari2/ol2/buildserupconfig.json', but for completeness here is a working example for manual builds '../applications/oskari2/ol2/main.js'"
+  "out" : "This value is overwritten when running 'grunt buildApp:../applications/oskari2/ol2/', but for completeness here is a working example for manual builds that creates the following file when this comment is removed. '../dist/oskari2/ol2/oskari.min.js'"
 }

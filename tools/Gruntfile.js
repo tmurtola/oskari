@@ -228,7 +228,8 @@ module.exports = function (grunt) {
           'publishedgrid': '../packages/statistics/bundle/publishedgrid',
           'analyse': '../packages/analysis/bundle/analyse',
           'metadataflyout': '../packages/catalogue/bundle/metadataflyout',
-          'metadatacatalogue': '../packages/catalogue/bundle/metadatacatalogue'
+          'metadatacatalogue': '../packages/catalogue/bundle/metadatacatalogue',
+          'maparcgis': '../packages/arcgis/bundle/maparcgis'
         },
         minifyAll: {
             options: {

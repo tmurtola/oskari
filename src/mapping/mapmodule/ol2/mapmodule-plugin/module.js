@@ -1,6 +1,7 @@
-// This file needs to be manually updated based upon
-// Oskari/packages/framework/bundle/mapmodule-plugin/bundle.js
-// Last updated on 3.10.2014
+/* This file needs to be manually updated based upon
+ * Oskari/packages/framework/bundle/mapmodule-plugin/bundle.js
+ * Last updated on 3.10.2014
+ */
 
 define([
 	"oskari",

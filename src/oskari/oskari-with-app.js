@@ -55,9 +55,7 @@ define([
                     instance = null,
                     instancename = moduleItem.bundleinstancename;
 
-                console.log('requiring', moduleName);
                 require([moduleName], function(module) {
-
                     instance = module.start(instancename);
                     name = instance.getName();
                     
@@ -97,7 +95,7 @@ define([
 
     var defaultIdentifier = 0;
     var ConfigurableModule = Oskari.cls('Oskari.Module', function() {
-        console.log("CREATED CONFIGURABLE MODULE as BASE for MODULES");
+//        console.log("CREATED CONFIGURABLE MODULE as BASE for MODULES");
     }, {
         extend: function(props) {
             // Bundles are structured to modules, however the refactoring is done gradually.
@@ -144,7 +142,7 @@ define([
      */ 
     var ExtendableEvent = 
      Oskari.cls('Oskari.Event', function() {
-        console.log("CREATED EXTENDABLE EVENT as BASE for EVENTS");
+//        console.log("CREATED EXTENDABLE EVENT as BASE for EVENTS");
     }, {
 	extend : function(props) {
 	   return Oskari.cls(props.name ? 'Oskari.event._.'+props.name: undefined,function(instanceProps) {
@@ -174,7 +172,7 @@ define([
      */ 
     var ExtendableRequest = 
      Oskari.cls('Oskari.Request', function() {
-        console.log("CREATED EXTENDABLE REQUEST as BASE for REQUESTS");
+//        console.log("CREATED EXTENDABLE REQUEST as BASE for REQUESTS");
     }, {
 	extend : function(props) {
           return Oskari.cls(props.name ? 'Oskari.request._.'+props.name: undefined,function(instanceProps) {

@@ -408,11 +408,7 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
                 content,
                 me.loc.error.title,
                 me.loc.error.nohelp
-<<<<<<< HEAD
             );*/
-=======
-            );
->>>>>>> 5818b65f1cd67fe55eba846764d4160335180b8d
         },
 
         /**
@@ -717,6 +713,9 @@ Oskari.clazz.define('Oskari.mapframework.bundle.publisher.view.BasicPublisher',
             }
 
             responsiveInput.insertTo(contentPanel);
+            // TODO: enable responsive by removing line below
+            responsiveInput._element.style.display = "none";
+
             me.responsive = responsiveInput;
 
             radioButtonGroup.setValue(selectedOption.id);

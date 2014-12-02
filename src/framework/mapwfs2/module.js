@@ -1,8 +1,7 @@
 define([
     "oskari",
     "jquery",
-    "bundles/framework/bundle/mapwfs2/comp",
-    "libraries/jquery/plugins/jquery.cookie",
+    "./comp",
     "bundles/framework/bundle/mapwfs2/service/Connection",
     "bundles/framework/bundle/mapwfs2/service/Mediator",
     "bundles/framework/bundle/mapwfs2/plugin/QueuedTilesGrid",
