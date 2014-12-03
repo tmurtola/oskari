@@ -28,15 +28,17 @@ define([
              *
              * @method initialize
              */
-            initialize: function () {
-                this.instance = this.options.instance;
-                this.el = this.options.el;
-                this.appTemplate = _.template(ViewTemplate);
-                this.tabTitleTemplate = _.template(TabTitleTemplate)
-                this.selectedType = 'organization';
-                _.bindAll(this);
+            initialize: function (options) {
+                var me = this;
+                me.options = options;
+                me.instance = me.options.instance;
+                me.el = me.options.el;
+                me.appTemplate = _.template(ViewTemplate);
+                me.tabTitleTemplate = _.template(TabTitleTemplate)
+                me.selectedType = 'organization';
+                _.bindAll(me);
                 //render this view immediately after initialization.
-                this.render();
+                me.render();
             },
 
             /**

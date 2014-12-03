@@ -1,6 +1,6 @@
 define([
     "oskari",
-    "jquery-cookie",
+    "jquery",
     "bundles/framework/bundle/parcel/event/FinishedDrawingEvent",
     "bundles/framework/bundle/parcel/event/SaveDrawingEvent",
     "bundles/framework/bundle/parcel/event/ParcelSelectedEvent",
@@ -31,6 +31,7 @@ define([
     "bundles/framework/bundle/parcel/handler/PreParcelSelectorHandler",
     "bundles/framework/bundle/parcel/instance",
     "bundles/framework/bundle/parcel/Flyout",
+    "jquery-cookie",
     "libraries/clipper/clipper",
     "libraries/jsts/jsts",
     "css!resources/framework/bundle/parcel/css/style.css",

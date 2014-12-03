@@ -1,7 +1,8 @@
 define([
     "oskari",
-    "jquery-cookie",
+    "jquery",
     "bundles/framework/bundle/statehandler/instance",
+    "jquery-cookie",
     "bundles/framework/bundle/statehandler/state-methods",
     "bundles/framework/bundle/statehandler/session-methods",
     "bundles/framework/bundle/statehandler/plugin/Plugin",

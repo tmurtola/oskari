@@ -31,8 +31,9 @@ define([
              *
              * @method initialize
              */
-            initialize: function () {
+            initialize: function (options) {
                 var me = this;
+                me.options = options;
                 me.instance = me.options.instance;
                 me.model = me.options.model;
                 me.classNames = me.options.classes;
@@ -52,7 +53,7 @@ define([
                     me.render();
                 });
                 //this.model.on('change', this.render, this);
-                this.supportedTypes = this.options.supportedTypes;
+                this.supportedTypes = me.options.supportedTypes;
                 me.render();
             },
             /**
@@ -181,8 +182,8 @@ define([
                 var settings = new AdminLayerSettingsView({
                     model: subLayer,
                     supportedTypes : me.supportedTypes,
-                    instance: this.options.instance,
-                    layerTabModel: this.options.layerTabModel,
+                    instance: me.options.instance,
+                    layerTabModel: me.options.layerTabModel,
                     baseLayerId: parentId,
                     groupId: element.parents('.accordion').attr('lcid')
                 });

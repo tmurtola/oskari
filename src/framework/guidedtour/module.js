@@ -2,6 +2,7 @@ define([
     "oskari",
     "jquery",
     "./instance",
+    "jquery-cookie",
     "css!resources/framework/bundle/guidedtour/css/style.css",
     "bundles/framework/bundle/guidedtour/locale/bg",
     "bundles/framework/bundle/guidedtour/locale/cs",

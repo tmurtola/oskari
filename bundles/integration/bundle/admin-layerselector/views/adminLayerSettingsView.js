@@ -52,40 +52,40 @@ define([
              *
              * @method initialize
              */
-            initialize: function () {
-                this.instance = this.options.instance;
+            initialize: function (options) {
+                var me = this;
+                me.options = options;
+                me.instance = me.options.instance;
                 // for new layers/sublayers, model is always null at this point
                 // if we get baseLayerId -> this is a sublayer
-                if (this.options.baseLayerId && this.options.model) {
+                if (me.options.baseLayerId && me.options.model) {
                     // wrap existing sublayers with model
-                    this.model = new layerModel(this.options.model);
+                    me.model = new layerModel(me.options.model);
                 } else {
-                    this.model = this.options.model;
+                    me.model = me.options.model;
                 }
                 // model to use when creating a new layer
-                this.modelObj = layerModel;
-                this.typeSelectTemplate = _.template(TypeSelectTemplate);
-                this.layerTemplate = _.template(LayerSettingsTemplate);
+                me.modelObj = layerModel;
+                me.typeSelectTemplate = _.template(TypeSelectTemplate);
+                me.layerTemplate = _.template(LayerSettingsTemplate);
 
-                this.groupTemplate = _.template(GroupSettingsTemplate);
-                this.subLayerTemplate = _.template(SubLayerTemplate);
-                this.capabilitiesTemplate = _.template(CapabilitiesTemplate);
-                _.bindAll(this);
+                me.groupTemplate = _.template(GroupSettingsTemplate);
+                me.subLayerTemplate = _.template(SubLayerTemplate);
+                me.capabilitiesTemplate = _.template(CapabilitiesTemplate);
+                _.bindAll(me);
 
-                this._rolesUpdateHandler();
-                if (this.model) {
+                me._rolesUpdateHandler();
+                if (me.model) {
                     // listenTo will remove dead listeners, use it instead of on()
-                    var me = this;
-                    this.listenTo(this.model, 'change', function() {
+                    me.listenTo(me.model, 'change', function() {
 //                        console.log('model change', arguments);
                         me.render();
                     });
-                    //this.model.on('change', this.render, this);
+                    //me.model.on('change', me.render, me);
                 }
-                var me = this;
 
-                this.supportedTypes = this.options.supportedTypes;
-                this.render();
+                me.supportedTypes = me.options.supportedTypes;
+                me.render();
             },
 
             /**

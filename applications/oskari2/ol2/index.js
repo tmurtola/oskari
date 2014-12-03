@@ -21,6 +21,7 @@ require.config({
     "text": "libraries/requirejs/lib/text",
     "i18n": "libraries/requirejs/lib/i18n",
     "normalize": "libraries/requirejs/lib/normalize",
+    "backbone": "libraries/backbone/backbone-1.1.2",
     "lodash": "libraries/lodash/2.3.0/lodash",
     "has": "libraries/has/has-with-oskari-tests"
   },
@@ -30,17 +31,21 @@ require.config({
     "*": {
       "oskari": "oskari-with-app",
       "jquery": "jquery-migrate",
+      "underscore": "lodash",
       // TODO: rename openlayers-default-theme to map or something
       // these are map engine specific and are static due to the build tool
       "openlayers-default-theme": "src/oskari/map-ol2/module",
       "mapanalysis": "src/framework/mapanalysis/module",
       "mapfull": "src/mapping/mapmodule/ol2/mapfull/module",
       "mapmyplaces": "src/framework/mapmyplaces/module",
+      "mapuserlayers": "src/framework/mapuserlayers/module",
       "mapstats": "src/framework/mapstats/module",
       "mapwfs2": "src/framework/mapwfs2/module",
       "mapwmts": "src/framework/mapwmts/module",
       "maparcgis": "src/arcgis/maparcgis/module",
       // the rest should not depend on map engine
+      "admin-layerselector": "src/integration/admin-layerselector/module",
+      "admin-layerrights": "src/framework/admin-layerrights/module",
       "divmanazer": "src/framework/divmanazer/module",
       "toolbar": "src/framework/toolbar/module",
       "statehandler": "src/framework/statehandler/module",
@@ -67,6 +72,7 @@ require.config({
       "coordinatedisplay": "src/framework/coordinatedisplay/module",
       "analyse": "src/analysis/analyse/module",
       "myplaces2": "src/framework/myplaces2/module",
+      "myplacesimport": "src/framework/myplacesimport/module",
       "promote": "src/framework/promote/module",
       "oskariui": "src/framework/oskariui/module",
       "rpc": "src/framework/rpc/module"
@@ -98,6 +104,10 @@ require.config({
     },
     "oskari": {
       exports: "Oskari"
+    },
+    "backbone": {
+      exports: "Backbone",
+      deps: ['jquery', 'underscore']
     },
     "lodash": {
       exports: "_"

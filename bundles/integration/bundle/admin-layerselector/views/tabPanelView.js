@@ -53,37 +53,38 @@ define([
              *
              * @method initialize
              */
-            initialize: function () {
-                this.layerGroupingModel = this.options.layerGroupingModel;
-                this.instance = this.options.instance;
-                this.allowDeleteWhenNotEmpty = (this.options.tabId === 'inspire');
+            initialize: function (options) {
+                var me = this;
+                me.options = options;
+                me.layerGroupingModel = me.options.layerGroupingModel;
+                me.instance = me.options.instance;
+                me.allowDeleteWhenNotEmpty = (me.options.tabId === 'inspire');
                 // reference to possible error dialog
-                this.__dialog = null;
+                me.__dialog = null;
                 // If model triggers change event we need to re-render this view
                 // listenTo will remove dead listeners, use it instead of on()
-                var me = this;
-                this.listenTo(this.layerGroupingModel, 'change:layerGroups', function() {
+                me.listenTo(me.layerGroupingModel, 'change:layerGroups', function() {
                     //console.log('tabPanelView change groups', arguments);
                     me.render();
                 });
-                this.listenTo(this.layerGroupingModel, 'adminAction', function(e) {
+                me.listenTo(me.layerGroupingModel, 'adminAction', function(e) {
                     // route adminAction from model to an ui element that View.js listens
-                    this.$el.trigger(e);
+                    me.$el.trigger(e);
                 });
 
-                this.addGroupingButtonTemplate = _.template(AddGroupingButtonTemplate);
-                this.addGroupingTemplate = _.template(AddGroupingTemplate);
+                me.addGroupingButtonTemplate = _.template(AddGroupingButtonTemplate);
+                me.addGroupingTemplate = _.template(AddGroupingTemplate);
 
-                //this.addInspireTemplate = _.template(AdminAddInspireTemplate);
-                //this.addOrganizationTemplate = _.template(AdminAddOrganizationTemplate);
-                this.addLayerBtnTemplate = _.template(AdminAddLayerBtnTemplate);
-                this.filterTemplate = _.template(FilterLayersTemplate);
-                this.tabTemplate = _.template(TabPanelTemplate);
-                this.accordionTemplate = _.template(AccordionPanelTemplate);
-                this.layerTemplate = _.template(LayerRowTemplate);
-                _.bindAll(this);
-                this.__setupSupportedLayerTypes();
-                this.render();
+                //me.addInspireTemplate = _.template(AdminAddInspireTemplate);
+                //me.addOrganizationTemplate = _.template(AdminAddOrganizationTemplate);
+                me.addLayerBtnTemplate = _.template(AdminAddLayerBtnTemplate);
+                me.filterTemplate = _.template(FilterLayersTemplate);
+                me.tabTemplate = _.template(TabPanelTemplate);
+                me.accordionTemplate = _.template(AccordionPanelTemplate);
+                me.layerTemplate = _.template(LayerRowTemplate);
+                _.bindAll(me);
+                me.__setupSupportedLayerTypes();
+                me.render();
             },
             /**
              * Setup supported layer types based on what this bundle can handle and 
@@ -96,20 +97,20 @@ define([
             __setupSupportedLayerTypes : function() {
                 var me = this;
                 // generic list of layertypes supported
-                this.supportedTypes = [
+                me.supportedTypes = [
                     {id : "wfslayer", localeKey : "wfs"},
                     {id : "wmslayer", localeKey : "wms"},
                     {id : "wmtslayer", localeKey : "wmts"},
                     {id : "arcgislayer", localeKey : "arcgis", footer : false}
                 ];
                 // filter out ones that are not registered in current appsetup
-                var sandbox = this.instance.sandbox,
+                var sandbox = me.instance.sandbox,
                     mapLayerService = sandbox.getService('Oskari.mapframework.service.MapLayerService');
-                this.supportedTypes = _.filter(this.supportedTypes, function(type){ 
+                me.supportedTypes = _.filter(me.supportedTypes, function(type){ 
                     return mapLayerService.hasSupportForLayerType(type.id) 
                 });
                 // setup templates for layer types/require only ones supported
-                _.each(this.supportedTypes, function(type) {
+                _.each(me.supportedTypes, function(type) {
                     if(type.header === false) {
                         return;
                     }
@@ -120,7 +121,7 @@ define([
                         sandbox.printWarn('No admin header template for layertype: ' + type.id + " file was: " + file);
                     });
                 });
-                _.each(this.supportedTypes, function(type) {
+                _.each(me.supportedTypes, function(type) {
                     if(type.footer === false) {
                         return;
                     }
@@ -139,21 +140,21 @@ define([
              * @method render
              */
             render: function () {
-                this.$el.addClass(this.options.tabId);
-                this.$el.empty();
                 var me = this;
+                me.$el.addClass(me.options.tabId);
+                me.$el.empty();
 
-                if (this.layerGroupingModel != null) {
-                    this.layerContainers = {};
+                if (me.layerGroupingModel != null) {
+                    me.layerContainers = {};
 
                     // Loop through layer groupings
-                    for (var i = 0; i < this.layerGroupingModel.layerGroups.length; ++i) {
-                        var group = this.layerGroupingModel.layerGroups[i],
+                    for (var i = 0; i < me.layerGroupingModel.layerGroups.length; ++i) {
+                        var group = me.layerGroupingModel.layerGroups[i],
                             visibleLayerCount = 0;
                         //create groupPanel / accordion
-                        var groupPanel = jQuery(this.accordionTemplate({
-                            title: this.layerGroupingModel.getGroupingTitle(i, Oskari.getLang()),
-                            instance: this.options.instance
+                        var groupPanel = jQuery(me.accordionTemplate({
+                            title: me.layerGroupingModel.getGroupingTitle(i, Oskari.getLang()),
+                            instance: me.options.instance
                         }));
                         var groupContainer = groupPanel.find('.content');
                         // render layers
@@ -166,68 +167,68 @@ define([
                                 var layerView = new LayerView({
                                     model: layer,
                                     supportedTypes : me.supportedTypes,
-                                    instance: this.options.instance
+                                    instance: me.options.instance
                                 });
 
                                 visibleLayerCount++;
                                 // Add layerView to group container
                                 groupContainer.append(layerView.$el);
                                 // store reference to dom
-                                this.layerContainers[layer.getId()] = layerView;
+                                me.layerContainers[layer.getId()] = layerView;
                             }
                         }
                         // At this point we want to add new layer button only for organization
                         // if we enable on inspire tab -> layer will use the inspire theme id as organization id
-                        if (this.options.tabId == 'organization') {
-                            groupContainer.append(this.addLayerBtnTemplate({
-                                instance: this.options.instance
+                        if (me.options.tabId == 'organization') {
+                            groupContainer.append(me.addLayerBtnTemplate({
+                                instance: me.options.instance
                             }));
                         }
                         // add grouping template to group panel
-                        var tab = this.tabTemplate({
+                        var tab = me.tabTemplate({
                             "lcId" : group.id
                         });
                         
                         // grouping edit panels
                         groupPanel.find('.accordion-header')
-                            .append(this.__createGroupingPanel(this.options.tabId, group));
+                            .append(me.__createGroupingPanel(me.options.tabId, group));
                         // add group panel to this tab
-                        this.$el.append(jQuery(tab).append(groupPanel));
+                        me.$el.append(jQuery(tab).append(groupPanel));
 
                     }
                     // add new grouping button and settings template
-                    this.$el.prepend(this.filterTemplate({
-                        instance: this.options.instance
+                    me.$el.prepend(me.filterTemplate({
+                        instance: me.options.instance
                     }));
                     
                     // grouping add panel
-                    var newGroup = this.layerGroupingModel.getTemplateGroup();
+                    var newGroup = me.layerGroupingModel.getTemplateGroup();
                     var btnConfig = {};
-                    if (this.options.tabId == 'inspire') {
-                        btnConfig.title = this.options.instance.getLocalization('admin').addInspire;
-                        btnConfig.desc = this.options.instance.getLocalization('admin').addInspireDesc;
+                    if (me.options.tabId == 'inspire') {
+                        btnConfig.title = me.options.instance.getLocalization('admin').addInspire;
+                        btnConfig.desc = me.options.instance.getLocalization('admin').addInspireDesc;
                     }
                     else {
-                        btnConfig.title = this.options.instance.getLocalization('admin').addOrganization;
-                        btnConfig.desc = this.options.instance.getLocalization('admin').addOrganizationDesc;
+                        btnConfig.title = me.options.instance.getLocalization('admin').addOrganization;
+                        btnConfig.desc = me.options.instance.getLocalization('admin').addOrganizationDesc;
 
                     }
-                    var groupingPanelContainer = this.$el.find('.oskarifield');
-                    groupingPanelContainer.append(this.addGroupingButtonTemplate({ loc: btnConfig }));
-                    groupingPanelContainer.append(this.__createGroupingPanel(this.options.tabId, newGroup));
+                    var groupingPanelContainer = me.$el.find('.oskarifield');
+                    groupingPanelContainer.append(me.addGroupingButtonTemplate({ loc: btnConfig }));
+                    groupingPanelContainer.append(me.__createGroupingPanel(me.options.tabId, newGroup));
 
 
 
                     /*// TODO: at some point it could be nice to filter layers also.
-                var selectedLayers = this.options.instance.sandbox.findAllSelectedMapLayers();
+                var selectedLayers = me.options.instance.sandbox.findAllSelectedMapLayers();
                 for(var i = 0; i < selectedLayers.length; ++i) {
-                    this.setLayerSelected(selectedLayers[i].getId(), true);
+                    me.setLayerSelected(selectedLayers[i].getId(), true);
                 }                            
-                this.filterLayers(this.filterField.getValue());
+                me.filterLayers(me.filterField.getValue());
                 */
 
                     // hide layers
-                    this.$el.find('div.content').hide();
+                    me.$el.find('div.content').hide();
                 }
             },
             /**

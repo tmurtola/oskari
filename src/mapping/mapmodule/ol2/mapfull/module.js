@@ -7,7 +7,10 @@ define([
 	"mapwmts",
 	"mapwfs2",
 	"mapstats",
-	"maparcgis"
+	"mapanalysis",
+	"maparcgis",
+	"mapmyplaces",
+	"mapuserlayers"
 ], function(Oskari, jQuery, oskariui, mapmodule, mapfull) {
 	Oskari.bundleCls('oskariui');
 
