@@ -1,7 +1,3 @@
-// GLOBAL
-// TODO: move to jsp and add value from db
-MAPLIB = "ol3";
-
 require.config({
   baseUrl: "/Oskari/", // the base is set to requirejs lib to help requiring 3rd party libs
   paths: { // some path shortcuts to ease declarations
@@ -11,6 +7,8 @@ require.config({
     "jquery": "libraries/jquery/jquery-1.10.2",
     "jquery-ui": "libraries/jquery/jquery-ui-1.9.2.custom",
     "jquery-cookie": "libraries/jquery/plugins/jquery.cookie",
+    "org/cometd": "libraries/cometd/cometd",
+    "jquery-cometd": "libraries/jquery/plugins/jquery.cometd",
     "dragevent": "libraries/jquery/jquery.event.drag-2.0.min",
     "jquery-migrate": "libraries/jquery/jquery-migrate-1.2.1-modified",
     "css": "libraries/requirejs/lib/css",
@@ -19,25 +17,30 @@ require.config({
     "text": "libraries/requirejs/lib/text",
     "i18n": "libraries/requirejs/lib/i18n",
     "normalize": "libraries/requirejs/lib/normalize",
+    "backbone": "libraries/backbone/backbone-1.0.0",
     "lodash": "libraries/lodash/2.3.0/lodash",
     "has": "libraries/has/has-with-oskari-tests"
   },
   map: {
-    // '*' means all modules will get 'jquery-private'
+    // '*' means all modules will get 'jquery-migrate'
     // for their 'jquery' dependency.
     "*": {
       "oskari": "oskari-with-app",
       "jquery": "jquery-migrate",
-      // TODO: rename openlayers-default-theme to map or something
-      // these are map engine specific and are static due to the build tool
-      "openlayers-default-theme": "src/oskari/map-ol3/module",
-      "mapanalysis": "src/mapping/mapmodule/ol3/mapanalysis/module",
-      "mapfull": "src/mapping/mapmodule/ol3/mapfull/module",
-      "mapmyplaces": "src/mapping/mapmodule/ol3/mapmyplaces/module",
-      "mapstats": "src/mapping/mapmodule/ol3/mapstats/module",
-      "mapwfs2": "src/mapping/mapmodule/ol3/mapwfs2/module",
-      "mapwmts": "src/mapping/mapmodule/ol3/mapwmts/module",
-      // the rest should not depend on map engine
+      "underscore": "lodash",
+      // TODO: rename openlayers-default-theme to maplib
+      "openlayers-default-theme": "src/mapmodule/ol3/maplib",
+      "mapfull": "src/mapmodule/ol3/module",
+      // the rest does not depend on maplib
+      "mapanalysis": "src/framework/mapanalysis/module",
+      "mapmyplaces": "src/framework/mapmyplaces/module",
+      "mapuserlayers": "src/framework/mapuserlayers/module",
+      "mapstats": "src/framework/mapstats/module",
+      "mapwfs2": "src/framework/mapwfs2/module",
+      "mapwmts": "src/framework/mapwmts/module",
+      "maparcgis": "src/arcgis/maparcgis/module",
+      "admin-layerselector": "src/integration/admin-layerselector/module",
+      "admin-layerrights": "src/framework/admin-layerrights/module",
       "divmanazer": "src/framework/divmanazer/module",
       "toolbar": "src/framework/toolbar/module",
       "statehandler": "src/framework/statehandler/module",
@@ -50,6 +53,7 @@ require.config({
       "featuredata2": "src/framework/featuredata2/module",
       "maplegend": "src/framework/maplegend/module",
       "userguide": "src/framework/userguide/module",
+      "ui-components": "src/framework/ui-components/module",
       "backendstatus": "src/framework/backendstatus/module",
       "postprocessor": "src/framework/postprocessor/module",
       "publisher": "src/framework/publisher/module",
@@ -64,12 +68,13 @@ require.config({
       "coordinatedisplay": "src/framework/coordinatedisplay/module",
       "analyse": "src/analysis/analyse/module",
       "myplaces2": "src/framework/myplaces2/module",
+      "myplacesimport": "src/framework/myplacesimport/module",
       "promote": "src/framework/promote/module",
       "oskariui": "src/framework/oskariui/module",
-      "rpc": "src/framework/rpc/module"
+      "rpc": "src/framework/rpc/module"      
     },
 
-    // 'jquery-private' wants the real jQuery module
+    // 'jquery-migrate' wants the real jQuery module
     // though. If this line was not here, there would
     // be an unresolvable cyclic dependency.
     "jquery-migrate": {
@@ -85,12 +90,20 @@ require.config({
       exports: "$",
       deps: ['jquery']
     },
+    "jquery-cometd": {
+      exports: "$",
+      deps: ['org/cometd', 'jquery']
+    },
     "dragevent": {
       exports: "$",
       deps: ['jquery']
     },
     "oskari": {
       exports: "Oskari"
+    },
+    "backbone": {
+      exports: "Backbone",
+      deps: ['jquery', 'underscore']
     },
     "lodash": {
       exports: "_"
@@ -151,6 +164,7 @@ require(["jquery", "oskari-with-app", "domReady"],
 
             Oskari.setLang(language);
 
+            console.log('starting app');
             Oskari.Application
                 .create()
                 .setStartupSequence(appSetup.startupSequence)

@@ -153,19 +153,19 @@
 
     // Adding Custom Oskari tests
     has.add("map-ol2", function() {
-        return MAPLIB === "ol2";
+        return Oskari.MAPLIB === "ol2";
     });
 
     has.add("map-ol3", function() {
-        return MAPLIB === "ol3";
+        return Oskari.MAPLIB === "ol3";
     });
 
     has.add("map-cesium", function() {
-        return MAPLIB === "cesium";
+        return Oskari.MAPLIB === "cesium";
     });
 
     has.add("map-leaflet", function() {
-        return MAPLIB === "leaflet";
+        return Oskari.MAPLIB === "leaflet";
     });
     // End of Custom Oskari tests
 

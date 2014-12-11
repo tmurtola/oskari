@@ -28,6 +28,12 @@ Oskari.clazz.define(
                 "type": "text/javascript",
                 "src": "../../../../bundles/framework/bundle/mapanalysis/plugin/AnalysisLayerPlugin.js"
             }, {
+                "type" : "text/javascript",
+                "src" : "../../../../sources/framework/domain/AbstractLayer.js"
+            }, {
+                "type" : "text/javascript",
+                "src" : "../../../../bundles/framework/bundle/mapwfs2/domain/WFSLayer.js"
+            }, {
                 "type": "text/javascript",
                 "src": "../../../../bundles/framework/bundle/mapanalysis/domain/AnalysisLayer.js"
             }, {

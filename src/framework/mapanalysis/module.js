@@ -2,6 +2,8 @@ define([
     "oskari",
     "jquery",
     "bundles/framework/bundle/mapanalysis/plugin/AnalysisLayerPlugin",
+    "sources/framework/domain/AbstractLayer",
+    "bundles/framework/bundle/mapwfs2/domain/WFSLayer",
     "bundles/framework/bundle/mapanalysis/domain/AnalysisLayer",
     "bundles/framework/bundle/mapanalysis/domain/AnalysisLayerModelBuilder",
     "bundles/framework/bundle/mapanalysis/locale/fi",

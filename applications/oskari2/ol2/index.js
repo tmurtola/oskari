@@ -1,7 +1,3 @@
-// GLOBAL
-// TODO: move to jsp and add value from db
-MAPLIB = "ol2";
-
 require.config({
   baseUrl: "/Oskari/", // the base is set to requirejs lib to help requiring 3rd party libs
   paths: { // some path shortcuts to ease declarations
@@ -21,29 +17,28 @@ require.config({
     "text": "libraries/requirejs/lib/text",
     "i18n": "libraries/requirejs/lib/i18n",
     "normalize": "libraries/requirejs/lib/normalize",
-    "backbone": "libraries/backbone/backbone-1.1.2",
+    "backbone": "libraries/backbone/backbone-1.0.0",
     "lodash": "libraries/lodash/2.3.0/lodash",
     "has": "libraries/has/has-with-oskari-tests"
   },
   map: {
-    // '*' means all modules will get 'jquery-private'
+    // '*' means all modules will get 'jquery-migrate'
     // for their 'jquery' dependency.
     "*": {
       "oskari": "oskari-with-app",
       "jquery": "jquery-migrate",
       "underscore": "lodash",
-      // TODO: rename openlayers-default-theme to map or something
-      // these are map engine specific and are static due to the build tool
-      "openlayers-default-theme": "src/oskari/map-ol2/module",
+      // TODO: rename openlayers-default-theme to maplib
+      "openlayers-default-theme": "src/mapmodule/ol2/maplib",
+      "mapfull": "src/mapmodule/ol2/module",
+      // the rest does not depend on maplib
       "mapanalysis": "src/framework/mapanalysis/module",
-      "mapfull": "src/mapping/mapmodule/ol2/mapfull/module",
       "mapmyplaces": "src/framework/mapmyplaces/module",
       "mapuserlayers": "src/framework/mapuserlayers/module",
       "mapstats": "src/framework/mapstats/module",
       "mapwfs2": "src/framework/mapwfs2/module",
       "mapwmts": "src/framework/mapwmts/module",
       "maparcgis": "src/arcgis/maparcgis/module",
-      // the rest should not depend on map engine
       "admin-layerselector": "src/integration/admin-layerselector/module",
       "admin-layerrights": "src/framework/admin-layerrights/module",
       "divmanazer": "src/framework/divmanazer/module",
@@ -58,6 +53,7 @@ require.config({
       "featuredata2": "src/framework/featuredata2/module",
       "maplegend": "src/framework/maplegend/module",
       "userguide": "src/framework/userguide/module",
+      "ui-components": "src/framework/ui-components/module",
       "backendstatus": "src/framework/backendstatus/module",
       "postprocessor": "src/framework/postprocessor/module",
       "publisher": "src/framework/publisher/module",
@@ -75,10 +71,10 @@ require.config({
       "myplacesimport": "src/framework/myplacesimport/module",
       "promote": "src/framework/promote/module",
       "oskariui": "src/framework/oskariui/module",
-      "rpc": "src/framework/rpc/module"
+      "rpc": "src/framework/rpc/module"      
     },
 
-    // 'jquery-private' wants the real jQuery module
+    // 'jquery-migrate' wants the real jQuery module
     // though. If this line was not here, there would
     // be an unresolvable cyclic dependency.
     "jquery-migrate": {
@@ -168,6 +164,7 @@ require(["jquery", "oskari-with-app", "domReady"],
 
             Oskari.setLang(language);
 
+            console.log('starting app');
             Oskari.Application
                 .create()
                 .setStartupSequence(appSetup.startupSequence)

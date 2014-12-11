@@ -27,11 +27,11 @@ Oskari.clazz.define("Oskari.mapframework.bundle.coordinatedisplay.CoordinateDisp
 
         {
             "type": "text/javascript",
-            "src": "../../../../src/mapping/mapmodule/plugin/AbstractMapModulePlugin.js"
+            "src": "../../../../src/mapmodule/base/plugin/AbstractMapModulePlugin.js"
         },
         {
             "type": "text/javascript",
-            "src": "../../../../src/mapping/mapmodule/plugin/BasicMapModulePlugin.js"
+            "src": "../../../../src/mapmodule/base/plugin/BasicMapModulePlugin.js"
         },
 
         /*

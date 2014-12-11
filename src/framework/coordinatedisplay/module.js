@@ -1,8 +1,8 @@
 define([
     "oskari",
     "jquery",
-    "src/mapping/mapmodule/plugin/AbstractMapModulePlugin",
-    "src/mapping/mapmodule/plugin/BasicMapModulePlugin",
+    "src/mapmodule/base/plugin/AbstractMapModulePlugin",
+    "src/mapmodule/base/plugin/BasicMapModulePlugin",
     "bundles/framework/bundle/coordinatedisplay/instance",
     "bundles/framework/bundle/coordinatedisplay/plugin/CoordinatesPlugin",
     "css!resources/framework/bundle/coordinatedisplay/css/coordinatedisplay.css",

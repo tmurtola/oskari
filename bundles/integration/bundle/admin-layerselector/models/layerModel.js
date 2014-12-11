@@ -32,12 +32,7 @@ if (!Function.prototype.bind) {
                     for (var key in model) {
                         var prop = model[key];
                         if (typeof prop === 'function') {
-                            // TODO: figure out a proper way to handle internal inherited function calls
-                            if ((key === "getIconClassname") || (key === "isLayerOfType")) {
-                                this[key] = prop;
-                            } else {
-                                this[key] = prop.bind(this.attributes);
-                            }
+                            this[key] = prop.bind(this.attributes);
                         }
                     }
                 }

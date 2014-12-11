@@ -26,7 +26,7 @@ define([
     "bundles/framework/bundle/myplaces2/request/OpenAddLayerDialogRequest",
     "bundles/framework/bundle/myplaces2/request/OpenAddLayerDialogHandler",
     "bundles/framework/bundle/myplaces2/service/MyPlacesService",
-    "bundles/framework/bundle/myplaces2/service/MyPlacesWFSTStore",
+    "./service/MyPlacesWFSTStore",
     "bundles/framework/bundle/myplaces2/view/MainView",
     "bundles/framework/bundle/myplaces2/view/PlaceForm",
     "bundles/framework/bundle/myplaces2/view/CategoryForm",

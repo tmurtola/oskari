@@ -3,9 +3,12 @@ define(["src/oskari/oskari",
 	"src/mapping/model/VectorLayerModel",
 	"src/mapping/model/WMSLayerModel",
 	"src/mapping/model/map",
-	"./style",
+/*	"./style",
 	"./tool",
-	"./user"
+	"./user"*/
+	"sources/framework/domain/style",
+	"sources/framework/domain/tool",
+	"sources/framework/domain/user"
 ], function(Oskari) {
 	Oskari.bundleCls('domain');
 });

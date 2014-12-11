@@ -1,5 +1,5 @@
 define([
 	"oskari",
 	"jquery",
-	"src/framework/mapwmts/module"
-], function(Oskari, jQuery, mapwmts) {});
+	"src/framework/mapanalysis/module"
+], function(Oskari, jQuery, mapanalysis) {});

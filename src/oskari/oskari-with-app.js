@@ -5,8 +5,7 @@
 define([
     "lodash",
     "src/oskari/oskari",
-    "src/oskari/base/module",
-    "src/framework/oskariui/module"
+    "src/oskari/base/module"
 ], function(_,Oskari, platform) {
     Oskari.VERSION = "2.1.0"; // Overwrite
 
@@ -55,7 +54,7 @@ define([
                     instance = null,
                     instancename = moduleItem.bundleinstancename;
 
-//                console.log('requiring', moduleName);
+                console.log('requiring', moduleName);
                 require([moduleName], function(module) {
                     instance = module.start(instancename);
                     name = instance.getName();
@@ -215,9 +214,5 @@ define([
         }
     });
    
-   
-    
-
     return Oskari;
-
 });

@@ -1,8 +1,8 @@
 define([
     "oskari",
     "jquery",
-    "src/mapping/mapmodule/plugin/AbstractMapModulePlugin",
-    "src/mapping/mapmodule/plugin/BasicMapModulePlugin",
+    "src/mapmodule/base/plugin/AbstractMapModulePlugin",
+    "src/mapmodule/base/plugin/BasicMapModulePlugin",
     "bundles/framework/bundle/featuredata2/instance",
     "bundles/framework/bundle/featuredata2/PopupHandler",
     "bundles/framework/bundle/featuredata2/AggregateAnalyseFilter",
