@@ -64,13 +64,13 @@ module.exports = function (grunt) {
                 concat: true
             }
         },
-        release: {
+        releaseold: {
             options: {
                 configs: '../applications/paikkatietoikkuna.fi/full-map/minifierAppSetup.json,../applications/paikkatietoikkuna.fi/full-map_guest/minifierAppSetup.json,../applications/paikkatietoikkuna.fi/published-map/minifierAppSetup.json,../applications/parcel/minifierAppSetup.json',
                 defaultIconDirectoryPath: '../applications/default/icons/'
             }
         },
-        buildApp: {
+        release: {
             options: {
                 applicationPaths: '../applications/paikkatietoikkuna.fi/full-map/,../applications/paikkatietoikkuna.fi/full-map_guest/,../applications/paikkatietoikkuna.fi/published-map/,../applications/parcel/',
                 buildsetupconfigFileName: 'buildsetupconfig.json',
@@ -463,7 +463,7 @@ module.exports = function (grunt) {
         done();
     });
 
-    grunt.registerTask('release', 'Release build', function (version, configs, defaultIconDirectoryPath, copyResourcesToApplications, skipDocumentation) {
+    grunt.registerTask('releaseold', 'Release build', function (version, configs, defaultIconDirectoryPath, copyResourcesToApplications, skipDocumentation) {
         var i,
             ilen,
             config,
@@ -966,7 +966,7 @@ module.exports = function (grunt) {
         grunt.task.run('requirejs:' + this.target);
     });
 
-    grunt.registerTask('buildApp', 'Build App', function (applicationPaths, version, defaultIconDirectoryPath, copyResourcesToApplications) {
+    grunt.registerTask('release', 'Build App', function (applicationPaths, version, defaultIconDirectoryPath, copyResourcesToApplications) {
         grunt.log.writeln('Building Apps in ', applicationPaths);
         var i,
             ilen,
