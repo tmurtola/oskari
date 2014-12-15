@@ -1,8 +1,8 @@
 define(["src/oskari/oskari",
-	"src/mapping/model/AbstractMapLayerModel",
-	"src/mapping/model/VectorLayerModel",
-	"src/mapping/model/WMSLayerModel",
-	"src/mapping/model/map",
+	"src/mapmodule/base/model/AbstractMapLayerModel",
+	"src/mapmodule/base/model/VectorLayerModel",
+	"src/mapmodule/base/model/WMSLayerModel",
+	"src/mapmodule/base/model/map",
 /*	"./style",
 	"./tool",
 	"./user"*/

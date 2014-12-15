@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 
         var fs = require('fs'),
             wrench = require('wrench'),
-            path = require("path");
+            path = require("path"),
+            EOL = require("os").EOL;
 
         if (origin.lastIndexOf('/') !== (origin.length - 1)) {
             console.log('Adding / to path');
@@ -93,6 +94,7 @@ module.exports = function(grunt) {
 
             // some libs are specially specified in require and in order to avoid mixups that confuses require we rename them
             relativePath = relativePath.replace(/libraries\/jquery\/plugins\/jquery.cookie/, 'jquery-cookie');
+            relativePath = relativePath.replace(/libraries\/jquery\/jquery.event.drag-2.0.min/, 'dragevent');
 
             // dots mess around with RequireJS file extension detection.
             // In order to make it work, exclude .js from filenames without dots such as jquery.base64.min.js
@@ -102,7 +104,7 @@ module.exports = function(grunt) {
         }
 
         var basePath = path.dirname(target);
-        var template = 'define({DEPENDENCIES}, function(Oskari,jQuery) {\n    return Oskari.bundleCls("{BUNDLE_ID}").category({SIGNATURE})\n});';
+        var template = '/* GENERATED with grunt bundle2module, do not modify manually */' + EOL +'define({DEPENDENCIES}, function(Oskari,jQuery) {' + EOL + '    return Oskari.bundleCls("{BUNDLE_ID}").category({SIGNATURE})' + EOL + '});';
         var moduleDependencies = ["oskari", "jquery"];
         var bundleId = null;
         var categorySignature = "{";
@@ -176,9 +178,7 @@ module.exports = function(grunt) {
         var originPath = "../" + origin; // relative to this file, not grunt as when reading files
         var loaded = require(originPath);
 
-
-
-        var result = template.replace('{DEPENDENCIES}', JSON.stringify(moduleDependencies).replace('["', '[\n    "').replace('"]', '"\n]').replace(/,"/g,',\n    "')).replace('{BUNDLE_ID}', bundleId).replace('{SIGNATURE}', categorySignature)
+        var result = template.replace('{DEPENDENCIES}', JSON.stringify(moduleDependencies).replace('["', '[' + EOL + '    "').replace('"]', '"' + EOL + ']').replace(/,"/g,',' + EOL + '    "')).replace('{BUNDLE_ID}', bundleId).replace('{SIGNATURE}', categorySignature)
         console.log('Template:\n', result);
         grunt.file.write(target, result);
 

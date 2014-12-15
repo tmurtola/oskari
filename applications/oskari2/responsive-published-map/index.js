@@ -25,12 +25,12 @@ require.config({
       // TODO: rename openlayers-default-theme to map or something
       // these are map engine specific and are static due to the build tool
       "openlayers-default-theme": "src/oskari/map-ol3/module",
-      "mapanalysis": "src/mapping/mapmodule/ol3/mapanalysis/module",
-      "mapfull": "src/mapping/mapmodule/ol3/mapfull/module",
-      "mapmyplaces": "src/mapping/mapmodule/ol3/mapmyplaces/module",
-      "mapstats": "src/mapping/mapmodule/ol3/mapstats/module",
-      "mapwfs2": "src/mapping/mapmodule/ol3/mapwfs2/module",
-      "mapwmts": "src/mapping/mapmodule/ol3/mapwmts/module",
+      "mapanalysis": "src/mapmodule/ol3/mapanalysis/module",
+      "mapfull": "src/mapmodule/ol3/mapfull/module",
+      "mapmyplaces": "src/mapmodule/ol3/mapmyplaces/module",
+      "mapstats": "src/mapmodule/ol3/mapstats/module",
+      "mapwfs2": "src/mapmodule/ol3/mapwfs2/module",
+      "mapwmts": "src/mapmodule/ol3/mapwmts/module",
       // the rest should not depend on map engine
       "divmanazer": "src/framework/divmanazer/module",
       "toolbar": "src/framework/toolbar/module",

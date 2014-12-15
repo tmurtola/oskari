@@ -192,6 +192,7 @@ module.exports = function (grunt) {
             'ui-components': '../packages/framework/bundle/ui-components',
             'featuredata2': '../packages/framework/bundle/featuredata2',
             'guidedtour': '../packages/framework/bundle/guidedtour',
+            'geometryeditor': '../packages/framework/bundle/geometryeditor',
             'infobox': '../packages/framework/bundle/infobox',
             'layerselection2': '../packages/framework/bundle/layerselection2',
             'layerselector2': '../packages/framework/bundle/layerselector2',
@@ -978,11 +979,14 @@ module.exports = function (grunt) {
             APPSFOLDERNAME = 'applications',
             dest,
             options = this.options(),
+            appoptions,
             buildoptions,
             files,
             copyFiles,
             appNameSeparatorIndex,
-            parentAppName;
+            parentAppName,
+            distPath = '../dist/';
+//            distPath = '../';
 
         // use grunt default options
         if (options.applicationPaths && !applicationPaths) {
@@ -1008,11 +1012,12 @@ module.exports = function (grunt) {
             last = (applicationPath.lastIndexOf('/'));
             cwd = applicationPath.substring(0, last);
             appName = applicationPath.substring(cwd.lastIndexOf('/') + 1, last);
-            dest = '../dist/<%= version %>/' + appName + '/';
-            options = {
+            dest = distPath + '<%= version %>/' + appName + '/';
+            appoptions = JSON.parse(JSON.stringify(options));
+            appoptions = {
                 iconDirectoryPath: applicationPath.substring(0, last) + '/icons',
-                resultImageName: '../dist/<%= version %>/' + appName + '/icons/icons.png',
-                resultCSSName: '../dist/<%= version %>/' + appName + '/css/icons.css',
+                resultImageName: distPath + '<%= version %>/' + appName + '/icons/icons.png',
+                resultCSSName: distPath + '<%= version %>/' + appName + '/css/icons.css',
                 spritePathInCSS: '../icons',
                 defaultIconDirectoryPath: defaultIconDirectoryPath
             };
@@ -1020,7 +1025,7 @@ module.exports = function (grunt) {
             copyFiles = {
                 expand: true,
                 cwd: cwd + '/',
-                src: ['css/**', 'images/**', '*.js'],
+                src: ['css/**', 'images/**'],
                 dest: dest
             };
 
@@ -1033,11 +1038,11 @@ module.exports = function (grunt) {
                 files.push({
                     expand: true,
                     cwd: cwd.replace(appName, parentAppName) + '/',
-                    src: ['css/**', 'images/**', '*.js'],
+                    src: ['css/**', 'images/**'],
                     dest: dest
                 });
                 // modify css-sprite to use parent icons instead
-                options.iconDirectoryPath = options.iconDirectoryPath.replace(appName, parentAppName);
+                appoptions.iconDirectoryPath = appoptions.iconDirectoryPath.replace(appName, parentAppName);
             }
 
             // add files to be copied
@@ -1049,10 +1054,10 @@ module.exports = function (grunt) {
                 appSetupFile: appsetupconfig,
                 dest: dest
             });
-            grunt.config.set('sprite.' + appName + '.options', options);
+            grunt.config.set('sprite.' + appName + '.options', appoptions);
 
             buildoptions = grunt.file.readJSON(buildsetupconfig);
-            buildoptions.out = '../dist/' + version + '/' + appName + '/oskari.min.js';
+            buildoptions.out = distPath + version + '/' + appName + '/oskari.min.js';
             grunt.config.set('requirejs.' + appName + '.options', buildoptions);
         }
 
@@ -1061,7 +1066,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '../',
             src: ['resources/**', 'libraries/**', 'bundles/**', 'packages/**', 'src/**', 'applications/**', 'sources/**'],
-            dest: '../dist/'
+            dest: distPath
         }]);
 
         // configure copy-task to copy back the results from dist/css and dist/icons to applications/appname/(css || icons)

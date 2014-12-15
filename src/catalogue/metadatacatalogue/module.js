@@ -1,8 +1,11 @@
+/* GENERATED with grunt bundle2module, do not modify manually */
 define([
     "oskari",
     "jquery",
     "bundles/catalogue/bundle/metadatacatalogue/service/MetadataOptionService",
     "bundles/catalogue/bundle/metadatacatalogue/service/MetadataSearchService",
+    "bundles/framework/bundle/featuredata2/plugin/MapSelectionPlugin",
+    "bundles/catalogue/bundle/metadatacatalogue/event/FinishedDrawingEvent",
     "bundles/catalogue/bundle/metadatacatalogue/instance",
     "css!resources/catalogue/bundle/metadatacatalogue/css/style.css",
     "bundles/catalogue/bundle/metadatacatalogue/locale/fi",

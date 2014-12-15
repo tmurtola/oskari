@@ -1,3 +1,4 @@
+/* GENERATED with grunt bundle2module, do not modify manually */
 define([
     "oskari",
     "jquery",
@@ -17,7 +18,7 @@ define([
     "css!libraries/slickgrid/css/slick.grid.css",
     "css!libraries/slickgrid/css/municipality.css",
     "css!libraries/slickgrid/css/slick-default-theme.css",
-    "libraries/jquery/jquery.event.drag-2.0.min",
+    "dragevent",
     "libraries/slickgrid/slick.core",
     "libraries/slickgrid/slick.formatters",
     "libraries/slickgrid/slick.editors",

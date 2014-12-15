@@ -23,7 +23,7 @@ require.config({
       "oskari": "oskari-with-app",
       "jquery": "jquery-migrate",
       "openlayers-default-theme": "src/oskari/map-leaflet/module",
-      "mapfull": "src/mapping/mapmodule/leaflet/mapfull/module",
+      "mapfull": "src/mapmodule/leaflet/mapfull/module",
       "divmanazer": "src/framework/divmanazer/module",
       "toolbar": "src/framework/toolbar/module",
       "statehandler": "src/framework/statehandler/module",

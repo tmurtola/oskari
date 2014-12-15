@@ -5,7 +5,7 @@ define([
     // use debug for debugging
     "libraries/ol3/ol-v3.0.0-debug",
     "libraries/Proj4js/proj4js-2.2.1/proj4-src",
-    "libraries/ol3/ol3-ol2-compatibility",
+//    "libraries/ol3/ol3-ol2-compatibility",
     "css!resources/ol3/bundle/ol3-default/css/ol-v3.0.0.css"
 ], function(Oskari, jQuery, ol3, Proj4) {
     Oskari.MAPLIB = "ol3";

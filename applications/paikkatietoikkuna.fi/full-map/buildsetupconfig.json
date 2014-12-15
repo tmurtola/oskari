@@ -1,0 +1,56 @@
+{
+  "//": "Note! baseUrl is relative to the tools directory where the grunt buildApp task is run",
+  "baseUrl" : "../",
+  "paths" : {
+    "requireLib": "libraries/requirejs/require-2.1.15",
+    "css-builder": "libraries/requirejs/lib/css-builder"
+  },
+  "//optimize" : "none",
+  "optimize" : "uglify2",
+  "optimizeAllPluginResources" : true,
+  "findNestedDependencies" : false,
+  "wrapShim": true,
+  "skipDirOptimize": true,
+  "skipDataMain": true,
+  "keepBuildDir": true,
+  "inlineText": true,
+  "name" : "applications/paikkatietoikkuna.fi/full-map/index",
+  "mainConfigFile" : "../applications/paikkatietoikkuna.fi/full-map/index.js",
+  "has" : {
+    "//": "has is used as an abstraction to hide the implementation specific details. Currently all values are static globals.",
+    "map-ol2": true
+  },
+  "include" : [
+    "requireLib"
+  ],
+  "deps" : [
+    "openlayers-default-theme",
+    "mapfull",
+    "divmanazer",
+    "toolbar",
+    "statehandler",
+    "infobox",
+    "search",
+    "metadatacatalogue",
+    "layerselector2",
+    "layerselection2",
+    "personaldata",
+    "publisher",
+    "coordinatedisplay",
+    "maplegend",
+    "userguide",
+    "statsgrid",
+    "metadataflyout",
+    "featuredata2",
+    "myplaces2",
+    "guidedtour",
+    "backendstatus",
+    "printout",
+    "postprocessor",
+    "analyse",
+    "admin-layerrights",
+    "myplacesimport",
+    "routesearch"
+  ],
+  "out" : "This value is overwritten when running 'grunt buildApp:../applications/paikkatietoikkuna.fi/full-map/', but for completeness here is a working example for manual builds that creates the following file when this comment is removed. '../[version]/paikkatietoikkuna.fi/full-map/oskari.min.js'"
+}

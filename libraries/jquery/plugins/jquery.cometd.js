@@ -130,7 +130,11 @@
 
     if (typeof define === 'function' && define.amd)
     {
-        define(['jquery', 'org/cometd'], bind);
+        // Modified to exlude required jquery
+        //define(['jquery', 'org/cometd'], bind);
+        define(['org/cometd'], function(cometd) {
+            return bind($, cometd);
+        });
     }
     else
     {

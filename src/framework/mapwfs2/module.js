@@ -1,7 +1,8 @@
+/* GENERATED with grunt bundle2module, do not modify manually */
 define([
     "oskari",
     "jquery",
-    "bundles/framework/bundle/mapwfs2/comp",
+    "./comp",
     "jquery-cookie",
     "bundles/framework/bundle/mapwfs2/service/Connection",
     "bundles/framework/bundle/mapwfs2/service/Mediator",

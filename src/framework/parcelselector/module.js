@@ -1,3 +1,4 @@
+/* GENERATED with grunt bundle2module, do not modify manually */
 define([
     "oskari",
     "jquery",

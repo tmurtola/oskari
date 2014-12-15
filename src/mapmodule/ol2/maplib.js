@@ -6,7 +6,6 @@ define([
     "css!resources/openlayers/theme/default/style.css"
 ], function(Oskari) {
     Oskari.MAPLIB = "ol2";
-    console.log('here MAPLIB set', Oskari.MAPLIB);
 
     Oskari.bundleCls('openlayers-default-theme');
 

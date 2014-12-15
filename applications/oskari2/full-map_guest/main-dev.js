@@ -24,7 +24,7 @@ require.config({
       "jquery": "jquery-migrate",
       // TODO: rename openlayers-default-theme to map or something
       "openlayers-default-theme": "src/oskari/map-ol2/module",
-      "mapfull": "src/mapping/mapmodule/ol2/mapfull/module",
+      "mapfull": "src/mapmodule/ol2/mapfull/module",
       "divmanazer": "src/framework/divmanazer/module",
       "toolbar": "src/framework/toolbar/module",
       "statehandler": "src/framework/statehandler/module",

@@ -1,7 +1,8 @@
+/* GENERATED with grunt bundle2module, do not modify manually */
 define([
     "oskari",
     "jquery",
-    "bundles/analysis/bundle/analyse/instance",
+    "./instance",
     "bundles/analysis/bundle/analyse/Flyout",
     "bundles/analysis/bundle/analyse/Tile",
     "bundles/analysis/bundle/analyse/view/StartView",
