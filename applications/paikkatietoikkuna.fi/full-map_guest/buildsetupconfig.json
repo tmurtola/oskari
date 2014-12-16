@@ -5,7 +5,8 @@
     "requireLib": "libraries/requirejs/require-2.1.15",
     "css-builder": "libraries/requirejs/lib/css-builder"
   },
-  "optimize" : "uglify2",
+  "//optimize" : "uglify2",
+  "optimize" : "none",
   "optimizeAllPluginResources" : true,
   "findNestedDependencies" : false,
   "wrapShim": true,

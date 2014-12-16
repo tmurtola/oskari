@@ -5,6 +5,7 @@ require.config({
     "oskari-with-app": "src/oskari/oskari-with-app",
     "oskari-with-loader": "src/oskari/oskari-with-loader",
     "jquery": "libraries/jquery/jquery-1.10.2",
+    "jquery-legacy": "libraries/jquery/jquery-1.7.1.min",
     "jquery-ui": "libraries/jquery/jquery-ui-1.9.2.custom",
     "jquery-cookie": "libraries/jquery/plugins/jquery.cookie",
     "org/cometd": "libraries/cometd/cometd",
@@ -26,7 +27,7 @@ require.config({
     // for their 'jquery' dependency.
     "*": {
       "oskari": "oskari-with-app",
-      "jquery": "jquery-migrate",
+      "jquery": "jquery-legacy",
       "underscore": "lodash",
       // TODO: rename openlayers-default-theme to maplib
       "openlayers-default-theme": "src/mapmodule/ol2/maplib",
@@ -85,14 +86,11 @@ require.config({
     "jquery-ui": {
       deps: ['jquery']
     },
-    "jquery-cookie": {
-      deps: ['jquery']
+    "statsgrid": {
+      deps: ['dragevent']
     },
     "jquery-cometd": {
-      deps: ['org/cometd', 'jquery']
-    },
-    "dragevent": {
-      deps: ['jquery']
+      deps: ['org/cometd']
     },
     "oskari": {
       exports: "Oskari"

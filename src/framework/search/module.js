@@ -6,6 +6,7 @@ define([
     "bundles/framework/bundle/search/instance",
     "bundles/framework/bundle/search/Flyout",
     "bundles/framework/bundle/search/Tile",
+    "bundles/framework/bundle/search/event/TabChangedEvent",
     "bundles/framework/bundle/search/request/AddTabRequest",
     "bundles/framework/bundle/search/request/AddTabRequestHandler",
     "bundles/framework/bundle/search/request/AddSearchResultActionRequest",
