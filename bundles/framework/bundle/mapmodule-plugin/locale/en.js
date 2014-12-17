@@ -95,13 +95,16 @@ Oskari.registerLocalization(
                     },
                     "message": {
                         "label": "The text on the map",
-                        "hint": "Write a text to be shown on the map."
+                        "hint": "Write a message"
                     }
                 },
                 "dialog": {
                     "title": "Map marker",
                     "message": "Select a new location for the marker by clicking the map."
                 }
+            },
+            "MyLocationPlugin": {
+                "tooltip": "Center map to your location"
             }
         }
     }

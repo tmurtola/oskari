@@ -6,7 +6,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
     /**
      * @static @method create called automatically on construction
      */
-    function (config) {
+    function(config) {
         this._config = config;
         this._ctl = null;
         this._element = null;
@@ -22,7 +22,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @param {Oskari.mapframework.sandbox.Sandbox} sandbox
          *
          */
-        _startPluginImpl: function (sandbox) {
+        _startPluginImpl: function(sandbox) {
             var me = this;
 
             me._element = me._createControlElement();
@@ -53,7 +53,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @param {Oskari.mapframework.sandbox.Sandbox} sandbox
          *
          */
-        _stopPluginImpl: function (sandbox) {
+        _stopPluginImpl: function(sandbox) {
             var me = this,
                 mapModule = me.getMapModule();
             // Destroy control adapter if it exists
@@ -80,7 +80,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          *
          * @return {string} Plugin class
          */
-        getClazz: function () {
+        getClazz: function() {
             var clazz = this._clazz;
             // Throw a fit if clazz is not set, it'd probably break things.
             if (clazz === null || clazz === undefined || clazz.length < 1) {
@@ -96,7 +96,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @return {jQuery}
          * Plugin jQuery element or null/undefined if no element has been set
          */
-        getElement: function () {
+        getElement: function() {
             // element should be created in startPlugin and only destroyed in
             // stopPlugin. I.e. don't start & stop the plugin to refresh it.
             return this._element;
@@ -109,7 +109,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          *
          * @return {Number} Plugin's preferred position in container
          */
-        getIndex: function () {
+        getIndex: function() {
             // i.e. position
             return this._index;
         },
@@ -122,7 +122,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @return {string}
          * Plugin's location
          */
-        getLocation: function () {
+        getLocation: function() {
             var ret = this._defaultLocation;
             if (this._config && this._config.location && this._config.location.classes) {
                 ret = this._config.location.classes;
@@ -138,7 +138,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * Location
          *
          */
-        setLocation: function (location) {
+        setLocation: function(location) {
             var me = this,
                 el = me.getElement();
 
@@ -167,7 +167,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * Magical object with some colors and classes and whatnot...
          *
          */
-        _setColorScheme: function (colorScheme) {},
+        _setColorScheme: function(colorScheme) {},
 
         /**
          * @method setFont
@@ -177,7 +177,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @param {string} font Font ID
          *
          */
-        _setFont: function (font) {},
+        _setFont: function(font) {},
 
         /**
          * @method setStyle Set the plugin's style. Implement if needed.
@@ -186,7 +186,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @param {Object} style Magical object with some widths and whatnot...
          *
          */
-        _setStyle: function (style) {},
+        _setStyle: function(style) {},
 
         /**
          * @public @method hasUI
@@ -195,7 +195,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          *
          * @return {Boolean} true
          */
-        hasUI: function () {
+        hasUI: function() {
             return true;
         },
 
@@ -206,7 +206,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @return {jQuery}
          * Plugin jQuery element
          */
-        _createControlElement: function () {},
+        _createControlElement: function() {},
 
         /**
          * @method _destroyControlElement
@@ -214,7 +214,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          *
          *
          */
-        _destroyControlElement: function () {},
+        _destroyControlElement: function() {},
 
         /**
          * @method _createControlAdapter
@@ -222,7 +222,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          *
          * @return {Object} Control adapter object or null if none
          */
-        _createControlAdapter: function (el) {
+        _createControlAdapter: function(el) {
             /* this._el.get()[0] */
         },
 
@@ -233,7 +233,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @param {Boolean} enable Should the controls be enabled or disabled.
          *
          */
-        _toggleUIControls: function (enable) {
+        _toggleUIControls: function(enable) {
             // implement if needed... don't trust this._enabled, set the state
             // even if enable === this._enabled
         },
@@ -246,7 +246,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * Whether the controls should be enabled or disabled.
          *
          */
-        setEnabled: function (enabled) {
+        setEnabled: function(enabled) {
             // toggle controls
             this._toggleUIControls(enabled);
             this._enabled = enabled;
@@ -260,7 +260,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @return {Boolean}
          * True if plugin's tools are enabled
          */
-        isEnabled: function () {
+        isEnabled: function() {
             return this._enabled;
         },
 
@@ -272,7 +272,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * Whether the UI should be visible or hidden
          *
          */
-        setVisible: function (visible) {
+        setVisible: function(visible) {
             // toggle element
             if (this._element) {
                 this._element.toggle(visible);
@@ -288,7 +288,7 @@ Oskari.clazz.define('Oskari.mapping.mapmodule.plugin.BasicMapModulePlugin',
          * @return {Boolean}
          * True if plugin is visible
          */
-        isVisible: function () {
+        isVisible: function() {
             return this._visible;
         }
     }, {

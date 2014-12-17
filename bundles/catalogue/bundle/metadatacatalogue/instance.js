@@ -42,7 +42,7 @@ Oskari.clazz.define(
         // last sort parameters are saved so we can change sort direction
         // if the same column is sorted again
         this.lastSort = null;
-        this.drawCoverage = undefined;
+        this.drawCoverage = false;
     }, {
         /**
          * @static
@@ -283,7 +283,7 @@ Oskari.clazz.define(
              */
             'MetaData.FinishedDrawingEvent': function (event) {
                 var me = this,
-                    coverageFeature,
+                    coverageFeature;
 
                 coverageFeature = this.selectionPlugin.getFeaturesAsGeoJSON();
 
@@ -294,10 +294,6 @@ Oskari.clazz.define(
                 document.getElementById('oskari_metadatacatalogue_forminput_searchassistance').focus();
             },
 
-            /**
-             * @method userinterface.ExtensionUpdatedEvent
-             * Stop drawing when flyout is closed
-             */
             'userinterface.ExtensionUpdatedEvent': function (event) {
                 var me = this,
                     isShown = event.getViewState() !== 'close';
@@ -307,31 +303,12 @@ Oskari.clazz.define(
                     // wasn't me or disabled -> do nothing
                     return;
                 } else if (!isShown && me.drawCoverage === false) {
-                    if (me.selectionPlugin) {
-                        me.selectionPlugin.stopDrawing();
-                    }
-                    if (me.coverageButton) {
-                        me.coverageButton.val(me.getLocalization('delimitArea'));
-                        me.coverageButton[0].data = '';
-                    }
-                    me.drawCoverage = true;
-                    var emptyData = {};
-                    me.coverageButton[0].data = "";
-                }
-            },
-
-            /**
-             * @method Search.TabChangedEvent
-             * Stop drawing when tab is changed
-             */
-            'Search.TabChangedEvent': function (event) {
-                var me = this;
-                if (event._previousTabId === 'oskari_metadatacatalogue_tabpanel_header' && me.drawCoverage === false) {
                     me.selectionPlugin.stopDrawing();
                     me.coverageButton.val(me.getLocalization('delimitArea'));
                     me.drawCoverage = true;
+                    document.getElementById('oskari_metadatacatalogue_forminput_searchassistance').focus();
                     var emptyData = {};
-                    me.coverageButton[0].data = "";
+                    me.coverageButton[0].data = '';
                 }
             }
         },
@@ -624,13 +601,13 @@ Oskari.clazz.define(
             }
 
             newRow = me.templates.buttonRow.clone();
-            newLabel = me.getLocalization("searchArea");
+            newLabel = me.getLocalization('searchArea');
             newRow.find('div.rowLabel').append(newLabel);
 
-            newButton = me.templates.metadataButton.clone();
+            var newButton = me.templates.metadataButton.clone();
             this.coverageButton = newButton.find('.metadataCoverageDef');
             this.coverageButton.attr('value', me.getLocalization('delimitArea'));
-            this.coverageButton.attr('name', "coverage");
+            this.coverageButton.attr('name', 'coverage');
             this.drawCoverage = true;
 
             this.coverageButton.on('click', function () {
@@ -640,9 +617,9 @@ Oskari.clazz.define(
                     me.selectionPlugin.stopDrawing();
                     me.coverageButton.val(me.getLocalization('delimitArea'));
                     me.drawCoverage = true;
-                    document.getElementById("oskari_metadatacatalogue_forminput_searchassistance").focus();
+                    document.getElementById('oskari_metadatacatalogue_forminput_searchassistance').focus();
                     var emptyData = {};
-                    me.coverageButton[0].data = "";
+                    me.coverageButton[0].data = '';
                 }
             });
 
@@ -677,14 +654,14 @@ Oskari.clazz.define(
             var mapModule = this.sandbox.findRegisteredModuleInstance('MainMapModule');
 
             var config = {
-                id: "MetaData",
-                enableTransform : true,
+                id: 'MetaData',
+                enableTransform: true
             };
 
             this.selectionPlugin = Oskari.clazz.create('Oskari.mapframework.bundle.featuredata2.plugin.MapSelectionPlugin', config);
             mapModule.registerPlugin(this.selectionPlugin);
             mapModule.startPlugin(this.selectionPlugin);
-            this.selectionPlugin.startDrawing({drawMode: "square"});
+            this.selectionPlugin.startDrawing({drawMode: 'square'});
         },
 
         /**
