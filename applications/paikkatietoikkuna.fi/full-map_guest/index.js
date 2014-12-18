@@ -4,8 +4,9 @@ require.config({
     "oskari": "src/oskari/oskari",
     "oskari-with-app": "src/oskari/oskari-with-app",
     "oskari-with-loader": "src/oskari/oskari-with-loader",
-    "jquery": "libraries/jquery/jquery-1.10.2",
-    "jquery-legacy": "libraries/jquery/jquery-1.7.1.min",
+    //"jquery": "/libraries/jquery/jquery-1.10.2",
+    //"jquery-paikkatietoikkuna": "/mml-2.0-theme/js/pack.js",
+    //"jquery-legacy": "libraries/jquery/jquery-1.7.1.min",
     "jquery-ui": "libraries/jquery/jquery-ui-1.9.2.custom",
     "jquery-cookie": "libraries/jquery/plugins/jquery.cookie",
     "org/cometd": "libraries/cometd/cometd",
@@ -27,7 +28,9 @@ require.config({
     // for their 'jquery' dependency.
     "*": {
       "oskari": "oskari-with-app",
-      "jquery": "jquery-legacy",
+      // don't load any version of jquery so we get the one defined on paikkatietoikkuna/theme-mml
+      //"jquery": "jquery-legacy",
+      //"jquery": "jquery-paikkatietoikkuna",
       "underscore": "lodash",
       // TODO: rename openlayers-default-theme to maplib
       "openlayers-default-theme": "src/mapmodule/ol2/maplib",
@@ -122,40 +125,13 @@ require(["jquery", "oskari-with-app", "domReady"],
             return;
         }
 
-        function getURLParameter(name) {
-            var re = name + '=' + '([^&]*)(&|$)',
-                value = new RegExp(re).exec(location.search);
-            if (value && value.length && value.length > 1) {
-                value = value[1];
-            }
-            if (value) {
-                return decodeURI(value);
-            }
-            return null;
-        }
-
-        // returns empty string if parameter doesn't exist
-        // otherwise returns '<param>=<param value>&'
-        function getAdditionalParam(param) {
-            var value = getURLParameter(param);
-            if (value) {
-                return param + '=' + value + '&';
-            }
-            return '';
-        }
-
         function gfiParamHandler(sandbox) {
-            if (getURLParameter('showGetFeatureInfo') !== 'true') {
+            if (location.search.indexOf('showGetFeatureInfo=true') == -1) {
                 return;
             }
             var lon = sandbox.getMap().getX(),
-                lat = sandbox.getMap().getY(),
-                mapModule = sandbox.findRegisteredModuleInstance('MainMapModule'),
-                px = mapModule.getMap().getViewPortPxFromLonLat({
-                    lon: lon,
-                    lat: lat
-                });
-            sandbox.postRequestByName('MapModulePlugin.GetFeatureInfoRequest', [lon, lat, px.x, px.y]);
+                lat = sandbox.getMap().getY();
+            sandbox.postRequestByName('MapModulePlugin.GetFeatureInfoRequest', [lon, lat]);
         }
 
         // remove host part from url
