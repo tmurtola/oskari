@@ -108,8 +108,8 @@ define("oskari", [
          * @param {Object} config Config
          *
          */
-    Oskari.setConfiguration = function (config) {
-        config.appConfig = config;
+    Oskari.setConfiguration = function (configuration) {
+        config.appConfig = configuration;
     };
 
     /**
@@ -131,7 +131,11 @@ define("oskari", [
      * @return {Object}      Bundle instance configuration
      */
     Oskari.getBundleInstanceConfigurationByName = function (biid) {
-        return Oskari.getConfiguration()[biid];
+        var config = Oskari.getConfiguration();
+        if(!config) {
+            return {};
+        }
+        return config[biid];
     };
 
 
