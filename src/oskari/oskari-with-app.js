@@ -4,14 +4,13 @@
  */
 define([
     "lodash",
-    "oskari",
+    "src/oskari/1.5/oskari-extensions",
     "src/oskari/base/module"
 ], function(_ , Oskari, platform) {
-    alert('jee');
     Oskari.VERSION = "2.1.0"; // Overwrite
 
     var cs = Oskari.clazz;
-
+    Oskari.debug(Oskari.cls, typeof Oskari.cls);
     /* Simplified Application API for Oskari 2.0 */
     var App = Oskari.cls(undefined, function() {
         this.instances = {};

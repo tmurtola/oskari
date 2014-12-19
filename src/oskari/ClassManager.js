@@ -334,7 +334,7 @@ define(function () {
                 e,
                 extnds,
                 superClass;
-
+            
             if (className === null || className === undefined) {
                 throw new TypeError('define(): Missing className');
             }

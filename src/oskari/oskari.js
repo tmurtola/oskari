@@ -17,11 +17,12 @@
  *
  */
 define("oskari", [
+    "lodash",
     "src/oskari/LocaleManager", 
     "src/oskari/ClassManager", 
-    "src/oskari/Oskari2CoreAPI"], function(LocaleManager, ClassManager, O2API) {
+    "src/oskari/BundleManager"], function(_, LocaleManager, ClassManager, BundleManager) {
 
-    var isDebug = false,
+    var isDebug = true,
         hasConsole = window.console && window.console.debug,
         logMsg = function (msg) {
             if (!isDebug) {
@@ -34,50 +35,51 @@ define("oskari", [
             window.console.debug(msg);
 
         };
-    // TODO: BundleManager missing!!
-    var api = O2API(ClassManager, null);
-    var me = {
+    // Add a sequence counter to Oskari
+    var sequences = {};
+    var getSeqNextVal = function(type) {
+        if (!sequences[type]) {
+            sequences[type] = 1;
+        } else {
+            sequences[type] += 1;
+        }
+        return sequences[type];
+    };
+    var Oskari = {
         VERSION : "2.0.0",
         debug : logMsg,
         clazz : {},
-        _baseClassFor : {
-            'bundle' : "Oskari.mapframework.bundle.extension.ExtensionBundle"
-        },
-        cls : api.cls,
-        bundleCls : api.bundleCls
+        getSeqNextVal : getSeqNextVal
     };
 
 
     // Copying all locale functions to Oskari
-    for(var func in LocaleManager) {
-        var value = LocaleManager[func];
+    _.forIn(LocaleManager, function(value, key, object) {
         if(typeof value === 'function') {
-            me[func] = function() {
+            Oskari[key] = function() {
                 return value.apply(LocaleManager,arguments);
             }
         }
-    }
+    });
 
     // Copying all class functions to Oskari
-    for(var func in ClassManager) {
-        var value = ClassManager[func];
+    _.forIn(ClassManager, function(value, key, object) {
         if(typeof value === 'function') {
-            me.clazz[func] = function() {
-                //debugger;
+            Oskari.clazz[key] = function() {
                 return value.apply(ClassManager,arguments);
             }
         }
-    }
-
-        
-    window.Oskari = me;
-    /**
-     * singleton instance of the class system
-     *
-    var clazz_singleton = new ClassManager();
-    var cs = clazz_singleton;
-     */
-    return me;
+    });
+    // Copying all bundle functions to Oskari
+    _.forIn(BundleManager, function(value, key, object) {
+        if(typeof value === 'function') {
+            Oskari[key] = function() {
+                return value.apply(BundleManager, arguments);
+            }
+        }
+    });
+    window.Oskari = Oskari;
+    return Oskari;
 });
 
 
