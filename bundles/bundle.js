@@ -31,7 +31,9 @@
  *
  */
 Oskari = (function () {
-    var isDebug = false,
+    // in non-strict mode this will refer to the global "window" object
+    var global = this,
+        isDebug = false,
         isConsole = window.console && window.console.debug,
         logMsg = function (msg) {
             if (!isDebug) {
@@ -181,12 +183,18 @@ Oskari = (function () {
         getSupportedLanguages: function () {
             var langs = [],
                 locale,
-                i;
+                i,
+                index,
+                lang;
 
             for (i = 0; i < this.supportedLocales.length; i += 1) {
                 locale = this.supportedLocales[i];
-                // FIXME what do if indexOf === -1?
-                langs.push(locale.substring(0, locale.indexOf('_')));
+                index = locale.indexOf('_');
+                lang = locale;
+                if(index !== -1) {
+                    lang = locale.substring(0, index);
+                }
+                langs.push(lang);
             }
             return langs;
         },
@@ -247,7 +255,7 @@ Oskari = (function () {
      * 'dev' adds ?ts=<instTs> parameter to js loads 'default' does not add
      * 'static' assumes srcs are already loaded <any-other> is assumed as a
      * request to load built js packs using this path pattern
-     * .../<bundles-path>/<bundle-name>/build/<any-ohther>.js
+     * .../<bundles-path>/<bundle-name>/build/<any-other>.js
      */
     var supportBundleAsync = false,
         mode = 'dev',

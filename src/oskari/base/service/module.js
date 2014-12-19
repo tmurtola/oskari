@@ -1,5 +1,5 @@
 define([
-	"src/oskari/oskari",
+	"oskari",
 	"./service",
 	"src/mapmodule/base/service/MapLayerService"
 ], function(Oskari) {

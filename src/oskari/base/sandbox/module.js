@@ -1,5 +1,5 @@
 define([
-	"src/oskari/oskari",
+	"oskari",
 // TODO: update or remove duplicate sandbox files, for now let's use the Oskari 1 versions
 /*	"./sandbox",
 	"./sandbox-key-listener-methods",

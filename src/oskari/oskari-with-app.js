@@ -4,9 +4,10 @@
  */
 define([
     "lodash",
-    "src/oskari/oskari",
+    "oskari",
     "src/oskari/base/module"
-], function(_,Oskari, platform) {
+], function(_ , Oskari, platform) {
+    alert('jee');
     Oskari.VERSION = "2.1.0"; // Overwrite
 
     var cs = Oskari.clazz;
