@@ -7,6 +7,7 @@ define(["lodash"], function(_) {
             if (!hasConsole || 
             	!window.console[level] || 
             	!window.console[level].apply) {
+                // maybe gather messages and provide a custom debug console?
                 return;
             }
             window.console[level].apply(window.console, args);
