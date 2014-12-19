@@ -117,7 +117,6 @@ require(["jquery", "oskari-with-app", "domReady"],
      * ... now we have jQuery and Oskari
      */
     function(jQuery, Oskari) {
-        alert('moi');
         if (!ajaxUrl) {
             alert('Ajax URL not set - cannot proceed');
             return;

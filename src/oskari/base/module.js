@@ -6,5 +6,6 @@ define([
 	"./sandbox/module",
 	"./service/module"
 ], function() {
-	alert('asdg')
+	// just loading the files
+	// TODO: refactor to Oskari2-world
 });
