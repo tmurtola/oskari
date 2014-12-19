@@ -46,28 +46,26 @@ define([
 
         rv.loc = function (properties) {
             properties.key = this.___bundleIdentifier;
-            // TODO: LocaleManager
             Oskari.registerLocalization(properties);
             return rv;
         };
 
-        // FIXME instanceId isn't used for anything?
-        rv.start = function (instanceId) {
+        rv.start = function () {
             var bid = this.___bundleIdentifier,
                 bundle,
                 bundleInstance,
                 configProps,
                 ip;
 
-            if (!fcd.bundles[bid]) {
-                bundle = BundleManager.createBundle(bid, bid);
-                fcd.bundles[bid] = bundle;
+            try {
+                bundle = Oskari.createBundle(bid, bid);
+            }
+            catch(e) {
+                Oskari.log.error(e);
             }
 
-            bundleInstance = BundleManager.createInstance(bid);
-            fcd.bundleInstances[bid] = bundleInstance;
-
-            configProps = fcd.getBundleInstanceConfigurationByName(bid);
+            bundleInstance = Oskari.createInstance(bid);
+            configProps = Oskari.getBundleInstanceConfigurationByName(bid);
             if (configProps) {
                 for (ip in configProps) {
                     if (configProps.hasOwnProperty(ip)) {

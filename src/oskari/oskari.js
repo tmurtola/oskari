@@ -33,6 +33,9 @@ define("oskari", [
         }
         return sequences[type];
     };
+    var config = {
+
+    };
     var Oskari = {
         VERSION : "2.0.0",
         clazz : {},
@@ -74,6 +77,64 @@ define("oskari", [
             }
         }
     });
+
+    /**
+     * @public @method setApplicationSetup
+     * Each bundledef is of kind playable by method playBundle. callback:
+     * property may be set to receive some feedback - as well as
+     * registerLoaderStateListener
+     *
+     * @param {Object} setup JSON application setup {
+     * startupSequence: [ <bundledef1>, <bundledef2>, <bundledef3>, ] }
+     *
+     */
+    Oskari.setApplicationSetup = function (setup) {
+        config.appSetup = setup;
+    }
+
+    /**
+     * @public @method getApplicationSetup
+     *
+     *
+     * @return {Object} Application setup
+     */
+    Oskari.getApplicationSetup =  function () {
+        return config.appSetup;
+    };
+
+        /**
+         * @public @method setConfiguration
+         *
+         * @param {Object} config Config
+         *
+         */
+    Oskari.setConfiguration = function (config) {
+        config.appConfig = config;
+    };
+
+    /**
+     * @public @method getConfiguration
+     *
+     *
+     * @return {Object} 
+     */
+    Oskari.getConfiguration =  function () {
+        return config.appConfig;
+    };
+
+    /**
+     * @public @method getBundleInstanceConfigurationByName
+     * Returns configuration for instance by bundleinstancename
+     *
+     * @param  {string} biid Bundle instance ID
+     *
+     * @return {Object}      Bundle instance configuration
+     */
+    Oskari.getBundleInstanceConfigurationByName = function (biid) {
+        return Oskari.getConfiguration()[biid];
+    };
+
+
     window.Oskari = Oskari;
     return Oskari;
 });

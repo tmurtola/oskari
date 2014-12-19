@@ -2,9 +2,8 @@
  * An Oskari bundle registry
  */
 
-define(function() {
+define(["src/oskari/BundleMediator"], function(BundleMediator) {
 
-        var serial = 0;
         var bundleDefinitions = {};
         var sources = {};
         var bundleInstances = {};
@@ -159,6 +158,7 @@ define(function() {
 	        };
 
 	return {
+        
 
 	        /**
 	         * @public @method postChange
@@ -170,6 +170,17 @@ define(function() {
 	         *
 	         */
 	        postChange: postChange,
+	        /**
+	         * @public @method getBundleInstanceByName
+	         * Returns bundle_instance by bundleinstancename defined in player json
+	         *
+	         * @param  {string} biid Bundle instance ID
+	         *
+	         * @return {Object}      Bundle instance 
+	         */
+	        getBundleInstanceByName: function (biid) {
+	            return bundleInstances[biid];
+	        },
 			notifyLoaderStateChanged : function (bundleLoader, finished) {
 	            var i,
 	                callback;
@@ -181,6 +192,121 @@ define(function() {
 	                callback = loaderStateListeners[i];
 	                callback(bundleLoader, finished);
 	            }
+	        },
+	        /**
+	         * @public @method createBundle
+	         * Creates a Bundle (NOTE NOT an instance of bundle)
+	         * implid, bundleid most likely same value
+	         *
+	         * @param  {string} biid Bundle implementation ID
+	         * @param  {string} bid  Bundle ID
+	         *
+	         * @return {Object}      Bundle 
+	         */
+	        createBundle: function (biid, bid) {
+	            var bundle,
+	                bundleDefinition,
+	                me = this,
+	                bundleDefinitionState;
+
+	            if (biid === null || biid === undefined) {
+	                throw new TypeError('createBundle(): Missing biid');
+	            }
+
+	            if (bid === null || bid === undefined) {
+	                throw new TypeError('createBundle(): Missing bid');
+	            }
+
+	            if(bundles[biid]) {
+	                throw new TypeError('createBundle(): Bundle with id ' + biid + ' already exists!');
+	            }
+
+	            bundleDefinitionState = bundleDefinitionStates[biid];
+
+	            if (!bundleDefinitionState) {
+	                throw new Error(
+	                    'createBundle(): Couldn\'t find a definition for' +
+	                        ' bundle ' + biid + '/' + bid +
+	                        ', check spelling and that the bundle has been' +
+	                        ' installed.'
+	                );
+	            }
+	            bundleDefinition = bundleDefinitions[biid];
+	            if (!bundleDefinition) {
+	                Oskari.log.error('this.bundleDefinitions[' + biid + '] is null!');
+	                return;
+	            }
+	            bundle = bundleDefinition(bundleDefinitionState);
+	            bundles[bid] = bundle;
+	            bundleStates[bid] = {
+	                state: true,
+	                bundlImpl: biid
+	            };
+	            postChange(bundle, null, 'bundle_created');
+	            return bundle;
+	        },
+	        /**
+	         * @public @method createInstance
+	         * Creates a bundle instance for previously installed and created bundle
+	         *
+	         * @param  {string} bid Bundle ID
+	         *
+	         * @return {Object}     Bundle instance
+	         */
+	        createInstance: function (bid) {
+	            // creates a bundle_instance
+	            // any configuration and setup IS BUNDLE / BUNDLE INSTANCE specific
+	            // create / config / start / process / stop / destroy ...
+	            var me = this,
+	                bundle,
+	                bundleInstance,
+	                bundleInstanceId;
+
+	            if (bid === null || bid === undefined) {
+	                throw new TypeError('createInstance(): Missing bid');
+	            }
+
+	            if (!bundleStates[bid] ||
+	                    !bundleStates[bid].state) {
+	                throw new Error(
+	                    'createInstance(): Couldn\'t find a definition for' +
+	                        ' bundle ' + bid + ', check spelling' +
+	                        ' and that the bundle has been installed.'
+	                );
+	            }
+
+	            bundle = bundles[bid];
+	            if (bundle === null || bundle === undefined) {
+	                // TODO find out how this could happen, offer a solution
+	                throw new Error(
+	                    'createInstance(): Couldn\'t find bundle with id' + bid
+	                );
+	            }
+
+	            bundleInstance = bundle.create();
+	            if (bundleInstance === null || bundleInstance === undefined) {
+	                throw new Error(
+	                    'createInstance(): Couldn\'t create bundle ' + bid +
+	                        ' instance. Make sure your bundle\'s create function' +
+	                        ' returns the instance.'
+	                );
+	            }
+	            bundleInstanceId = Oskari.getSeqNextVal().toString();
+	            bundleInstance.mediator = new BundleMediator({
+	                bundleId: bid,
+	                instanceid: bundleInstanceId,
+	                state: 'initial',
+	                bundle: bundle,
+	                instance: bundleInstance,
+	                manager: this,
+	                clazz: Oskari.clazz,
+	                requestMediator: {}
+	            });
+
+	            bundleInstances[bundleInstanceId] = bundleInstance;
+
+	            postChange(bundle, bundleInstance, 'instance_created');
+	            return bundleInstance;
 	        },
 	        /**
 	         * @public @method registerLoaderStateListener
