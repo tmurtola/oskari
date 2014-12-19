@@ -1,5 +1,5 @@
 define([
-	"src/oskari/oskari",
+	"oskari",
 	"jquery",
 	"libraries/jquery/jquery-ui-1.9.2.custom-modified",
 	"libraries/jquery/plugins/jquery.base64-modified",
