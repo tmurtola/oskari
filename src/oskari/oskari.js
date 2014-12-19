@@ -18,23 +18,11 @@
  */
 define("oskari", [
     "lodash",
+    "src/oskari/Logger", 
     "src/oskari/LocaleManager", 
     "src/oskari/ClassManager", 
-    "src/oskari/BundleManager"], function(_, LocaleManager, ClassManager, BundleManager) {
+    "src/oskari/BundleManager"], function(_, Logger, LocaleManager, ClassManager, BundleManager) {
 
-    var isDebug = true,
-        hasConsole = window.console && window.console.debug,
-        logMsg = function (msg) {
-            if (!isDebug) {
-                return;
-            }
-
-            if (!hasConsole) {
-                return;
-            }
-            window.console.debug(msg);
-
-        };
     // Add a sequence counter to Oskari
     var sequences = {};
     var getSeqNextVal = function(type) {
@@ -47,11 +35,19 @@ define("oskari", [
     };
     var Oskari = {
         VERSION : "2.0.0",
-        debug : logMsg,
         clazz : {},
+        log : {},
         getSeqNextVal : getSeqNextVal
     };
 
+    // Copying all logger functions to Oskari.log
+    _.forIn(Logger, function(value, key, object) {
+        if(typeof value === 'function') {
+            Oskari.log[key] = function() {
+                return value.apply(Logger,arguments);
+            }
+        }
+    });
 
     // Copying all locale functions to Oskari
     _.forIn(LocaleManager, function(value, key, object) {
@@ -62,7 +58,7 @@ define("oskari", [
         }
     });
 
-    // Copying all class functions to Oskari
+    // Copying all class functions to Oskari.clazz
     _.forIn(ClassManager, function(value, key, object) {
         if(typeof value === 'function') {
             Oskari.clazz[key] = function() {

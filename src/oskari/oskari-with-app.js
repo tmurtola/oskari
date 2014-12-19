@@ -10,7 +10,6 @@ define([
     Oskari.VERSION = "2.1.0"; // Overwrite
 
     var cs = Oskari.clazz;
-    Oskari.debug(Oskari.cls, typeof Oskari.cls);
     /* Simplified Application API for Oskari 2.0 */
     var App = Oskari.cls(undefined, function() {
         this.instances = {};
@@ -105,7 +104,7 @@ define([
             moduleClass.category(props);
             moduleClass.category({
                 create: function() {
-                    console.log("CREATING MODULE INSTANCE ", this.extension, this.identifier, this.locale, this.configuration);
+                    Oskari.log.debug("CREATING MODULE INSTANCE ", this.extension, this.identifier, this.locale, this.configuration);
                     var instance =
                         this.extension.create(this.identifier || '_' + (++defaultIdentifier), this.locale);
 
@@ -117,13 +116,13 @@ define([
                         }
                     }
 
-                    console.log("- INSTANCE", instance, "post conf");
+                    Oskari.log.debug("- INSTANCE", instance, "post conf");
                     return instance;
                 }
 
             });
 
-            console.log("DECLARED MODULE CLASS", moduleClass);
+            Oskari.log.debug("DECLARED MODULE CLASS", moduleClass);
             return moduleClass;
         }
 

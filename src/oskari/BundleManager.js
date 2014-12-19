@@ -65,7 +65,7 @@ define(function() {
 
             if (defState) {
                 defState.state = 1;
-                Oskari.debug('SETTING STATE FOR BUNDLEDEF ' + biid +
+                Oskari.log.debug('SETTING STATE FOR BUNDLEDEF ' + biid +
                     ' existing state to ' + defState.state);
             } else {
                 defState = {
@@ -73,7 +73,7 @@ define(function() {
                 };
 
                 bundleDefinitionStates[biid] = defState;
-                Oskari.debug('SETTING STATE FOR BUNDLEDEF ' + biid +
+                Oskari.log.debug('SETTING STATE FOR BUNDLEDEF ' + biid +
                     ' NEW state to ' + defState.state);
             }
             defState.metadata = bundleMetadata;
@@ -84,7 +84,7 @@ define(function() {
             srcState = bundleSourceStates[biid];
             if (srcState) {
                 if (srcState.state === -1) {
-                    Oskari.debug('Triggering loadBundleSources for ' +
+                    Oskari.log.debug('Triggering loadBundleSources for ' +
                         biid + ' at loadBundleDefinition');
                     // TODO: hook loader?
                     /*
@@ -93,47 +93,43 @@ define(function() {
                     }, 0);
 */
                 } else {
-                    Oskari.debug('Source state for ' + biid +
+                    Oskari.log.debug('Source state for ' + biid +
                         ' at loadBundleDefinition is ' + srcState.state);
                 }
             }
-            me.postChange(null, null, 'bundle_definition_loaded');
+            postChange(null, null, 'bundle_definition_loaded');
         };
 
         /**
-         * @public @method notifyLoaderStateChanged
+         * @private @method _update
+         * Fires any pending bundle or bundle instance triggers
          *
-         * @param {Bundle_loader} bundleLoader Bundle loader
-         * @param {boolean}       finished     Finished
+         * @param {Object} bundle         Bundle
+         * @param {Object} bundleInstance Bundle instance
+         * @param {string} info           Info
          *
          */
-        /*
-        var notifyLoaderStateChanged =  function (bundleLoader, finished) {
-            var i,
-                callback;
+        var _update = function (bundle, bundleInstance, info) {
+            // resolves any bundle dependencies
+            // this must be done before any starts
+            // TO-DO
+            // - bind package exports and imports
+            // - bind event imports and exports
+            // - bind request exports ( and imports)
+            // - bind any Namespaces (== Globals imported )
+            // - fire any pending triggers
+            var me = this,
+                n,
+                t;
 
-            if (loaderStateListeners.length === 0) {
-                return;
-            }
-            for (i = 0; i < loaderStateListeners.length; i += 1) {
-                callback = loaderStateListeners[i];
-                callback(bundleLoader, finished);
+            Oskari.log.debug('Update called with info ' + info);
+
+            for (n = 0; n < triggers.length; n += 1) {
+                t = triggers[n];
+                t.execute(me);
             }
         };
-        */
-
-	return {
-
-	        /**
-	         * @public @method postChange
-	         * Posts a notification to bundles and bundle instances.
-	         *
-	         * @param {Object=} bundle         Bundle
-	         * @param {Object=} bundleInstance Bundle instance
-	         * @param {string}  info           Info
-	         *
-	         */
-	        postChange: function (bundle, bundleInstance, info) {
+       var postChange = function (bundle, bundleInstance, info) {
 	            var me = this,
 	                i,
 	                instance,
@@ -160,7 +156,20 @@ define(function() {
 	                    }
 	                }
 	            }
-	        },
+	        };
+
+	return {
+
+	        /**
+	         * @public @method postChange
+	         * Posts a notification to bundles and bundle instances.
+	         *
+	         * @param {Object=} bundle         Bundle
+	         * @param {Object=} bundleInstance Bundle instance
+	         * @param {string}  info           Info
+	         *
+	         */
+	        postChange: postChange,
 			notifyLoaderStateChanged : function (bundleLoader, finished) {
 	            var i,
 	                callback;
