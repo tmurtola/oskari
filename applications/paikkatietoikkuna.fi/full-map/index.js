@@ -125,30 +125,8 @@ require(["jquery", "oskari-with-app", "domReady"],
             return;
         }
 
-        function getURLParameter(name) {
-            var re = name + '=' + '([^&]*)(&|$)',
-                value = new RegExp(re).exec(location.search);
-            if (value && value.length && value.length > 1) {
-                value = value[1];
-            }
-            if (value) {
-                return decodeURI(value);
-            }
-            return null;
-        }
-
-        // returns empty string if parameter doesn't exist
-        // otherwise returns '<param>=<param value>&'
-        function getAdditionalParam(param) {
-            var value = getURLParameter(param);
-            if (value) {
-                return param + '=' + value + '&';
-            }
-            return '';
-        }
-
         function gfiParamHandler(sandbox) {
-            if (getURLParameter('showGetFeatureInfo') !== 'true') {
+            if (Oskari.getURLParameter('showGetFeatureInfo') !== 'true') {
                 return;
             }
             var lon = sandbox.getMap().getX(),
