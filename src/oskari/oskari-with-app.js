@@ -5,8 +5,9 @@
 define([
     "lodash",
     "src/oskari/1.5/oskari-extensions",
+    "src/oskari/compatibility/dollar",
     "src/oskari/base/module"
-], function(_ , Oskari, platform) {
+], function(_ , Oskari) {
     Oskari.VERSION = "2.1.0"; // Overwrite
 
     var cs = Oskari.clazz;
