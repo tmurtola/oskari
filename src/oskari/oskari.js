@@ -24,12 +24,14 @@ define("oskari", [
     "src/oskari/BundleManager",
     "src/oskari/SequenceHelper"], function(_, Logger, LocaleManager, ClassManager, BundleManager, SeqHelper) {
 
-    var config = {};
+    var config = {
+        contexts : {} 
+    };
     var Oskari = {
         VERSION : "2.0.0",
         clazz : {},
         log : {},
-        getSeqNextVal : SeqHelper.getSeqNextVal
+        getSeqNextVal : SeqHelper.getNextVal
     };
 
     // Copying all logger functions to Oskari.log
@@ -127,6 +129,41 @@ define("oskari", [
         return config[biid];
     };
 
+    /**
+     * @public @static @method Oskari.getSandbox
+     * @param  {string=} sandboxName Sandbox name, defaults to 'sandbox'
+     * @return {Object}              Sandbox
+     */
+    Oskari.getSandbox = function (sandboxName) {
+        var name = sandboxName || 'sandbox';
+        return config.contexts[name];
+    };
+
+    /**
+     * @public @static @method Oskari.setSandbox
+     *
+     * @param  {string=} sandboxName Sandbox name, defaults to 'sandbox'
+     * @param  {Object}  sandbox     Sandbox
+     * @return
+     */
+    Oskari.setSandbox = function (sandboxName, sandbox) {
+
+        var name = sandboxName || 'sandbox';
+        config.contexts[name] = sandbox;
+        return config.contexts[name];
+    };
+
+    Oskari.getURLParameter =  function (name) {
+        var re = name + '=' + '([^&]*)(&|$)',
+            value = new RegExp(re).exec(location.search);
+        if (value && value.length && value.length > 1) {
+            value = value[1];
+        }
+        if (value) {
+            return decodeURI(value);
+        }
+        return null;
+    };
 
     window.Oskari = Oskari;
     return Oskari;

@@ -1,7 +1,7 @@
 define(function() {
     // Add a sequence counter to Oskari
     var sequences = {};
-    var getSeqNextVal = function(type) {
+    var getNextVal = function(type) {
         if (!sequences[type]) {
             sequences[type] = 1;
         } else {
@@ -10,6 +10,6 @@ define(function() {
         return sequences[type];
     };
     return {
-        getSeqNextVal : getSeqNextVal
+        getNextVal : getNextVal
     }
 });
