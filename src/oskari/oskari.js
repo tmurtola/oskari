@@ -21,26 +21,15 @@ define("oskari", [
     "src/oskari/Logger", 
     "src/oskari/LocaleManager", 
     "src/oskari/ClassManager", 
-    "src/oskari/BundleManager"], function(_, Logger, LocaleManager, ClassManager, BundleManager) {
+    "src/oskari/BundleManager",
+    "src/oskari/SequenceHelper"], function(_, Logger, LocaleManager, ClassManager, BundleManager, SeqHelper) {
 
-    // Add a sequence counter to Oskari
-    var sequences = {};
-    var getSeqNextVal = function(type) {
-        if (!sequences[type]) {
-            sequences[type] = 1;
-        } else {
-            sequences[type] += 1;
-        }
-        return sequences[type];
-    };
-    var config = {
-
-    };
+    var config = {};
     var Oskari = {
         VERSION : "2.0.0",
         clazz : {},
         log : {},
-        getSeqNextVal : getSeqNextVal
+        getSeqNextVal : SeqHelper.getSeqNextVal
     };
 
     // Copying all logger functions to Oskari.log
