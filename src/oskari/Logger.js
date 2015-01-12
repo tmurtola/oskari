@@ -3,7 +3,7 @@ define(["lodash"], function(_) {
     var isDebug = false,
         includeCaller = false,
         hasConsole = window.console;
-    var logMsg = function (args, callee) {
+    var _logMsg = function (args, callee) {
         	var level = args.shift();
             if (!hasConsole || 
             	!window.console[level] || 
@@ -17,7 +17,7 @@ define(["lodash"], function(_) {
             window.console[level].apply(window.console, args);
         };
 
-    var unshift = function(addToFirst, list) {
+    var _unshift = function(addToFirst, list) {
   		var args = Array.prototype.slice.call(list);
   		args.unshift(addToFirst);
     	return args;
@@ -39,18 +39,18 @@ define(["lodash"], function(_) {
         if(!isDebug) {
             return;
         }
-        var newArgs = unshift('debug', arguments);
-        logMsg(newArgs, arguments.callee);
+        var newArgs = _unshift('debug', arguments);
+        _logMsg(newArgs, arguments.callee);
     };
 
     Logger.prototype.warn =  function() {
-        var newArgs = unshift('warn', arguments);
-        logMsg(newArgs, arguments.callee);
+        var newArgs = _unshift('warn', arguments);
+        _logMsg(newArgs, arguments.callee);
     };
 
     Logger.prototype.error =  function() {
-        var newArgs = unshift('error', arguments);
-        logMsg(newArgs, arguments.callee);
+        var newArgs = _unshift('error', arguments);
+        _logMsg(newArgs, arguments.callee);
     };
 
     return Logger;
