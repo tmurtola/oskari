@@ -3,7 +3,7 @@
  */
 
 define(["src/oskari/Logger"], function(Logger) {
-
+    var log = new Logger('LocaleManager');
     var _getLangFromLocale = function(locale) {
         if(!locale) {
             // if no locale, default to default language
@@ -36,11 +36,11 @@ define(["src/oskari/Logger"], function(Logger) {
             }
             if(!_localizations[_lang]) {
                 _localizations[_lang] = {};
-                Logger.warn("Requested localization missing for lang " + _lang);
+                log.warn("Requested localization missing for lang " + _lang);
             }
             var value = _localizations[_lang][key];
             if(!value) {
-                Logger.warn("Localization missing for key " + key);
+                log.warn("Localization missing for key " + key);
             }
             return value;
         },
@@ -138,7 +138,7 @@ define(["src/oskari/Logger"], function(Logger) {
                 );
 
             if (separators.length > 1) {
-                Logger.warn('Found more than one separator for ' + this.getLang());
+                log.warn('Found more than one separator for ' + this.getLang());
             }
 
             if (separators.length && separators[0]) {

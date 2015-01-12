@@ -30,18 +30,9 @@ define("oskari", [
     var Oskari = {
         VERSION : "2.0.0",
         clazz : {},
-        log : {},
+        log : new Logger("Oskari"),
         getSeqNextVal : SeqHelper.getNextVal
     };
-
-    // Copying all logger functions to Oskari.log
-    _.forIn(Logger, function(value, key, object) {
-        if(typeof value === 'function') {
-            Oskari.log[key] = function() {
-                return value.apply(Logger,arguments);
-            }
-        }
-    });
 
     // Copying all locale functions to Oskari
     _.forIn(LocaleManager, function(value, key, object) {
@@ -147,7 +138,6 @@ define("oskari", [
      * @return
      */
     Oskari.setSandbox = function (sandboxName, sandbox) {
-
         var name = sandboxName || 'sandbox';
         config.contexts[name] = sandbox;
         return config.contexts[name];
