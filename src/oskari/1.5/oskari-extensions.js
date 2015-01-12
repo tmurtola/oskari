@@ -3,6 +3,8 @@ define([
     "oskari",
     "src/oskari/1.5/ModuleSpec"
 ], function(Oskari, ModuleSpec) {
+
+    Oskari.VERSION = '1.5.0';
     // ModuleSpec registers itself as Oskari-class, so Oskari.clazz.create('Oskari.ModuleSpec') will work
     var baseClassFor = {
     	'bundle' : "Oskari.mapframework.bundle.extension.ExtensionBundle"
@@ -66,7 +68,7 @@ define([
 
             bundleInstance = Oskari.createInstance(bid, instanceId);
             var configName = instanceId || bid;
-            configProps = Oskari.getBundleInstanceConfigurationByName(configName);
+            configProps = Oskari.getBundleConfig(configName);
             if (configProps) {
                 for (ip in configProps) {
                     if (configProps.hasOwnProperty(ip)) {

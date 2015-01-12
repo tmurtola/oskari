@@ -64,6 +64,6 @@ define([
     return Oskari.bundleCls("myplaces2").category({create: function () {
         return Oskari.clazz.create("Oskari.mapframework.bundle.myplaces2.MyPlacesBundleInstance");
     },update: function (manager, bundle, bi, info) {
-        manager.alert("RECEIVED update notification " + info);
+        //manager.alert("RECEIVED update notification " + info);
     }})
 });

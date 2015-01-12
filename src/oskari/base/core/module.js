@@ -3,7 +3,7 @@
  * TODO: move files from sources here and use packages to include correct files in phase 2 of the transition
  */
 
-define(["oskari",
+define(["src/oskari/1.5/oskari-extensions",
 	"sources/framework/core/core",
 	"sources/framework/core/core-enhancement-methods",
 	"sources/framework/core/core-key-listener-methods",

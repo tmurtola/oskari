@@ -1,5 +1,5 @@
 define([
-	"oskari",
+	"src/oskari/1.5/oskari-extensions",
 	"./event",
 	"./common/features-available-event",
 	"./common/after-map-layer-add-event",

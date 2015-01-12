@@ -22,17 +22,22 @@ define("oskari", [
     "src/oskari/LocaleManager", 
     "src/oskari/ClassManager", 
     "src/oskari/BundleManager",
-    "src/oskari/SequenceHelper"], function(_, Logger, LocaleManager, ClassManager, BundleManager, SeqHelper) {
+    "src/oskari/SequenceHelper",
+    "src/oskari/compatibility/globals"], function(_, Logger, LocaleManager, ClassManager, BundleManager, SeqHelper, globalsFunc) {
 
     var config = {
         contexts : {} 
     };
     var Oskari = {
-        VERSION : "2.0.0",
+        VERSION : "1.0.0",
         clazz : {},
         log : new Logger("Oskari"),
         getSeqNextVal : SeqHelper.getNextVal
     };
+
+    // TODO: remove Oskari.$
+    // add Oskari.$ for deprecated backwards compatibility
+    Oskari.$ = globalsFunc;
 
     // Copying all locale functions to Oskari
     _.forIn(LocaleManager, function(value, key, object) {
@@ -71,7 +76,10 @@ define("oskari", [
      *
      */
     Oskari.setApplicationSetup = function (setup) {
+        setup = setup || {};
+        setup.startupSequence = setup.startupSequence || [];
         config.appSetup = setup;
+        return this;
     }
 
     /**
@@ -81,6 +89,9 @@ define("oskari", [
      * @return {Object} Application setup
      */
     Oskari.getApplicationSetup =  function () {
+        if(!config.appSetup) {
+            config.appSetup = { startupSequence : [] };
+        }
         return config.appSetup;
     };
 
@@ -91,7 +102,8 @@ define("oskari", [
          *
          */
     Oskari.setConfiguration = function (configuration) {
-        config.appConfig = configuration;
+        config.appConfig = configuration || {};
+        return this;
     };
 
     /**
@@ -101,23 +113,20 @@ define("oskari", [
      * @return {Object} 
      */
     Oskari.getConfiguration =  function () {
-        return config.appConfig;
+        return config.appConfig || {};
     };
 
     /**
-     * @public @method getBundleInstanceConfigurationByName
+     * @public @method getBundleConfig
      * Returns configuration for instance by bundleinstancename
      *
      * @param  {string} biid Bundle instance ID
      *
      * @return {Object}      Bundle instance configuration
      */
-    Oskari.getBundleInstanceConfigurationByName = function (biid) {
+    Oskari.getBundleConfig = function (biid) {
         var config = Oskari.getConfiguration();
-        if(!config) {
-            return {};
-        }
-        return config[biid];
+        return config[biid] || {};
     };
 
     /**

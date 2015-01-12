@@ -1,4 +1,4 @@
-define(["oskari",
+define(["src/oskari/1.5/oskari-extensions",
 	"src/mapmodule/base/model/AbstractMapLayerModel",
 	"src/mapmodule/base/model/VectorLayerModel",
 	"src/mapmodule/base/model/WMSLayerModel",

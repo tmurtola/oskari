@@ -579,7 +579,7 @@ define(['src/oskari/oskari', 'jquery', 'exports', 'css'], function(Oskari, $, ex
                         me.bundleInstances[bundleid] = bi;
 
 // Refactored to remove unnecessary facade call for easier code flow following
-//                        var configProps = me.getBundleInstanceConfigurationByName(bundleid);
+//                        var configProps = me.getBundleConfig(bundleid);
                         var configProps = me.appConfig[bundleid];
                         if (configProps) {
                             for (ip in configProps) {
@@ -597,7 +597,7 @@ define(['src/oskari/oskari', 'jquery', 'exports', 'css'], function(Oskari, $, ex
                         yy[ip] = instanceProps[ip];
                     }
 
-                    var configProps = me.getBundleInstanceConfigurationByName(bundleinstancename);
+                    var configProps = me.getBundleConfig(bundleinstancename);
                     if (configProps) {
                         for (ip in configProps) {
                             yy[ip] = configProps[ip];

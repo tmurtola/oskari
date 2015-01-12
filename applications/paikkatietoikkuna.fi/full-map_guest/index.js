@@ -102,7 +102,7 @@ require.config({
     },
     "backbone": {
       exports: "Backbone",
-      deps: ['jquery', 'underscore']
+      deps: ['jquery', 'lodash']
     },
     "lodash": {
       exports: "_"

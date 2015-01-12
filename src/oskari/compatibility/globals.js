@@ -1,7 +1,5 @@
 
-define([
-    "oskari"
-], function(Oskari) {
+define(function() {
     var globals = {};
 
     /**
@@ -12,7 +10,7 @@ define([
      *
      * @return value of key or all "globals" if not specified
      */
-    Oskari.$ = function (key, value) {
+    var globalsFunc = function (key, value) {
         if (key === undefined) {
             return globals;
         }
@@ -21,5 +19,6 @@ define([
         }
         return globals[key];
     };
-    return Oskari;
+
+    return globalsFunc;
 });

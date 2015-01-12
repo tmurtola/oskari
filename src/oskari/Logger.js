@@ -1,6 +1,6 @@
 define(["lodash"], function(_) {
 
-    var isDebug = true,
+    var isDebug = false,
         includeCaller = false,
         hasConsole = window.console;
     var logMsg = function (args, callee) {

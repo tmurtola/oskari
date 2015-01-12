@@ -1,5 +1,5 @@
 define([
-	"oskari", 
+	"src/oskari/1.5/oskari-extensions", 
 	"./request",
 	"./common/add-map-layer-request",
 	"./common/remove-map-layer-request",

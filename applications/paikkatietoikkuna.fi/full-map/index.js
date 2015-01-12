@@ -3,7 +3,7 @@ require.config({
   paths: { // some path shortcuts to ease declarations
     "oskari": "src/oskari/oskari",
     "oskari-with-app": "src/oskari/oskari-with-app",
-    "oskari-with-loader": "src/oskari/oskari-with-loader",
+    //"oskari-with-loader": "src/oskari/oskari-with-loader",
     //"jquery": "/libraries/jquery/jquery-1.10.2",
     //"jquery-paikkatietoikkuna": "/mml-2.0-theme/js/pack.js",
     //"jquery-legacy": "libraries/jquery/jquery-1.7.1.min",
@@ -27,7 +27,6 @@ require.config({
     // '*' means all modules will get 'jquery-migrate'
     // for their 'jquery' dependency.
     "*": {
-      "oskari": "oskari-with-app",
       // don't load any version of jquery so we get the one defined on paikkatietoikkuna/theme-mml
       //"jquery": "jquery-legacy",
       //"jquery": "jquery-paikkatietoikkuna",
@@ -95,12 +94,15 @@ require.config({
     "jquery-cometd": {
       deps: ['org/cometd']
     },
+    "oskari-with-app": {
+      deps: ['oskari']
+    },
     "oskari": {
       exports: "Oskari"
     },
     "backbone": {
       exports: "Backbone",
-      deps: ['jquery', 'underscore']
+      deps: ['jquery', 'lodash']
     },
     "lodash": {
       exports: "_"
@@ -115,28 +117,23 @@ require(["jquery", "oskari-with-app", "domReady"],
      * ... now we have jQuery and Oskari
      */
     function(jQuery, Oskari) {
+        if (!ajaxUrl) {
+            alert('Ajax URL not set - cannot proceed');
+            return;
+        }
         var getAppSetupParams = {},
             key,
             hostIdx,
             pathIdx;
 
-        if (!ajaxUrl) {
-            alert('Ajax URL not set - cannot proceed');
-            return;
-        }
 
         function gfiParamHandler(sandbox) {
-            if (Oskari.getURLParameter('showGetFeatureInfo') !== 'true') {
+            if (location.search.indexOf('showGetFeatureInfo=true') == -1) {
                 return;
             }
             var lon = sandbox.getMap().getX(),
-                lat = sandbox.getMap().getY(),
-                mapModule = sandbox.findRegisteredModuleInstance('MainMapModule'),
-                px = mapModule.getMap().getViewPortPxFromLonLat({
-                    lon: lon,
-                    lat: lat
-                });
-            sandbox.postRequestByName('MapModulePlugin.GetFeatureInfoRequest', [lon, lat, px.x, px.y]);
+                lat = sandbox.getMap().getY();
+            sandbox.postRequestByName('MapModulePlugin.GetFeatureInfoRequest', [lon, lat]);
         }
 
         // remove host part from url
