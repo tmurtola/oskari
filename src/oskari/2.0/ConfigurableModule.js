@@ -35,5 +35,5 @@ define(["src/oskari/1.5/oskari-extensions"], function(Oskari) {
         }
 
     });
-	return ConfigurableModule;
+    return ConfigurableModule;
 });

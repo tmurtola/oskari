@@ -14,7 +14,7 @@ define(["src/oskari/1.5/oskari-extensions"], function(Oskari) {
      *   var enhancedObj = objCls.create({ 'prop' : 'new value' });
      *   enhancedObj.funk();
      */ 
-    var oskariObj = Oskari.cls('Oskari.Object',function(instanceProps) {
+    var oskariObj = Oskari.cls('Oskari.Object' ,function(instanceProps) {
         for (ip in instanceProps) {
             if (instanceProps.hasOwnProperty(ip)) {
                  this[ip] = instanceProps[ip];

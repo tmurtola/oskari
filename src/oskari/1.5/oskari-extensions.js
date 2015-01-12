@@ -1,8 +1,15 @@
-
+/**
+ * Defines an Oskari class 'Oskari.ModuleSpec' for Oskari and adds convenience functions:
+ * - bundleCls: shorthand for creating bundle classes (replacement for /Oskari/packages/.../bundle.js-files)
+ * - cls: shortcut for adding Oskari classes (Oskari.clazz.define)
+ * @param  {Object} Oskari      Baseline Oskari implementation
+ * @param  {Null} ModuleSpec    Registers 'Oskari.ModuleSpec' which is used in this file
+ * @return {Object}             Oskari with 1.5 modifications
+ */
 define([
     "oskari",
     "src/oskari/1.5/ModuleSpec"
-], function(Oskari, ModuleSpec) {
+], function(Oskari) {
 
     Oskari.VERSION = '1.5.0';
     // ModuleSpec registers itself as Oskari-class, so Oskari.clazz.create('Oskari.ModuleSpec') will work
