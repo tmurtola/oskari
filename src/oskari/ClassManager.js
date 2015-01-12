@@ -3,12 +3,10 @@
  */
 
 define(function () {
-    var packages = {},
-        protocols = {},
-        inheritance = {},
-        aspects = {},
-        classcache = {},
-        globals = {};
+    var _packages = {},
+        _protocols = {},
+        _inheritance = {},
+        _classcache = {};
 
     /**
      * @private @method _getPackageDefinition
@@ -18,11 +16,11 @@ define(function () {
      * @return {Object}             Package definition 
      */
     var _getPackageDefinition = function (packageName) {
-        var packageDefinition = packages[packageName];
+        var packageDefinition = _packages[packageName];
 
         if (!packageDefinition) {
             packageDefinition = {};
-            packages[packageName] = packageDefinition;
+            _packages[packageName] = packageDefinition;
         }
         return packageDefinition;
     };
@@ -53,14 +51,14 @@ define(function () {
          * @return {Object}           ClassInfo
          */
         var _getClassInfo = function (className) {
-            var classInfo = classcache[className],
+            var classInfo = _classcache[className],
                 classQName = _getClassQName(className),
                 packageDefinition;
 
             if (!classInfo) {
                 packageDefinition = _getPackageDefinition(classQName.pkg);
                 classInfo = packageDefinition[classQName.sp];
-                classcache[className] = classInfo;
+                _classcache[className] = classInfo;
             }
             return classInfo;
         };
@@ -128,10 +126,10 @@ define(function () {
             if (protocols) {
                 for (p = 0; p < protocols.length; p += 1) {
                     pt = protocols[p];
-                    if (!protocols[pt]) {
-                        protocols[pt] = {};
+                    if (!_protocols[pt]) {
+                        _protocols[pt] = {};
                     }
-                    protocols[pt][className] = classInfo;
+                    _protocols[pt][className] = classInfo;
                 }
             }
         };
@@ -250,24 +248,6 @@ define(function () {
             return classInfo;
         };
 
-        /**
-         * @private @method _global
-         *
-         * @param {string} key   Key
-         * @param          value Value       
-         *
-         * @return 
-         */
-        var _global = function (key, value) {
-            if (key === undefined) {
-                return globals;
-            }
-            if (value !== undefined) {
-                globals[key] = value;
-            }
-            return globals[key];
-        };
-
     return {
 
         /**
@@ -289,7 +269,7 @@ define(function () {
             if (protocolName === null || protocolName === undefined) {
                 throw new TypeError('protocol(): Missing protocolName');
             }
-            return protocols[protocolName];
+            return _protocols[protocolName];
         },
 
         /**
@@ -370,7 +350,7 @@ define(function () {
                 };
                 classDefinition.prototype._ = classInfo;
                 classDefinition.prototype._super = _super;
-                inheritance[className] = composition;
+                _inheritance[className] = composition;
                 packageDefinition[classQName.sp] = classInfo;
             }
             // update constrcutor
@@ -453,7 +433,7 @@ define(function () {
                 };
                 classDefinition.prototype._ = classInfo;
                 classDefinition.prototype._super = _super;
-                inheritance[className] = composition;
+                _inheritance[className] = composition;
                 packageDefinition[classQName.sp] = classInfo;
             }
             prot = classInfo._class.prototype;
@@ -503,7 +483,7 @@ define(function () {
                     _category: {},
                     _composition: composition
                 };
-                inheritance[className] = composition;
+                _inheritance[className] = composition;
                 packageDefinition[classQName.sp] = classInfo;
             }
             return classInfo;
