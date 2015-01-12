@@ -30,7 +30,7 @@ require.config({
       // don't load any version of jquery so we get the one defined on paikkatietoikkuna/theme-mml
       //"jquery": "jquery-legacy",
       //"jquery": "jquery-paikkatietoikkuna",
-      "underscore": "lodash",
+      //"underscore": "lodash",
       // TODO: rename openlayers-default-theme to maplib
       "openlayers-default-theme": "src/mapmodule/ol2/maplib",
       "mapfull": "src/mapmodule/ol2/module",

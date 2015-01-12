@@ -14,6 +14,13 @@
 
 
 define(['src/oskari/oskari', 'jquery', 'exports', 'css'], function(Oskari, $, exports) {
+
+
+
+// !!!! FIXME: !!!! TODO: !!!! This has not been tested after oskari2 modularization and propably will not work correctly!!!!
+
+
+
     Oskari.VERSION = "1.15"; // Overwrite
 
     var instTs = new Date().getTime();
