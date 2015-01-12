@@ -158,6 +158,3 @@ define("oskari", [
     window.Oskari = Oskari;
     return Oskari;
 });
-
-
-
