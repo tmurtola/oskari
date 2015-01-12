@@ -218,7 +218,9 @@ define(["src/oskari/BundleMediator"], function(BundleMediator) {
 	            }
 
 	            if(bundles[biid]) {
-	                throw new TypeError('createBundle(): Bundle with id ' + biid + ' already exists!');
+	            	Oskari.log.warn('createBundle(): Bundle with id ' + biid + ' already exists!');
+	            	return null;
+	                //throw new TypeError();
 	            }
 
 	            bundleDefinitionState = bundleDefinitionStates[biid];
@@ -257,7 +259,6 @@ define(["src/oskari/BundleMediator"], function(BundleMediator) {
 	            // creates a bundle_instance
 	            // any configuration and setup IS BUNDLE / BUNDLE INSTANCE specific
 	            // create / config / start / process / stop / destroy ...
-	            Oskari.log.debug("createInstance", bid);
 	            var me = this,
 	                bundle,
 	                bundleInstance,
