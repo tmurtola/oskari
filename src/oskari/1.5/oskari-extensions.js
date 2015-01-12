@@ -50,7 +50,7 @@ define([
             return rv;
         };
 
-        rv.start = function () {
+        rv.start = function (instanceId) {
             var bid = this.___bundleIdentifier,
                 bundle,
                 bundleInstance,
@@ -64,8 +64,9 @@ define([
                 Oskari.log.error(e);
             }
 
-            bundleInstance = Oskari.createInstance(bid);
-            configProps = Oskari.getBundleInstanceConfigurationByName(bid);
+            bundleInstance = Oskari.createInstance(bid, instanceId);
+            var configName = instanceId || bid;
+            configProps = Oskari.getBundleInstanceConfigurationByName(configName);
             if (configProps) {
                 for (ip in configProps) {
                     if (configProps.hasOwnProperty(ip)) {

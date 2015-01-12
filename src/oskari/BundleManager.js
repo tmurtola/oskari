@@ -253,10 +253,11 @@ define(["src/oskari/BundleMediator"], function(BundleMediator) {
 	         *
 	         * @return {Object}     Bundle instance
 	         */
-	        createInstance: function (bid) {
+	        createInstance: function (bid, instanceId) {
 	            // creates a bundle_instance
 	            // any configuration and setup IS BUNDLE / BUNDLE INSTANCE specific
 	            // create / config / start / process / stop / destroy ...
+	            Oskari.log.debug("createInstance", bid);
 	            var me = this,
 	                bundle,
 	                bundleInstance,
@@ -291,7 +292,7 @@ define(["src/oskari/BundleMediator"], function(BundleMediator) {
 	                        ' returns the instance.'
 	                );
 	            }
-	            bundleInstanceId = Oskari.getSeqNextVal().toString();
+	            bundleInstanceId = instanceId || Oskari.getSeqNextVal().toString();
 	            bundleInstance.mediator = new BundleMediator({
 	                bundleId: bid,
 	                instanceid: bundleInstanceId,
