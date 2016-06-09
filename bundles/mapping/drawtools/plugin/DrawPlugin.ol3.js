@@ -151,7 +151,7 @@ Oskari.clazz.define(
             if(options.modifyControl !== false) {
                 me.addModifyInteraction(me._layerId, shape, options);
             }
-//          me.reportDrawingEvents();
+            //me.reportDrawingEvents();
         },
         /**
          * @method stopDrawing
@@ -166,6 +166,9 @@ Oskari.clazz.define(
                 clearCurrent: clearCurrent,
                 isFinished: true
             };
+            if(me._sketch) {
+                jQuery('.' + me._sketch.getId()).remove();
+            }
             if(me._functionalityIds[id]) {
                 me.sendDrawingEvent(id, options);
                 //deactivate draw and modify controls
@@ -401,6 +404,7 @@ Oskari.clazz.define(
                 if(options.modifyControl !== false) {
                     me.addModifyInteraction(me._layerId, shape, options);
                 }
+                me._sketch = null;
             });
         },
          /**
@@ -457,7 +461,7 @@ Oskari.clazz.define(
                 if(me._options.showMeasureOnMap && tooltipCoord) {
                     me._map.getOverlays().forEach(function (o) {
                       if(o.id === me._sketch.getId()) {
-                          var ii = jQuery('div.' + me._tooltipClassForMeasure + "." + me._sketch.getId());
+                          var ii = jQuery('div.' + me._tooltipClassForMeasure + "." +  me._sketch.getId());
                           ii.html(output);
                           o.setPosition(tooltipCoord);
                       }
@@ -659,7 +663,7 @@ Oskari.clazz.define(
             }
 
             if(me._draw[me._id]) {
-                me._draw.on('drawstart', function() {
+                me._draw[me._id].on('drawstart', function() {
                     console.log("drawstart");
                 });
                 me._draw[me._id].on('drawend', function() {
