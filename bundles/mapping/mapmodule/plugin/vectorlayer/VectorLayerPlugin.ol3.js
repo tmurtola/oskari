@@ -287,13 +287,12 @@ Oskari.clazz.define(
         /**
          * @method addFeaturesToMap
          * @public
-         * Add feature on the map or update feature style
+         * Add feature on the map
          *
-         * @param {Object} geometry:
-         *                      - the geometry WKT string or GeoJSON object (for adding new feature)
-         *                      - object with feature's property name and its value like {'id': 'feature1'} (for updating style)
+         * @param {Object} geometry the geometry WKT string or GeoJSON object
          * @param {Object} options additional options
          */
+
         addFeaturesToMap: function(geometry, options) {
             var me = this,
                 geometryType = me._getGeometryType(geometry),
@@ -310,12 +309,6 @@ Oskari.clazz.define(
                 return;
             }
 
-            if(geometryType !== 'GeoJSON' && typeof geometry === 'object') {
-                for(var key in geometry) {
-                    me._updateFeature(options, key, geometry[key]);
-                }
-                return;
-            }
             options = options || {};
             // if there's no layerId provided -> Just use a generic vector layer for all.
             if (!options.layerId) {
@@ -472,48 +465,6 @@ Oskari.clazz.define(
                     if (currentScale < options.minScale) {
                         this.getMapModule().zoomToScale(options.minScale, true);
                     }
-                }
-            }
-        },
-         /**
-         * @method _updateFeature
-         * @public
-         * Updates feature's style
-         *
-         * @param {Object} options additional options
-         * @param {String} propertyName
-         * @param {String} value
-         */
-        _updateFeature: function(options, propertyName, value) {
-            var layers = {layer: options.layerId};
-            var features = {};
-            features[propertyName] = [value];
-            var featuresMatchingQuery = this.getFeaturesMatchingQuery(layers, features);
-            var feature = featuresMatchingQuery[0];
-            if(feature) {
-                if(options.featureStyle) {
-                   this.setupFeatureStyle(options, feature);
-                }
-                var formatter = this._supportedFormats['GeoJSON'];
-                var addEvent = this.getSandbox().getEventBuilder('FeatureEvent')().setOpAdd();
-                var errorEvent = this.getSandbox().getEventBuilder('FeatureEvent')().setOpError('feature has no geometry');
-                var highlighted = feature.get('highlighted');
-                if(highlighted){
-                    feature.set('highlighted', false);
-                } else {
-                    feature.set('highlighted', true);
-                }
-                var geojson = formatter.writeFeaturesObject([feature]);
-                var event = addEvent;
-                if(!feature.getGeometry()) {
-                    event = errorEvent;
-                }
-                event.addFeature(feature.getId(), geojson, options.layerId);
-                if(errorEvent.hasFeatures()) {
-                    this.getSandbox().notifyAll(errorEvent);
-                }
-                if(addEvent.hasFeatures()) {
-                    this.getSandbox().notifyAll(addEvent);
                 }
             }
         },
