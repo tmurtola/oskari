@@ -316,7 +316,6 @@ Oskari.clazz.define(
                 }
                 return;
             }
-
             options = options || {};
             // if there's no layerId provided -> Just use a generic vector layer for all.
             if (!options.layerId) {
