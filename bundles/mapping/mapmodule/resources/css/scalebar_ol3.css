@@ -10,7 +10,7 @@ div.mapplugin.scalebar {
   border-bottom: 2px solid #000000;
   border-right: 2px solid #000000; }
   div.mapplugin.scalebar div.ol-scale-line div.ol-scale-line-inner {
-    padding: 2px; }
+    padding: 0px; }
   div.mapplugin.scalebar div {
     background-color: rgba(255, 255, 255, 0.2);
     direction: ltr;
