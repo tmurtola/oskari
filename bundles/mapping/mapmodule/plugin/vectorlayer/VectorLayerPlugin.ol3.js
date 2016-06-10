@@ -73,8 +73,7 @@ Oskari.clazz.define(
         },
 
         /**
-         * @method  @private _createConfiguredLayers Create configured layers an their
-styles
+         * @method  @private _createConfiguredLayers Create configured layers an their styles
          */
         _createConfiguredLayers: function() {
             var me = this,
@@ -126,16 +125,13 @@ styles
             };
         },
         /**
-         * Find features from layers controlled by vectorlayerplugin and handle clicks
-for all those features
-         * @param  {Oskari.mapframework.bundle.mapmodule.event.MapClickedEvent} event
-[description]
+         * Find features from layers controlled by vectorlayerplugin and handle clicks for all those features
+         * @param  {Oskari.mapframework.bundle.mapmodule.event.MapClickedEvent} event [description]
          */
         __mapClick: function(event) {
             var me = this;
             var features = [];
-            this.getMap().forEachFeatureAtPixel([event.getMouseX(), event.getMouseY()],
-function(feature, layer) {
+            this.getMap().forEachFeatureAtPixel([event.getMouseX(), event.getMouseY()], function(feature, layer) {
                 _.forEach(me._layers, function(vectorlayer, id) {
                     if (vectorlayer === layer) {
                         features.push({
@@ -291,42 +287,30 @@ function(feature, layer) {
         /**
          * @method addFeaturesToMap
          * @public
-         * Add feature on the map or update feature style
+         * Add feature on the map
          *
-         * @param {Object} geometry:
-         *                      - the geometry WKT string or GeoJSON object (for adding
-new feature)
-         *                      - object with feature's property name and its value like
-{'id': 'feature1'} (for updating style)
+         * @param {Object} geometry the geometry WKT string or GeoJSON object
          * @param {Object} options additional options
          */
+
         addFeaturesToMap: function(geometry, options) {
             var me = this,
                 geometryType = me._getGeometryType(geometry),
                 format = me._supportedFormats[geometryType],
                 layer,
                 vectorSource,
-                mapLayerService = me._sandbox.getService
-('Oskari.mapframework.service.MapLayerService');
+                mapLayerService = me._sandbox.getService('Oskari.mapframework.service.MapLayerService');
 
             if (!format || !geometry) {
                 return;
             }
 
-            if (geometryType === 'GeoJSON' && !me.getMapModule().isValidGeoJson
-(geometry)) {
+            if (geometryType === 'GeoJSON' && !me.getMapModule().isValidGeoJson(geometry)) {
                 return;
             }
 
-            if(geometryType !== 'GeoJSON' && typeof geometry === 'object') {
-                for(var key in geometry) {
-                    me._updateFeature(options, key, geometry[key]);
-                }
-                return;
-            }
             options = options || {};
-            // if there's no layerId provided -> Just use a generic vector layer for
-all.
+            // if there's no layerId provided -> Just use a generic vector layer for all.
             if (!options.layerId) {
                 options.layerId = 'VECTOR';
             };
@@ -347,8 +331,7 @@ all.
                 if (!me._pointerMoveAdded) {
                     me._map.on('pointermove', function(evt) {
                         var target = me._map.getTarget();
-                        var jTarget = typeof target === "string" ? jQuery("#" + target)
-: jQuery(target);
+                        var jTarget = typeof target === "string" ? jQuery("#" + target) : jQuery(target);
                         var originalCursor = me.getMapModule().getCursorStyle();
                         var hit = this.forEachFeatureAtPixel(evt.pixel,
                             function(feature, layer) {
@@ -369,16 +352,14 @@ all.
             }
 
 
-            if (options.attributes && options.attributes !== null && features instanceof
-Array && features.length) {
+            if (options.attributes && options.attributes !== null && features instanceof Array && features.length) {
                 features[0].setProperties(options.attributes);
             }
             _.forEach(features, function(feature) {
                 if (!feature.getId() && !feature.get('id')) {
                     var id = 'F' + me._nextFeatureId++;
                     feature.setId(id);
-                    //setting id using set(key, value) to make id-property asking by
-get('id') possible
+                    //setting id using set(key, value) to make id-property asking by get('id') possible
                     feature.set("id", id);
                 }
             });
@@ -457,8 +438,7 @@ get('id') possible
             var formatter = this._supportedFormats['GeoJSON'];
             var sandbox = this.getSandbox();
             var addEvent = sandbox.getEventBuilder('FeatureEvent')().setOpAdd();
-            var errorEvent = sandbox.getEventBuilder('FeatureEvent')().setOpError
-('feature has no geometry');
+            var errorEvent = sandbox.getEventBuilder('FeatureEvent')().setOpError('feature has no geometry');
 
             _.forEach(features, function(feature) {
                 var geojson = formatter.writeFeaturesObject([feature]);
@@ -479,57 +459,12 @@ get('id') possible
                 var extent = vectorSource.getExtent();
                 me.getMapModule().zoomToExtent(extent);
 
-                // Check scale if defined so. Scale decreases when the map is zoomed in.
-Scale increases when the map is zoomed out.
+                // Check scale if defined so. Scale decreases when the map is zoomed in. Scale increases when the map is zoomed out.
                 if (options.minScale) {
                     var currentScale = this.getMapModule().getMapScale();
                     if (currentScale < options.minScale) {
                         this.getMapModule().zoomToScale(options.minScale, true);
                     }
-                }
-            }
-        },
-         /**
-         * @method _updateFeature
-         * @public
-         * Updates feature's style
-         *
-         * @param {Object} options additional options
-         * @param {String} propertyName
-         * @param {String} value
-         */
-        _updateFeature: function(options, propertyName, value) {
-            var layers = {layer: options.layerId};
-            var features = {};
-            features[propertyName] = [value];
-            var featuresMatchingQuery = this.getFeaturesMatchingQuery(layers, features);
-            var feature = featuresMatchingQuery[0];
-            if(feature) {
-                if(options.featureStyle) {
-                   this.setupFeatureStyle(options, feature);
-                }
-                var formatter = this._supportedFormats['GeoJSON'];
-                var addEvent = this.getSandbox().getEventBuilder('FeatureEvent')
-().setOpAdd();
-                var errorEvent = this.getSandbox().getEventBuilder('FeatureEvent')
-().setOpError('feature has no geometry');
-                var highlighted = feature.get('highlighted');
-                if(highlighted){
-                    feature.set('highlighted', false);
-                } else {
-                    feature.set('highlighted', true);
-                }
-                var geojson = formatter.writeFeaturesObject([feature]);
-                var event = addEvent;
-                if(!feature.getGeometry()) {
-                    event = errorEvent;
-                }
-                event.addFeature(feature.getId(), geojson, options.layerId);
-                if(errorEvent.hasFeatures()) {
-                    this.getSandbox().notifyAll(errorEvent);
-                }
-                if(addEvent.hasFeatures()) {
-                    this.getSandbox().notifyAll(addEvent);
                 }
             }
         },
@@ -560,20 +495,17 @@ Scale increases when the map is zoomed out.
                 sandbox = me.getSandbox();
             return {
                 'MapModulePlugin.AddFeaturesToMapRequest': Oskari.clazz.create(
-
-'Oskari.mapframework.bundle.mapmodule.request.AddFeaturesToMapRequestHandler',
+                    'Oskari.mapframework.bundle.mapmodule.request.AddFeaturesToMapRequestHandler',
                     sandbox,
                     me
                 ),
                 'MapModulePlugin.RemoveFeaturesFromMapRequest': Oskari.clazz.create(
-
-'Oskari.mapframework.bundle.mapmodule.request.RemoveFeaturesFromMapRequestHandler',
+                    'Oskari.mapframework.bundle.mapmodule.request.RemoveFeaturesFromMapRequestHandler',
                     sandbox,
                     me
                 ),
                 'MapModulePlugin.ZoomToFeaturesRequest': Oskari.clazz.create(
-
-'Oskari.mapframework.bundle.mapmodule.request.ZoomToFeaturesRequestHandler',
+                    'Oskari.mapframework.bundle.mapmodule.request.ZoomToFeaturesRequestHandler',
                     sandbox,
                     me
                 )
@@ -652,12 +584,10 @@ Scale increases when the map is zoomed out.
                     var features = layer.features;
                     features.sort(function(a, b) {
                         if (a.config !== undefined) {
-                            if (a.config.positionInsideLayer <
-b.config.positionInsideLayer) {
+                            if (a.config.positionInsideLayer < b.config.positionInsideLayer) {
                                 return -1;
                             }
-                            if (a.config.positionInsideLayer >
-b.config.positionInsideLayer) {
+                            if (a.config.positionInsideLayer > b.config.positionInsideLayer) {
                                 return 1;
                             }
                             return 0;
@@ -671,10 +601,8 @@ b.config.positionInsideLayer) {
         setupFeatureStyle: function(options, feature) {
             var style = this.getStyle(options, feature);
             //set up property-based labeling
-            if (Oskari.util.keyExists(options, 'featureStyle.text.labelProperty') &&
-style.getText()) {
-                var label = feature.get(options.featureStyle.text.labelProperty) ?
-feature.get(options.featureStyle.text.labelProperty) : '';
+            if (Oskari.util.keyExists(options, 'featureStyle.text.labelProperty') && style.getText()) {
+                var label = feature.get(options.featureStyle.text.labelProperty) ? feature.get(options.featureStyle.text.labelProperty) : '';
                 style.getText().setText(label);
             }
             feature.setStyle(style);
@@ -683,8 +611,7 @@ feature.get(options.featureStyle.text.labelProperty) : '';
         /**
          * @method getStyle
          *
-         * @param {Object} options. If option.featureStyle not given, will set default
-layer styles. If layer style not exist then use defaults.
+         * @param {Object} options. If option.featureStyle not given, will set default layer styles. If layer style not exist then use defaults.
          * Wanted style object:
          * {
          *     fill: {
@@ -714,15 +641,13 @@ layer styles. If layer style not exist then use defaults.
             var styleDef = jQuery.extend({}, this._defaultStyle, styles);
             // Optional styles based on property values
             if (feature && options.optionalStyles) {
-                optionalStyle = me.getOptionalStyle(options.optionalStyles, styleDef,
-feature);
+                optionalStyle = me.getOptionalStyle(options.optionalStyles, styleDef, feature);
             }
             return optionalStyle ? optionalStyle : me.getMapModule().getStyle(styleDef);
         },
         /**
          * @method getOptionalStyle
-         * Returns a style, if style property value matches to any of feature property
-values
+         * Returns a style, if style property value matches to any of feature property values
          * @param {Object} optional style
          * @param {Object} default style
          * @param {Object} feature properties
@@ -731,17 +656,13 @@ values
         getOptionalStyle: function(optionalStyles, defStyle, feature) {
             var me = this;
             for (var i in optionalStyles) {
-                if (optionalStyles[i].hasOwnProperty('property') &&
-feature.getProperties()) {
-                    // check feature property  values and take style, if there is match
-case
+                if (optionalStyles[i].hasOwnProperty('property') && feature.getProperties()) {
+                    // check feature property  values and take style, if there is match case
                     var property = optionalStyles[i]['property'];
-                    if (property.hasOwnProperty('key') && property.hasOwnProperty
-('value') && feature.getProperties().hasOwnProperty(property.key)) {
+                    if (property.hasOwnProperty('key') && property.hasOwnProperty('value') && feature.getProperties().hasOwnProperty(property.key)) {
                         if (property.value === feature.getProperties()[property.key]) {
                             // overriding default style with feature style
-                            var styleOpt = jQuery.extend({}, defStyle, optionalStyles
-[i]);
+                            var styleOpt = jQuery.extend({}, defStyle, optionalStyles[i]);
                             return me.getMapModule().getStyle(styleOpt);
                         }
                     }
@@ -804,8 +725,7 @@ case
          */
         sendZoomFeatureEvent: function(features) {
             var me = this,
-                featureEvent = me._sandbox.getEventBuilder('FeatureEvent')().setOpZoom
-();
+                featureEvent = me._sandbox.getEventBuilder('FeatureEvent')().setOpZoom();
             if (!_.isEmpty(features)) {
                 var formatter = me._supportedFormats['GeoJSON'];
                 _.each(features, function(feature) {
@@ -822,8 +742,7 @@ case
          */
         sendErrorFeatureEvent: function(msg) {
             var me = this,
-                featureEvent = me._sandbox.getEventBuilder('FeatureEvent')().setOpError
-(msg);
+                featureEvent = me._sandbox.getEventBuilder('FeatureEvent')().setOpError(msg);
             me._sandbox.notifyAll(featureEvent);
         },
         /**
