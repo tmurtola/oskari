@@ -2,13 +2,53 @@
 
 ## 1.37.0
 
+### ScalebarPlugin ol3
+
+Fixed scaleline width to match map units / measuring line results.
+
+### routingService
+
+Changed default routing markers offset properties from x and y to offsetX and offsetY.
+
+### MarkersPlugin
+
+``MapModulePlugin.AddMarkerRequest`` data changed. Also supported some time the old way add markers. See request documentation to see new/changed  params for request.
+
+ol2 and ol3: Adding marker for external graphic now support offsetX and offsetY, what tell where 'center' point should be. Center point is calculated following ways:
+- offsetX, calculated pixels from left to right. This is number.
+- offsetY, calculated pixels from bottom to up. This is number.
+
+### Oskari application loading
+
+Oskari.app.setApplicationSetup() now setup markers for setMarkers() function.
+
+### core
+
+Added convenience method Oskari.getLocalized({ "en" : "name", "fi" : "nimi", sv : ""}, "xx"). It tries to find a localized text in object in this order:
+
+- for requested language (as optional second parameter) or current language if there is no second parameter.
+- for default language
+- As last resort anything that has a value
+
+Added Oskari.makeObservable(optionalTarget) function. Creates an eventbus with on, off, trigger functions and if parameter is given attaches the functions to parameter object. Always returns an observable object.
+
 ### mapmodule
 
+#### ol2 and ol3
+
 Fixed custom svg marker handling when marker offset (x or y or both) has 0 or null.
+
+Added support offset for external graphics.
+
+Added new ``isSvg`` function to check at if data has svg.
+
+Changed ``getSvg`` funtion to support new offsetX and offsetY params.
 
 ### mapfull
 
 Fixed layers visibility in state handling.
+
+Removed defaults markers adding (now application loading do it).
 
 ### popupservice
 
@@ -21,6 +61,12 @@ Fixed flyout z-index.
 ### layerselection2, logoplugin and publishertoolbar
 
 Removed unneccassary z-index style.
+
+### publisher2
+
+(x) icon exit callback behaviour improved. Map controls were in the unstabile state, if publishing was canceled via (x) icon.
+
+Embedded map name validator is changed: If the sanitation of name value is not valid, error is reported. 
 
 ### mapwfs2
 
@@ -49,6 +95,9 @@ Fixed publisher toolbar preview so at toolbar show selected theme. Also disabled
 ### Admin layerselector
 
 SLD Style setup and management is added for wfs layers (versions 1.1.0 and 2.0.0) in admin layer selector.
+
+CRS check is made agaist service, when new layer will be inserted into Oskari.  (*) is added to the layer title for to 
+show, that current map Crs is unsupported in the requested service.
 
 ### Oskari.util.sanitize()
 
