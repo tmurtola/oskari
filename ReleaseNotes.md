@@ -37,6 +37,14 @@ Fixed jQuery selectors more specific for following bundles:
 
 Fixed scaleline width to match map units / measuring line results.
 
+### VectorLayerPlugin ol3
+
+Feature's style can be updated using ``MapModulePlugin.AddFeaturesToMapRequest``. Useful for highlighting the feature.
+
+### drawtools ol3
+
+Some fixes made for displaying measure result on the map.
+
 ### routingService
 
 Changed default routing markers offset properties from x and y to offsetX and offsetY.
@@ -99,6 +107,8 @@ Removed unneccassary z-index style.
 
 Embedded map name validator is changed: If the sanitation of name value is not valid, error is reported.
 
+User can now add coordinate transformation functionality to the coordinatetool if suppoted projections are included into publisher2 bundle config.
+
 ### mapwfs2
 
 Mapwfs2 plugin now support different thems (used in publisher2).
@@ -114,6 +124,10 @@ Changed toolstyles to use mobile icons and all different styles are now created 
 ### coordinatetool
 
 Coordinatetool now support different styles.
+
+Coordinate transformation from one coordinate system to another can be added to the coordinatetool. Supported projections must be listed in bundle configuration. 
+
+UI in finnish language uses now comma for coordinate's desimal separation (instead of dot).
 
 ### toolbar
 
