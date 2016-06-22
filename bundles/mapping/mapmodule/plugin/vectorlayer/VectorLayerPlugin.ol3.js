@@ -304,17 +304,17 @@ Oskari.clazz.define(
             if (!format || !geometry) {
                 return;
             }
-
-            if (geometryType === 'GeoJSON' && !me.getMapModule().isValidGeoJson(geometry)) {
-                return;
-            }
-
-            if(geometryType !== 'GeoJSON' && typeof geometry === 'object') {
+            
+            if(!me.getMapModule().isValidGeoJson(geometry) && typeof geometry === 'object') {
                 for(var key in geometry) {
                     me._updateFeature(options, key, geometry[key]);
                 }
                 return;
             }
+
+            if (geometryType === 'GeoJSON' && !me.getMapModule().isValidGeoJson(geometry)) {
+                return;
+            }            
 
             options = options || {};
             // if there's no layerId provided -> Just use a generic vector layer for all.
@@ -485,7 +485,7 @@ Oskari.clazz.define(
          * @param {String} value
          */
         _updateFeature: function(options, propertyName, value) {
-            var layers = {layer: options.layerId};
+        	var layers = {layer: options.layerId};
             var features = {};
             features[propertyName] = [value];
             var featuresMatchingQuery = this.getFeaturesMatchingQuery(layers, features);
