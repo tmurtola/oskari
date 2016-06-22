@@ -84,7 +84,8 @@ var options = {
                 width : 2
             }
         }
-    }
+    },
+    layerId: 'VECTOR'
 };
 channel.postRequest('MapModulePlugin.AddFeaturesToMapRequest', [featureProperty, options]);
  ```
